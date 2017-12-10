@@ -1,6 +1,7 @@
 package site_test
 
 import (
+	"fmt"
 	"github.com/gregoryv/web/site"
 	"testing"
 )
@@ -20,5 +21,12 @@ func TestCheckAll(t *testing.T) {
 	expBroken := 1
 	if expBroken != count {
 		t.Errorf("Expected %v broken links got %v", expBroken, count)
+	}
+}
+
+func TestString(t *testing.T) {
+	lnk := site.BrokenLink{"a", "b", fmt.Errorf("err")}
+	if lnk.String() == "" {
+		t.Errorf("String() should return a non empty string")
 	}
 }
