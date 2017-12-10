@@ -18,7 +18,7 @@ func TestCheckAll(t *testing.T) {
 	site.CheckLinks("example/", broken)
 	<-done
 	expBroken := 1
-	if expBroken != count  {
+	if expBroken != count {
 		t.Errorf("Expected %v broken links got %v", expBroken, count)
 	}
 }

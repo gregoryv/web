@@ -1,18 +1,18 @@
 package site
 
 import (
+	"fmt"
 	"github.com/gregoryv/find"
 	"golang.org/x/net/html"
+	"net/url"
 	"os"
 	"path"
-	"fmt"
-	"net/url"
 )
 
 type BrokenLink struct {
 	File string
-	Ref string
-	Err error
+	Ref  string
+	Err  error
 }
 
 func (l *BrokenLink) String() string {
