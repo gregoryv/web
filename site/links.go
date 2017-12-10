@@ -22,15 +22,9 @@ func (l *BrokenLink) String() string {
 func CheckLinks(root string, broken chan BrokenLink) {
 	htmlFiles, _ := find.By(find.NewShellPattern("*.html"), root)
 	for _, file := range htmlFiles {
-		fh, err := os.Open(file)
-		if err != nil {
-			continue
-		}
+		fh, _ := os.Open(file)
 		defer fh.Close()
-		doc, err := html.Parse(fh)
-		if err != nil {
-			continue
-		}
+		doc, _ := html.Parse(fh)
 		CheckLink(file, path.Dir(file), doc, broken)
 	}
 	close(broken)
@@ -39,15 +33,13 @@ func CheckLinks(root string, broken chan BrokenLink) {
 func CheckLink(file, rel string, n *html.Node, broken chan BrokenLink) {
 	if n.Type == html.ElementNode {
 		for _, a := range n.Attr {
-
-			if !(a.Key == "href" || a.Key == "src") {
-				continue
-			}
-			url, _ := url.Parse(a.Val)
-			switch url.Scheme {
-			case "file", "":
-				if _, err := os.Stat(path.Join(rel, url.Path)); err != nil {
-					broken <- BrokenLink{file, url.Path, err}
+			if a.Key == "href" || a.Key == "src" {
+				url, _ := url.Parse(a.Val)
+				switch url.Scheme {
+				case "file", "":
+					if _, err := os.Stat(path.Join(rel, url.Path)); err != nil {
+						broken <- BrokenLink{file, url.Path, err}
+					}
 				}
 			}
 		}

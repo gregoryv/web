@@ -3,30 +3,39 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"github.com/gregoryv/web/site"
 	"log"
 	"os"
 )
 
-var (
-	root    string
-	verbose bool
-	help    bool
-)
+var help = false
 
 func init() {
-	root = "."
 	flag.BoolVar(&help, "h", help, "Show this help and exit")
-	flag.StringVar(&root, "r", root, "Root directory")
-	flag.BoolVar(&verbose, "verbose", verbose, "Log progress to stdout")
+}
+
+func usage() {
+	if help {
+		fmt.Printf("Usage: %s [OPTIONS] [PATH]\n\n", os.Args[0])
+		flag.PrintDefaults()
+		os.Exit(0)
+	}
+}
+
+func parsePath() string {
+	args := flag.Args()
+	if len(args) == 1 {
+		return args[0]
+	}
+	return "."
 }
 
 func main() {
 	flag.Parse()
-	if help {
-		flag.PrintDefaults()
-		os.Exit(0)
-	}
+	usage()
+	root := parsePath()
+
 	done := make(chan bool)
 	broken := make(chan site.BrokenLink)
 	var isBroken bool
