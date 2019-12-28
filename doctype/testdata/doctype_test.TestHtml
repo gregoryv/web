@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
   </head>
   <body>
-    hello <img src="img/example.png"/>
+    <article>
+      <section>
+        <h1>
+          hello        </h1>
+        world <img src="img/example.png"/>
+      </section>
+    </article>
   </body>
 </html>

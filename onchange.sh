@@ -1,4 +1,16 @@
 #!/bin/bash -e
-GOPATH=$HOME
-go install github.com/gregoryv/web/...
-go test -cover -coverprofile /tmp/c.out ./site
+path=$1
+dir=$(dirname "$path")
+filename=$(basename "$path")
+extension="${filename##*.}"
+nameonly="${filename%.*}"
+
+case $extension in
+    go)
+        goimports -w $path
+        ;;
+esac
+go generate ./...
+go test -coverprofile /tmp/c.out ./...
+uncover /tmp/c.out
+go install ./...
