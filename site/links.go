@@ -21,7 +21,8 @@ func (l *BrokenLink) String() string {
 
 func CheckLinks(root string, broken chan BrokenLink) {
 	htmlFiles, _ := find.By(find.NewShellPattern("*.html"), root)
-	for _, file := range htmlFiles {
+	for e := htmlFiles.Front(); e != nil; e = e.Next() {
+		file, _ := e.Value.(string)
 		fh, _ := os.Open(file)
 		defer fh.Close()
 		doc, _ := html.Parse(fh)
