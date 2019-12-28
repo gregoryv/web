@@ -1,8 +1,9 @@
 package doctype
 
 import (
-	"fmt"
 	"io"
+
+	"github.com/gregoryv/nexus"
 )
 
 func Html(children ...interface{}) *HtmlTag {
@@ -15,7 +16,9 @@ type HtmlTag struct {
 	*Tag
 }
 
-func (h *HtmlTag) WriteTo(w io.Writer) {
-	fmt.Fprint(w, "<!DOCTYPE html>\n\n")
-	h.Tag.WriteTo(w)
+func (h *HtmlTag) WriteTo(w io.Writer) (int, error) {
+	p, err := nexus.NewPrinter(w)
+	p.Print("<!DOCTYPE html>\n\n")
+	h.Tag.WriteTo(p)
+	return p.Written, *err
 }

@@ -76,6 +76,7 @@ func (t *Tag) close(p *nexus.Printer) {
 		p.Print("/>\n")
 		return
 	}
+	p.Println()
 	indent(p, t.level)
 	p.Print("</", t.name, ">\n")
 }
@@ -98,4 +99,8 @@ type Attr struct {
 
 func (a *Attr) String() string {
 	return fmt.Sprintf("%s=%q", a.name, a.val)
+}
+
+func (a *Attr) WriteTo(w io.Writer) (int, error) {
+	return fmt.Fprint(w, a.String())
 }

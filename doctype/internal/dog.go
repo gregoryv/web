@@ -100,7 +100,14 @@ func main() {
 	)
 	p.Println()
 
-	writeAttributes(p, "src", "lang", "charset", "name", "content")
+	writeAttributes(p,
+		"charset",
+		"content",
+		"lang",
+		"name",
+		"rel",
+		"src",
+	)
 	// tidy output
 	out, err := exec.Command("gofmt", "-w", w.Name()).CombinedOutput()
 	if err != nil {
