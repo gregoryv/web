@@ -1,3 +1,7 @@
 <!DOCTYPE html>
 
-<html><body>hello<img src="img/example.png"/></body></html>
+<html>
+  <body>
+    hello <img src="img/example.png"/>
+  </body>
+</html>

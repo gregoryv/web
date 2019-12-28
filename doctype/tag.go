@@ -3,6 +3,7 @@ package doctype
 import (
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/gregoryv/nexus"
 )
@@ -20,39 +21,56 @@ type Tag struct {
 
 	// No closing tag, e.g. <br />
 	simple bool
+	// Indentation
+	level int
 }
 
 func (t *Tag) WriteTo(w io.Writer) (int, error) {
 	p, err := nexus.NewPrinter(w)
 	t.open(p)
+	var afterString bool
 	for _, child := range t.children {
 		switch child := child.(type) {
 		case *Tag:
+			child.level = t.level + 1
+			if afterString {
+				child.level = 0
+				p.Print(" ")
+			}
 			child.WriteTo(p)
+			afterString = false
 		case string:
+			indent(p, t.level+1)
 			p.Print(child)
+			afterString = true
 		}
 	}
 	t.close(p)
 	return p.Written, *err
 }
 
+func indent(p *nexus.Printer, level int) {
+	p.Print(strings.Repeat("  ", level))
+}
+
 func (t *Tag) open(p *nexus.Printer) {
+	indent(p, t.level)
 	p.Print("<", t.name)
 	for _, attr := range t.attr {
 		p.Print(" ", attr.String())
 	}
 	if !t.simple {
-		p.Print(">")
+		p.Print(">\n")
 	}
 }
 
 func (t *Tag) close(p *nexus.Printer) {
 	if t.simple {
-		p.Print("/>")
+		p.Print("/>\n")
 		return
 	}
-	p.Print("</", t.name, ">")
+	indent(p, t.level)
+	p.Print("</", t.name, ">\n")
 }
 
 func (t *Tag) fill(childOrAttr ...interface{}) {
