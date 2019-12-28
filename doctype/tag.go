@@ -14,6 +14,13 @@ func NewTag(name string, childOrAttr ...interface{}) *Tag {
 	return tag
 }
 
+func NewSimpleTag(name string, childOrAttr ...interface{}) *Tag {
+	tag := &Tag{name: name}
+	tag.fill(childOrAttr...)
+	tag.simple = true
+	return tag
+}
+
 type Tag struct {
 	children []interface{}
 	name     string

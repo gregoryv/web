@@ -8,15 +8,19 @@ import (
 )
 
 func TestHtml(t *testing.T) {
-	html := Html(
+	w := bytes.NewBufferString("")
+	Html(
+		Lang("en-US"),
+		Head(
+			Meta(Charset("utf-8")),
+			Meta(Name("viewport"), Content("width=device-width, initial-scale=1")),
+		),
 		Body(
 			"hello",
 			Img(
 				Src("img/example.png"),
 			),
 		),
-	)
-	w := bytes.NewBufferString("")
-	html.WriteTo(w)
+	).WriteTo(w)
 	golden.Assert(t, w.String())
 }
