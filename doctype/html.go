@@ -7,15 +7,12 @@ import (
 
 func Html(children ...interface{}) *HtmlTag {
 	return &HtmlTag{
-		Tag{
-			children: children,
-			name:     "html",
-		},
+		NewTag("html", children...),
 	}
 }
 
 type HtmlTag struct {
-	Tag
+	*Tag
 }
 
 func (h *HtmlTag) WriteTo(w io.Writer) {
@@ -24,8 +21,18 @@ func (h *HtmlTag) WriteTo(w io.Writer) {
 }
 
 func Body(children ...interface{}) *Tag {
-	return &Tag{
-		children: children,
-		name:     "body",
+	return NewTag("body", children...)
+}
+
+func Img(children ...interface{}) *Tag {
+	tag := NewTag("img", children...)
+	tag.simple = true
+	return tag
+}
+
+func Src(val string) *Attr {
+	return &Attr{
+		name: "src",
+		val:  val,
 	}
 }
