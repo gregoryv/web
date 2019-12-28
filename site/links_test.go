@@ -1,14 +1,15 @@
-package site_test
+package site
 
 import (
 	"fmt"
-	"github.com/gregoryv/web/site"
 	"testing"
+
+	"github.com/gregoryv/asserter"
 )
 
-func TestCheckAll(t *testing.T) {
+func TestCheckLinks(t *testing.T) {
 	done := make(chan bool)
-	broken := make(chan site.BrokenLink)
+	broken := make(chan BrokenLink)
 	var count int
 	go func() {
 		for _ = range broken {
@@ -16,17 +17,17 @@ func TestCheckAll(t *testing.T) {
 		}
 		done <- true
 	}()
-	site.CheckLinks("example/", broken)
+	CheckLinks("example/", broken)
 	<-done
-	expBroken := 1
-	if expBroken != count {
-		t.Errorf("Expected %v broken links got %v", expBroken, count)
-	}
+	assert := asserter.New(t)
+	assert().Equals(count, 1)
 }
 
-func TestString(t *testing.T) {
-	lnk := site.BrokenLink{"a", "b", fmt.Errorf("err")}
-	if lnk.String() == "" {
-		t.Errorf("String() should return a non empty string")
-	}
+func TestBrokenLink(t *testing.T) {
+	a := BrokenLink{"a", "a", fmt.Errorf("err")}
+	b := BrokenLink{"a", "b", nil}
+
+	assert := asserter.New(t)
+	assert(a.String() != b.String()).Error("String() is same for a and b")
+	assert().Contains(a.String(), "err")
 }
