@@ -81,8 +81,9 @@ func (t *Tag) close(p *nexus.Printer) {
 	p.Print("</", t.name, ">\n")
 }
 
-func (t *Tag) With(childOrAttr ...interface{}) {
+func (t *Tag) With(childOrAttr ...interface{}) *Tag {
 	t.fill(childOrAttr...)
+	return t
 }
 
 func (t *Tag) fill(childOrAttr ...interface{}) {
