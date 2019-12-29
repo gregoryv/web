@@ -73,6 +73,7 @@ func TestHtml(t *testing.T) {
 	ok(Output(), "<output>", "</output>")
 	ok(P(), "<p>", "</p>")
 	ok(Pre(), "<pre>", "</pre>")
+	ok(Quote(), "<quote>", "</quote>")
 	ok(Script(), "<script>", "</script>")
 	ok(Section(), "<section>", "</section>")
 	ok(Select(), "<select>", "</select>")

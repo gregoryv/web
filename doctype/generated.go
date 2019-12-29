@@ -145,6 +145,9 @@ func P(c ...interface{}) *Tag {
 func Pre(c ...interface{}) *Tag {
 	return NewTag("pre", c...)
 }
+func Quote(c ...interface{}) *Tag {
+	return NewTag("quote", c...)
+}
 func Script(c ...interface{}) *Tag {
 	return NewTag("script", c...)
 }

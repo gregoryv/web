@@ -66,6 +66,7 @@ func main() {
 		"output",
 		"p",
 		"pre",
+		"quote",
 		"script",
 		"section",
 		"select",
