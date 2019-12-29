@@ -10,13 +10,13 @@ import (
 
 func NewTag(name string, childOrAttr ...interface{}) *Tag {
 	tag := &Tag{name: name}
-	tag.fill(childOrAttr...)
+	tag.With(childOrAttr...)
 	return tag
 }
 
 func NewSimpleTag(name string, childOrAttr ...interface{}) *Tag {
 	tag := &Tag{name: name}
-	tag.fill(childOrAttr...)
+	tag.With(childOrAttr...)
 	tag.simple = true
 	return tag
 }
@@ -79,6 +79,10 @@ func (t *Tag) close(p *nexus.Printer) {
 	p.Println()
 	indent(p, t.level)
 	p.Print("</", t.name, ">\n")
+}
+
+func (t *Tag) With(childOrAttr ...interface{}) {
+	t.fill(childOrAttr...)
 }
 
 func (t *Tag) fill(childOrAttr ...interface{}) {
