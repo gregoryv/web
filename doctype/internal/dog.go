@@ -103,10 +103,12 @@ func main() {
 	writeAttributes(p,
 		"charset",
 		"content",
+		"href",
 		"lang",
 		"name",
 		"rel",
 		"src",
+		"type",
 	)
 	// tidy output
 	out, err := exec.Command("gofmt", "-w", w.Name()).CombinedOutput()

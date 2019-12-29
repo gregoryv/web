@@ -102,10 +102,12 @@ func TestHtml(t *testing.T) {
 	ok(Meta(), "<meta/>")
 	ok(Charset("x"), `charset="x"`)
 	ok(Content("x"), `content="x"`)
+	ok(Href("x"), `href="x"`)
 	ok(Lang("x"), `lang="x"`)
 	ok(Name("x"), `name="x"`)
 	ok(Rel("x"), `rel="x"`)
 	ok(Src("x"), `src="x"`)
+	ok(Type("x"), `type="x"`)
 }
 
 type writerTo interface {

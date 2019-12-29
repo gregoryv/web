@@ -230,7 +230,9 @@ func Meta(c ...interface{}) *Tag {
 
 func Charset(v string) *Attr { return &Attr{name: "charset", val: v} }
 func Content(v string) *Attr { return &Attr{name: "content", val: v} }
+func Href(v string) *Attr    { return &Attr{name: "href", val: v} }
 func Lang(v string) *Attr    { return &Attr{name: "lang", val: v} }
 func Name(v string) *Attr    { return &Attr{name: "name", val: v} }
 func Rel(v string) *Attr     { return &Attr{name: "rel", val: v} }
 func Src(v string) *Attr     { return &Attr{name: "src", val: v} }
+func Type(v string) *Attr    { return &Attr{name: "type", val: v} }
