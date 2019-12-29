@@ -105,6 +105,7 @@ func TestHtml(t *testing.T) {
 	ok(Class("x"), `class="x"`)
 	ok(Content("x"), `content="x"`)
 	ok(Href("x"), `href="x"`)
+	ok(Id("x"), `id="x"`)
 	ok(Lang("x"), `lang="x"`)
 	ok(Name("x"), `name="x"`)
 	ok(Rel("x"), `rel="x"`)

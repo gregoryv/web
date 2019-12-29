@@ -105,6 +105,7 @@ func main() {
 		"class",
 		"content",
 		"href",
+		"id",
 		"lang",
 		"name",
 		"rel",
