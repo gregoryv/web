@@ -100,7 +100,9 @@ func TestHtml(t *testing.T) {
 	ok(Keygen(), "<keygen/>")
 	ok(Link(), "<link/>")
 	ok(Meta(), "<meta/>")
+	// Attributes
 	ok(Charset("x"), `charset="x"`)
+	ok(Class("x"), `class="x"`)
 	ok(Content("x"), `content="x"`)
 	ok(Href("x"), `href="x"`)
 	ok(Lang("x"), `lang="x"`)

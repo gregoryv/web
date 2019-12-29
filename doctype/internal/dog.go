@@ -102,6 +102,7 @@ func main() {
 
 	writeAttributes(p,
 		"charset",
+		"class",
 		"content",
 		"href",
 		"lang",
