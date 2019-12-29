@@ -98,12 +98,12 @@ func (t *Tag) fill(childOrAttr ...interface{}) {
 }
 
 type Attr struct {
-	name string
-	val  string
+	Name string
+	Val  string
 }
 
 func (a *Attr) String() string {
-	return fmt.Sprintf("%s=%q", a.name, a.val)
+	return fmt.Sprintf("%s=%q", a.Name, a.Val)
 }
 
 func (a *Attr) WriteTo(w io.Writer) (int, error) {

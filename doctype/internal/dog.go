@@ -151,7 +151,7 @@ func writeAttributes(p *nexus.Printer, names ...string) {
 	for _, name := range names {
 		funcName := capitalize(name)
 		p.Printf(
-			`func %s(v string) *Attr { return &Attr{name: %q, val: v} }`,
+			`func %s(v string) *Attr { return &Attr{Name: %q, Val: v} }`,
 			funcName, name,
 		)
 		p.Println()

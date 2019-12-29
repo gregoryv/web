@@ -231,13 +231,13 @@ func Meta(c ...interface{}) *Tag {
 	return NewSimpleTag("meta", c...)
 }
 
-func Charset(v string) *Attr { return &Attr{name: "charset", val: v} }
-func Class(v string) *Attr   { return &Attr{name: "class", val: v} }
-func Content(v string) *Attr { return &Attr{name: "content", val: v} }
-func Href(v string) *Attr    { return &Attr{name: "href", val: v} }
-func Id(v string) *Attr      { return &Attr{name: "id", val: v} }
-func Lang(v string) *Attr    { return &Attr{name: "lang", val: v} }
-func Name(v string) *Attr    { return &Attr{name: "name", val: v} }
-func Rel(v string) *Attr     { return &Attr{name: "rel", val: v} }
-func Src(v string) *Attr     { return &Attr{name: "src", val: v} }
-func Type(v string) *Attr    { return &Attr{name: "type", val: v} }
+func Charset(v string) *Attr { return &Attr{Name: "charset", Val: v} }
+func Class(v string) *Attr   { return &Attr{Name: "class", Val: v} }
+func Content(v string) *Attr { return &Attr{Name: "content", Val: v} }
+func Href(v string) *Attr    { return &Attr{Name: "href", Val: v} }
+func Id(v string) *Attr      { return &Attr{Name: "id", Val: v} }
+func Lang(v string) *Attr    { return &Attr{Name: "lang", Val: v} }
+func Name(v string) *Attr    { return &Attr{Name: "name", Val: v} }
+func Rel(v string) *Attr     { return &Attr{Name: "rel", Val: v} }
+func Src(v string) *Attr     { return &Attr{Name: "src", Val: v} }
+func Type(v string) *Attr    { return &Attr{Name: "type", Val: v} }
