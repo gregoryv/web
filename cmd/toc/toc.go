@@ -4,9 +4,10 @@ package main
 import (
 	"flag"
 	"fmt"
-	"github.com/gregoryv/web/site"
 	"log"
 	"os"
+
+	"github.com/gregoryv/web"
 )
 
 var help = false
@@ -37,7 +38,7 @@ func main() {
 	root := parsePath()
 
 	done := make(chan bool)
-	broken := make(chan site.BrokenLink)
+	broken := make(chan web.BrokenLink)
 	var isBroken bool
 	go func() {
 		for lnk := range broken {
@@ -46,7 +47,7 @@ func main() {
 		}
 		done <- true
 	}()
-	site.CheckLinks(root, broken)
+	web.CheckLinks(root, broken)
 	<-done
 	if isBroken {
 		os.Exit(1)

@@ -1,12 +1,13 @@
-package site
+package web
 
 import (
 	"fmt"
-	"github.com/gregoryv/find"
-	"golang.org/x/net/html"
 	"net/url"
 	"os"
 	"path"
+
+	"github.com/gregoryv/find"
+	"golang.org/x/net/html"
 )
 
 type BrokenLink struct {

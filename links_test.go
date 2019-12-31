@@ -1,4 +1,4 @@
-package site
+package web
 
 import (
 	"fmt"
@@ -17,7 +17,7 @@ func TestCheckLinks(t *testing.T) {
 		}
 		done <- true
 	}()
-	CheckLinks("example/", broken)
+	CheckLinks("./internal/example/", broken)
 	<-done
 	assert := asserter.New(t)
 	assert().Equals(count, 1)
