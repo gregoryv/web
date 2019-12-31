@@ -9,7 +9,7 @@ import (
 )
 
 func TestHtml(t *testing.T) {
-	ok := func(tag writerTo, exp ...string) {
+	ok := func(tag io.WriterTo, exp ...string) {
 		t.Helper()
 		w := bytes.NewBufferString("")
 		tag.WriteTo(w)
@@ -111,8 +111,4 @@ func TestHtml(t *testing.T) {
 	ok(Rel("x"), `rel="x"`)
 	ok(Src("x"), `src="x"`)
 	ok(Type("x"), `type="x"`)
-}
-
-type writerTo interface {
-	WriteTo(io.Writer) (int, error)
 }

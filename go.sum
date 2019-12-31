@@ -6,6 +6,8 @@ github.com/gregoryv/gocyclo v0.0.0-20180305144948-0be7902fabdc h1:chhF7lRELMFmxW
 github.com/gregoryv/gocyclo v0.0.0-20180305144948-0be7902fabdc/go.mod h1:x/QA8cT1gfn/XriQ/CVNX7I8IM4Z2YJAAEWFym2clZI=
 github.com/gregoryv/nexus v0.2.0 h1:qXUbz5oxnfVj4MJnPapEYdl9y2wkgNw6QxXZ6vuce/Q=
 github.com/gregoryv/nexus v0.2.0/go.mod h1:DJ2Ia6WpPX26edFW6LCl+9nYyX2h6Ot/kyJ83J+SAL0=
+github.com/gregoryv/nexus v0.3.0 h1:/V/TwUbKB/VhS2dt1HMTLWx2mDeaNQyoayPgrS664/g=
+github.com/gregoryv/nexus v0.3.0/go.mod h1:DJ2Ia6WpPX26edFW6LCl+9nYyX2h6Ot/kyJ83J+SAL0=
 github.com/gregoryv/qual v0.3.1 h1:RUdYxRhxkkZSHU0eTH7nTzYgxG7NxEYsMyN6Gnj/qus=
 github.com/gregoryv/qual v0.3.1/go.mod h1:dB0ZUMaE5qieQ975kKI7A4CDfg6wgcsPcSlY1SWuq9Y=
 golang.org/x/crypto v0.0.0-20190308221718-c2843e01d9a2/go.mod h1:djNgcEr1/C05ACkg1iLfiJU5Ep61QUkGW8qpdssI0+w=

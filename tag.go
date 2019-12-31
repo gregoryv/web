@@ -32,7 +32,7 @@ type Tag struct {
 	level int
 }
 
-func (t *Tag) WriteTo(w io.Writer) (int, error) {
+func (t *Tag) WriteTo(w io.Writer) (int64, error) {
 	p, err := nexus.NewPrinter(w)
 	t.open(p)
 	var afterString bool
@@ -106,6 +106,7 @@ func (a *Attr) String() string {
 	return fmt.Sprintf("%s=%q", a.Name, a.Val)
 }
 
-func (a *Attr) WriteTo(w io.Writer) (int, error) {
-	return fmt.Fprint(w, a.String())
+func (a *Attr) WriteTo(w io.Writer) (int64, error) {
+	n, err := fmt.Fprint(w, a.String())
+	return int64(n), err
 }
