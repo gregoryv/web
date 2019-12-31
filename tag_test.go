@@ -1,4 +1,4 @@
-package doctype_test
+package web
 
 import (
 	"bytes"
@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/gregoryv/asserter"
-	. "github.com/gregoryv/web/doctype"
 )
 
 func TestHtml(t *testing.T) {

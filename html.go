@@ -1,4 +1,4 @@
-package doctype
+package web
 
 import (
 	"io"
