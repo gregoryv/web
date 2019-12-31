@@ -4,10 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.4.0] - 2019-12-31
 ### Changed
 
-- Moved doctype/* into package web (root)
+- Moved site/* and doctype/* into package web
 
 ## [0.3.0] - 2019-12-29
 ### Changed
