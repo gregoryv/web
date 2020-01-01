@@ -8,23 +8,23 @@ import (
 	"github.com/gregoryv/nexus"
 )
 
-func NewTag(name string, childOrAttr ...interface{}) *Tag {
-	tag := &Tag{name: name}
+func NewElement(Name string, childOrAttr ...interface{}) *Element {
+	tag := &Element{Name: Name}
 	tag.With(childOrAttr...)
 	return tag
 }
 
-func NewSimpleTag(name string, childOrAttr ...interface{}) *Tag {
-	tag := &Tag{name: name}
+func NewSimpleElement(Name string, childOrAttr ...interface{}) *Element {
+	tag := &Element{Name: Name}
 	tag.With(childOrAttr...)
 	tag.simple = true
 	return tag
 }
 
-type Tag struct {
-	children []interface{}
-	name     string
-	attr     []*Attr
+type Element struct {
+	Children   []interface{}
+	Name       string
+	Attributes []*Attribute
 
 	// No closing tag, e.g. <br />
 	simple bool
@@ -32,13 +32,13 @@ type Tag struct {
 	level int
 }
 
-func (t *Tag) WriteTo(w io.Writer) (int64, error) {
+func (t *Element) WriteTo(w io.Writer) (int64, error) {
 	p, err := nexus.NewPrinter(w)
 	t.open(p)
 	var afterString bool
-	for _, child := range t.children {
+	for _, child := range t.Children {
 		switch child := child.(type) {
-		case *Tag:
+		case *Element:
 			child.level = t.level + 1
 			if afterString {
 				child.level = 0
@@ -60,53 +60,53 @@ func indent(p *nexus.Printer, level int) {
 	p.Print(strings.Repeat("  ", level))
 }
 
-func (t *Tag) open(p *nexus.Printer) {
+func (t *Element) open(p *nexus.Printer) {
 	indent(p, t.level)
-	p.Print("<", t.name)
-	for _, attr := range t.attr {
-		p.Print(" ", attr.String())
+	p.Print("<", t.Name)
+	for _, Attributes := range t.Attributes {
+		p.Print(" ", Attributes.String())
 	}
 	if !t.simple {
 		p.Print(">\n")
 	}
 }
 
-func (t *Tag) close(p *nexus.Printer) {
+func (t *Element) close(p *nexus.Printer) {
 	if t.simple {
 		p.Print("/>\n")
 		return
 	}
 	p.Println()
 	indent(p, t.level)
-	p.Print("</", t.name, ">\n")
+	p.Print("</", t.Name, ">\n")
 }
 
-func (t *Tag) With(childOrAttr ...interface{}) *Tag {
+func (t *Element) With(childOrAttr ...interface{}) *Element {
 	t.fill(childOrAttr...)
 	return t
 }
 
-func (t *Tag) fill(childOrAttr ...interface{}) {
+func (t *Element) fill(childOrAttr ...interface{}) {
 	for _, ca := range childOrAttr {
 		switch ca := ca.(type) {
-		case *Attr:
-			t.attr = append(t.attr, ca)
+		case *Attribute:
+			t.Attributes = append(t.Attributes, ca)
 		default:
-			t.children = append(t.children, ca)
+			t.Children = append(t.Children, ca)
 		}
 	}
 }
 
-type Attr struct {
+type Attribute struct {
 	Name string
 	Val  string
 }
 
-func (a *Attr) String() string {
+func (a *Attribute) String() string {
 	return fmt.Sprintf("%s=%q", a.Name, a.Val)
 }
 
-func (a *Attr) WriteTo(w io.Writer) (int64, error) {
+func (a *Attribute) WriteTo(w io.Writer) (int64, error) {
 	n, err := fmt.Fprint(w, a.String())
 	return int64(n), err
 }

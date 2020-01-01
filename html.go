@@ -6,19 +6,19 @@ import (
 	"github.com/gregoryv/nexus"
 )
 
-func Html(children ...interface{}) *HtmlTag {
+func Html(Children ...interface{}) *HtmlTag {
 	return &HtmlTag{
-		NewTag("html", children...),
+		NewElement("html", Children...),
 	}
 }
 
 type HtmlTag struct {
-	*Tag
+	*Element
 }
 
 func (h *HtmlTag) WriteTo(w io.Writer) (int64, error) {
 	p, err := nexus.NewPrinter(w)
 	p.Print("<!DOCTYPE html>\n\n")
-	h.Tag.WriteTo(p)
+	h.Element.WriteTo(p)
 	return p.Written, *err
 }

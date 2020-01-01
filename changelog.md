@@ -9,6 +9,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Type Page for saving pages
 
+### Changed
+
+- Renamed Tag to Element
+- Renamed Attr to Attribute
+- Renamed constructors NewElement and NewSimpleElement
+- Making some Element fields public
+
 ## [0.5.0] - 2019-12-31
 ### Changed
 
