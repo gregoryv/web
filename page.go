@@ -6,24 +6,33 @@ import (
 	"path"
 )
 
-func NewPage(filename string, content io.WriterTo) *Page {
+func NewPage(filename string, el *Element) *Page {
 	return &Page{
 		filename: filename,
-		WriterTo: content,
+		Element:  el,
 	}
 }
 
 type Page struct {
 	filename string
-	io.WriterTo
+	*Element
 }
 
 func (p *Page) SaveTo(dir string) error {
-	fh, err := os.Create(path.Join(dir, p.filename))
+	w, err := os.Create(path.Join(dir, p.filename))
 	if err != nil {
 		return err
 	}
-	p.WriteTo(fh)
-	fh.Close()
+	p.WriteTo(w)
+	w.Close()
 	return nil
+}
+
+func (p *Page) WriteTo(w io.Writer) (int64, error) {
+	hw := NewHtmlWriter(w)
+	hw.Print("<!DOCTYPE html>\n\n")
+	if p.Element != nil {
+		hw.WriteHtml(p.Element)
+	}
+	return hw.Written, *hw.err
 }

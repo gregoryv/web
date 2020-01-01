@@ -49,6 +49,7 @@ func main() {
 		"head",
 		"header",
 		"hgroup",
+		"html",
 		"i",
 		"ins",
 		"kbd",

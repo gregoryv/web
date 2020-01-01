@@ -8,4 +8,5 @@ require (
 	github.com/gregoryv/nexus v0.3.0
 	github.com/gregoryv/workdir v0.2.0
 	golang.org/x/net v0.0.0-20191209160850-c0dbc17a3553
+	k8s.io/api v0.17.0
 )

@@ -94,6 +94,9 @@ func Header(c ...interface{}) *Element {
 func Hgroup(c ...interface{}) *Element {
 	return NewElement("hgroup", c...)
 }
+func Html(c ...interface{}) *Element {
+	return NewElement("html", c...)
+}
 func I(c ...interface{}) *Element {
 	return NewElement("i", c...)
 }

@@ -2,17 +2,26 @@ package web
 
 import (
 	"bytes"
-	"io"
+	"fmt"
 	"testing"
 
 	"github.com/gregoryv/asserter"
 )
 
-func TestHtml(t *testing.T) {
-	ok := func(tag io.WriterTo, exp ...string) {
+func Test_elements(t *testing.T) {
+	ok := func(el interface{}, exp ...string) {
 		t.Helper()
 		w := bytes.NewBufferString("")
-		tag.WriteTo(w)
+		hw := NewHtmlWriter(w)
+		switch el := el.(type) {
+		case *Element:
+			hw.WriteHtml(el)
+		case *Attribute:
+			hw.WriteHtml(el)
+		default:
+			t.Fatal(fmt.Errorf("unrecognized %#v", el))
+		}
+
 		got := w.String()
 		assert := asserter.New(t)
 		for _, exp := range exp {
@@ -20,7 +29,7 @@ func TestHtml(t *testing.T) {
 		}
 	}
 
-	ok(Html(), "<!DOCTYPE html>", "<html>", "</html>")
+	ok(Html(), "<html>", "</html>")
 	ok(Dl(Li("x")), "<dl>", "</dl>", "<li>", "</li>")
 	ok(Link(Rel("x")), "link", `"x"`)
 	ok(P("x", I("i")), "<p>", "x", "<i>")
