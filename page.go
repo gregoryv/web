@@ -8,18 +8,18 @@ import (
 
 func NewPage(filename string, el *Element) *Page {
 	return &Page{
-		filename: filename,
+		Filename: filename,
 		Element:  el,
 	}
 }
 
 type Page struct {
-	filename string
+	Filename string
 	*Element
 }
 
 func (p *Page) SaveTo(dir string) error {
-	w, err := os.Create(path.Join(dir, p.filename))
+	w, err := os.Create(path.Join(dir, p.Filename))
 	if err != nil {
 		return err
 	}
