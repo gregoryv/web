@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [unreleased]
 ### Added
 
+- Element.String simpler use when outside of other elements
 - Type Page for saving pages
 
 ### Changed

@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bytes"
 	"fmt"
 )
 
@@ -24,6 +25,13 @@ type Element struct {
 
 	// No closing tag, e.g. <br />
 	simple bool
+}
+
+func (t *Element) String() string {
+	var buf bytes.Buffer
+	hw := NewHtmlWriter(&buf)
+	hw.WriteHtml(t)
+	return buf.String()
 }
 
 func (t *Element) With(childOrAttr ...interface{}) *Element {

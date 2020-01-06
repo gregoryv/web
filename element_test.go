@@ -11,11 +11,16 @@ import (
 func Test_elements(t *testing.T) {
 	ok := func(el interface{}, exp ...string) {
 		t.Helper()
+		assert := asserter.New(t)
 		w := bytes.NewBufferString("")
 		hw := NewHtmlWriter(w)
 		switch el := el.(type) {
 		case *Element:
 			hw.WriteHtml(el)
+			got := el.String()
+			for _, exp := range exp {
+				assert().Contains(got, exp)
+			}
 		case *Attribute:
 			hw.WriteHtml(el)
 		default:
@@ -23,7 +28,6 @@ func Test_elements(t *testing.T) {
 		}
 
 		got := w.String()
-		assert := asserter.New(t)
 		for _, exp := range exp {
 			assert().Contains(got, exp)
 		}
