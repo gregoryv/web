@@ -1,7 +1,6 @@
 package web
 
 import (
-	"os"
 	"testing"
 
 	"github.com/gregoryv/workdir"
@@ -21,11 +20,4 @@ func TestPage(t *testing.T) {
 	if err == nil {
 		t.Error("should fail")
 	}
-}
-
-func ExamplePage_WriteTo() {
-	page := NewPage("", nil)
-	page.WriteTo(os.Stdout)
-	// output:
-	// <!DOCTYPE html>
 }
