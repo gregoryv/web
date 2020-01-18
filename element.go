@@ -50,6 +50,15 @@ func (t *Element) fill(childOrAttr ...interface{}) {
 	}
 }
 
+func (t *Element) hasAttr(name string) bool {
+	for _, a := range t.Attributes {
+		if a.Name == name {
+			return true
+		}
+	}
+	return false
+}
+
 type Attribute struct {
 	Name string
 	Val  string

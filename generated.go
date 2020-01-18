@@ -411,6 +411,9 @@ func Name(v string) *Attribute { return &Attribute{Name: "name", Val: v} }
 // Rel returns a rel="v" attribute
 func Rel(v string) *Attribute { return &Attribute{Name: "rel", Val: v} }
 
+// Alt returns a alt="v" attribute
+func Alt(v string) *Attribute { return &Attribute{Name: "alt", Val: v} }
+
 // Src returns a src="v" attribute
 func Src(v string) *Attribute { return &Attribute{Name: "src", Val: v} }
 

@@ -112,6 +112,7 @@ func main() {
 		"lang",
 		"name",
 		"rel",
+		"alt",
 		"src",
 		"type",
 	)

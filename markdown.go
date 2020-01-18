@@ -57,12 +57,20 @@ func (p *MarkdownWriter) writeAttr(a *Attribute) {
 	if a.Name == "src" {
 		p.Printf("(%s)", a.Val)
 	}
+	if a.Name == "alt" {
+		p.Printf("[%s]", a.Val)
+	}
+
 }
 
 func (p *MarkdownWriter) open(t *Element) {
 	switch t.Name {
 	case "img":
-		p.Print("![]")
+		p.Print("!")
+		if !t.hasAttr("alt") {
+			p.Print("[]")
+		}
+
 	default:
 		p.Print(markdown[t.Name])
 	}
