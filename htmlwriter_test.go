@@ -2,6 +2,7 @@ package web
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 
 	"github.com/gregoryv/asserter"
@@ -38,4 +39,8 @@ text
 </html>`,
 	)
 
+	ok(Span(strings.NewReader("hello")),
+		"<span>hello</span>",
+	)
+	ok(Span(1), "<span>1</span>")
 }

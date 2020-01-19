@@ -33,10 +33,10 @@ func (p *HtmlWriter) writeElement(t interface{}) {
 			p.writeElement(child)
 		}
 		p.close(t)
-	case *Attribute:
-		p.Print(t)
-	case string:
-		p.Print(t)
+	case io.Reader:
+		io.Copy(p, t)
+	default:
+		p.Printf("%v", t)
 	}
 }
 

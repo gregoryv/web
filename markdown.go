@@ -2,6 +2,7 @@ package web
 
 import (
 	"io"
+	"strings"
 
 	"github.com/gregoryv/nexus"
 )
@@ -16,7 +17,8 @@ func NewMarkdownWriter(w io.Writer) *MarkdownWriter {
 
 type MarkdownWriter struct {
 	*nexus.Printer
-	err *error
+	err    *error
+	indent string // ie. for pre tags
 }
 
 func (p *MarkdownWriter) WriteMarkdown(e *Element) {
@@ -35,7 +37,14 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 		}
 		p.close(t)
 	case string:
-		p.Print(t)
+		if p.indent == "" || strings.Index(t, "\n") == -1 {
+			p.Print(t)
+			return
+		}
+		lines := strings.Split(t, "\n")
+		for _, line := range lines {
+			p.Print(p.indent, line, "\n")
+		}
 	}
 }
 
@@ -70,7 +79,8 @@ func (p *MarkdownWriter) open(t *Element) {
 		if !t.hasAttr("alt") {
 			p.Print("[]")
 		}
-
+	case "pre":
+		p.indent = "  "
 	default:
 		p.Print(markdown[t.Name])
 	}
@@ -79,7 +89,9 @@ func (p *MarkdownWriter) open(t *Element) {
 func (p *MarkdownWriter) close(t *Element) {
 	p.Println()
 	switch t.Name {
-	case "li":
+	case "li", "span":
+	case "pre":
+		p.indent = ""
 	default:
 		p.Println()
 	}
