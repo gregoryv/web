@@ -11,6 +11,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
+	"text/template"
 
 	"github.com/gregoryv/ex"
 	"github.com/gregoryv/must"
@@ -105,7 +106,7 @@ func RawResponse(resp *http.Response) *Element {
 		body    bytes.Buffer
 		headers bytes.Buffer
 	)
-	body.Write(data)
+	template.HTMLEscape(&body, data)
 
 	resp.Header.Write(&headers)
 	return Pre(Class("response"),
@@ -126,17 +127,12 @@ func JsonResponseFrom(h http.Handler, r *http.Request) *Element {
 func JsonResponse(resp *http.Response) *Element {
 	var (
 		data, _ = ioutil.ReadAll(resp.Body)
-		body    bytes.Buffer
 		headers bytes.Buffer
-		isJson  = (len(data) > 0 && (data[0] == '{' || data[0] == '['))
+		body    bytes.Buffer
 	)
-	if isJson {
-		jw := ex.NewJsonWriter()
-		jw.WriteTo(&body, []byte(data))
-	} else {
-		body.Write(data)
-	}
 	resp.Header.Write(&headers)
+	jw := ex.NewJsonWriter()
+	jw.WriteTo(&body, []byte(data))
 	return Pre(Class("response"),
 		statusLine(resp),
 		headers.String(),

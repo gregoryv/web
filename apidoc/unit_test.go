@@ -52,7 +52,9 @@ func Test_generate_apidoc(t *testing.T) {
 	)
 
 	NewPage("api_example.html", Html(
-		Head(DefaultStyle),
+		Head(
+			Meta(Charset("utf-8")),
+			DefaultStyle),
 		body),
 	).SaveTo(".")
 }
