@@ -69,6 +69,8 @@ var newLineAfterClose = map[string]bool{
 	"head":    true,
 	"title":   true,
 	"article": true,
+	"header":  true,
+	"nav":     true,
 	"section": true,
 	"style":   true,
 	"script":  true,

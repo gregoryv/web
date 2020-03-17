@@ -22,8 +22,13 @@ func TestHtmlWriter_WriteHtml(t *testing.T) {
 	}
 	ok(Html(), `<html>
 </html>`)
-	ok(Html(Body()), `<html>
+	ok(Html(Body(
+		Header(),
+		Nav(),
+	)), `<html>
 <body>
+<header></header>
+<nav></nav>
 </body>
 </html>`)
 
