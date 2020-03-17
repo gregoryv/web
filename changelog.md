@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+### Changed
+
+- HtmlWriter no longer includes newlines in A tags
+- Text elements are not separated with newlines
+
 ## [0.8.1] 2020-01-19
 ### Added
 

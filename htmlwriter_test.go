@@ -21,11 +21,9 @@ func TestHtmlWriter_WriteHtml(t *testing.T) {
 		}
 	}
 	ok(Html(), `<html>
-
 </html>`)
 	ok(Html(Body()), `<html>
 <body>
-
 </body>
 </html>`)
 
@@ -34,8 +32,7 @@ func TestHtmlWriter_WriteHtml(t *testing.T) {
 		`<html>
 <body>
 <h1>hello</h1>
-text
-</body>
+text</body>
 </html>`,
 	)
 
@@ -43,4 +40,10 @@ text
 		"<span>hello</span>",
 	)
 	ok(Span(1), "<span>1</span>")
+
+	ok(
+		A(Href("http://x.com"), "label"),
+		`<a href="http://x.com">label</a>`,
+	)
+
 }

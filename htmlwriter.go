@@ -2,7 +2,6 @@ package web
 
 import (
 	"io"
-	"strings"
 
 	"github.com/gregoryv/nexus"
 )
@@ -40,6 +39,17 @@ func (p *HtmlWriter) writeElement(t interface{}) {
 	}
 }
 
+var newLineAfterOpen = map[string]bool{
+	"html":    true,
+	"body":    true,
+	"head":    true,
+	"article": true,
+	"section": true,
+	"ol":      true,
+	"ul":      true,
+	"dl":      true,
+}
+
 func (p *HtmlWriter) open(t *Element) {
 	p.Print("<", t.Name)
 	for _, Attributes := range t.Attributes {
@@ -48,24 +58,53 @@ func (p *HtmlWriter) open(t *Element) {
 	if !t.simple {
 		p.Print(">")
 	}
-	if strings.Index("html body head article section ol ul dl", t.Name) > -1 {
+	if newLineAfterOpen[t.Name] {
 		p.Println()
 	}
+}
+
+var newLineAfterClose = map[string]bool{
+	"html":    true,
+	"body":    true,
+	"head":    true,
+	"title":   true,
+	"article": true,
+	"section": true,
+	"style":   true,
+	"script":  true,
+	"meta":    true,
+	"link":    true,
+	"p":       true,
+	"h1":      true,
+	"h2":      true,
+	"h3":      true,
+	"h4":      true,
+	"h5":      true,
+	"h6":      true,
+	"li":      true,
+	"ul":      true,
+	"ol":      true,
+	"dt":      true,
+	"dd":      true,
+}
+
+var newLineBeforeClose = map[string]bool{
+	"div": true,
 }
 
 func (p *HtmlWriter) close(t *Element) {
 	if t.simple {
 		p.Print("/>")
-		if strings.Index("meta link", t.Name) > -1 {
+		if newLineAfterClose[t.Name] {
 			p.Println()
 		}
 		return
 	}
-	if strings.Index("html body head article section style script", t.Name) > -1 {
+	if newLineBeforeClose[t.Name] {
 		p.Println()
 	}
 	p.Print("</", t.Name, ">")
-	if strings.Index("p h1 h2 h3 h4 h5 h6 li ul ol dt dd head title style script", t.Name) > -1 {
+	if newLineAfterClose[t.Name] {
 		p.Println()
 	}
 }
