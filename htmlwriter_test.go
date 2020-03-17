@@ -46,4 +46,16 @@ text</body>
 		`<a href="http://x.com">label</a>`,
 	)
 
+	ok(
+		Article(
+			Div(),
+			H2(),
+			P(),
+		),
+		`<article>
+<div></div>
+<h2></h2>
+<p></p>
+</article>`,
+	)
 }

@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 
 - HtmlWriter no longer includes newlines in A tags
+- No newline before closing div
 - Text elements are not separated with newlines
 
 ## [0.8.1] 2020-01-19

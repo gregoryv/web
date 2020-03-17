@@ -86,11 +86,10 @@ var newLineAfterClose = map[string]bool{
 	"ol":      true,
 	"dt":      true,
 	"dd":      true,
+	"div":     true,
 }
 
-var newLineBeforeClose = map[string]bool{
-	"div": true,
-}
+var newLineBeforeClose = map[string]bool{}
 
 func (p *HtmlWriter) close(t *Element) {
 	if t.simple {
