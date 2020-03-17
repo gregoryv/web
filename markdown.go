@@ -37,8 +37,8 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 		}
 		p.close(t)
 	case string:
-		if p.indent == "" || strings.Index(t, "\n") == -1 {
-			p.Print(t)
+		if strings.Index(t, "\n") == -1 {
+			p.Print(p.indent, t)
 			return
 		}
 		lines := strings.Split(t, "\n")

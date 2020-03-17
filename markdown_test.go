@@ -24,4 +24,8 @@ func TestMarkdownWriter_WriteMarkdown(t *testing.T) {
 	ok(H1("x"), "# x")
 	ok(Img(Src("x")), "![](x)")
 	ok(Img(Alt("a"), Src("x")), "![a](x)")
+	ok(Pre(`a
+b`), `  a
+  b`)
+	ok(Pre("x"), "  x")
 }

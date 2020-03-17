@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [unreleased]
 ### Changed
 
+- Markdown writer indents pre tags even if no newlines are present
 - Newline after header and nav elements
 
 ## [0.8.2] 2020-03-17
