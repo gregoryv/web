@@ -91,8 +91,6 @@ var newLineAfterClose = map[string]bool{
 	"div":     true,
 }
 
-var newLineBeforeClose = map[string]bool{}
-
 func (p *HtmlWriter) close(t *Element) {
 	if t.simple {
 		p.Print("/>")
@@ -100,9 +98,6 @@ func (p *HtmlWriter) close(t *Element) {
 			p.Println()
 		}
 		return
-	}
-	if newLineBeforeClose[t.Name] {
-		p.Println()
 	}
 	p.Print("</", t.Name, ">")
 	if newLineAfterClose[t.Name] {
