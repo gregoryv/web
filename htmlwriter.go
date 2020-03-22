@@ -44,7 +44,6 @@ var newLineAfterOpen = map[string]bool{
 	"body":    true,
 	"head":    true,
 	"table":   true,
-	"tr":      true,
 	"article": true,
 	"section": true,
 	"ol":      true,
