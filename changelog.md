@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [unreleased]
 ### Changed
 
+- htmlwriter adds newlines after table and tr tags
 - Markdown writer indents pre tags even if no newlines are present
 - Newline after header and nav elements
 
