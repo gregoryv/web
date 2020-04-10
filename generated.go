@@ -102,6 +102,11 @@ func Dt(c ...interface{}) *Element {
 	return NewElement("dt", c...)
 }
 
+// Em returns a <em> element with optional children or attributes
+func Em(c ...interface{}) *Element {
+	return NewElement("em", c...)
+}
+
 // Footer returns a <footer> element with optional children or attributes
 func Footer(c ...interface{}) *Element {
 	return NewElement("footer", c...)
@@ -110,6 +115,11 @@ func Footer(c ...interface{}) *Element {
 // Form returns a <form> element with optional children or attributes
 func Form(c ...interface{}) *Element {
 	return NewElement("form", c...)
+}
+
+// Fieldset returns a <fieldset> element with optional children or attributes
+func Fieldset(c ...interface{}) *Element {
+	return NewElement("fieldset", c...)
 }
 
 // H1 returns a <h1> element with optional children or attributes
@@ -387,6 +397,15 @@ func Meta(c ...interface{}) *Element {
 	return NewSimpleElement("meta", c...)
 }
 
+// Action returns a action="v" attribute
+func Action(v string) *Attribute { return &Attribute{Name: "action", Val: v} }
+
+// Alt returns a alt="v" attribute
+func Alt(v string) *Attribute { return &Attribute{Name: "alt", Val: v} }
+
+// Autocomplete returns a autocomplete="v" attribute
+func Autocomplete(v string) *Attribute { return &Attribute{Name: "autocomplete", Val: v} }
+
 // Charset returns a charset="v" attribute
 func Charset(v string) *Attribute { return &Attribute{Name: "charset", Val: v} }
 
@@ -405,17 +424,23 @@ func Id(v string) *Attribute { return &Attribute{Name: "id", Val: v} }
 // Lang returns a lang="v" attribute
 func Lang(v string) *Attribute { return &Attribute{Name: "lang", Val: v} }
 
+// Method returns a method="v" attribute
+func Method(v string) *Attribute { return &Attribute{Name: "method", Val: v} }
+
 // Name returns a name="v" attribute
 func Name(v string) *Attribute { return &Attribute{Name: "name", Val: v} }
 
 // Rel returns a rel="v" attribute
 func Rel(v string) *Attribute { return &Attribute{Name: "rel", Val: v} }
 
-// Alt returns a alt="v" attribute
-func Alt(v string) *Attribute { return &Attribute{Name: "alt", Val: v} }
-
 // Src returns a src="v" attribute
 func Src(v string) *Attribute { return &Attribute{Name: "src", Val: v} }
 
+// Tabindex returns a tabindex="v" attribute
+func Tabindex(v string) *Attribute { return &Attribute{Name: "tabindex", Val: v} }
+
 // Type returns a type="v" attribute
 func Type(v string) *Attribute { return &Attribute{Name: "type", Val: v} }
+
+// Value returns a value="v" attribute
+func Value(v string) *Attribute { return &Attribute{Name: "value", Val: v} }

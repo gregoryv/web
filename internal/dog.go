@@ -39,8 +39,10 @@ func main() {
 		"div",
 		"dl",
 		"dt",
+		"em",
 		"footer",
 		"form",
+		"fieldset",
 		"h1",
 		"h2",
 		"h3",
@@ -104,17 +106,22 @@ func main() {
 	p.Println()
 
 	writeAttributes(p,
+		"action",
+		"alt",
+		"autocomplete",
 		"charset",
 		"class",
 		"content",
 		"href",
 		"id",
 		"lang",
+		"method",
 		"name",
 		"rel",
-		"alt",
 		"src",
+		"tabindex",
 		"type",
+		"value",
 	)
 	// tidy output
 	out, err := exec.Command("gofmt", "-w", w.Name()).CombinedOutput()
