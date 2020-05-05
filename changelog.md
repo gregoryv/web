@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Attr func for arbitrary attributes
 - Attributes for mouse events and more
 
+### Changed
+
+- HtmlWriter also renders any implementation of WriterTo
+
 ## [0.8.3] 2020-04-10
 ### Added
 

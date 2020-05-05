@@ -2,7 +2,7 @@ package web
 
 import (
 	"bytes"
-	"fmt"
+	"io"
 	"testing"
 
 	"github.com/gregoryv/asserter"
@@ -21,10 +21,8 @@ func Test_elements(t *testing.T) {
 			for _, exp := range exp {
 				assert().Contains(got, exp)
 			}
-		case *Attribute:
-			hw.WriteHtml(el)
 		default:
-			t.Fatal(fmt.Errorf("unrecognized %#v", el))
+			hw.WriteHtml(el)
 		}
 
 		got := w.String()
@@ -116,6 +114,10 @@ func Test_elements(t *testing.T) {
 	ok(Keygen(), "<keygen/>")
 	ok(Link(), "<link/>")
 	ok(Meta(), "<meta/>")
+
+	// io.WriterTo
+	ok(anyWriterTo("hello"), "hello")
+
 	// Attributes
 	ok(Attr("myown", "something"), `myown="something"`)
 	ok(Attr("myown", 1), `myown="1"`)
@@ -142,4 +144,11 @@ func Test_elements(t *testing.T) {
 	ok(Tabindex("x"), `tabindex="x"`)
 	ok(Type("x"), `type="x"`)
 	ok(Value("x"), `value="x"`)
+}
+
+type anyWriterTo string
+
+func (s anyWriterTo) WriteTo(w io.Writer) (int64, error) {
+	n, err := w.Write([]byte(s))
+	return int64(n), err
 }

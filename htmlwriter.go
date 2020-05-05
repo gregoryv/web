@@ -34,6 +34,8 @@ func (p *HtmlWriter) writeElement(t interface{}) {
 		p.close(t)
 	case io.Reader:
 		io.Copy(p, t)
+	case io.WriterTo:
+		t.WriteTo(p)
 	default:
 		p.Printf("%v", t)
 	}
