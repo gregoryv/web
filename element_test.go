@@ -117,6 +117,8 @@ func Test_elements(t *testing.T) {
 	ok(Link(), "<link/>")
 	ok(Meta(), "<meta/>")
 	// Attributes
+	ok(Attr("myown", "something"), `myown="something"`)
+	ok(Attr("myown", 1), `myown="1"`)
 	ok(Action("x"), `action="x"`)
 	ok(Autocomplete("x"), `autocomplete="x"`)
 	ok(Charset("x"), `charset="x"`)

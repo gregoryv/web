@@ -3,6 +3,7 @@ package web
 import (
 	"bytes"
 	"fmt"
+	"io"
 )
 
 func NewElement(Name string, childOrAttr ...interface{}) *Element {
@@ -29,9 +30,12 @@ type Element struct {
 
 func (t *Element) String() string {
 	var buf bytes.Buffer
-	hw := NewHtmlWriter(&buf)
-	hw.WriteHtml(t)
+	t.WriteTo(&buf)
 	return buf.String()
+}
+
+func (t *Element) WriteTo(w io.Writer) (int64, error) {
+	return NewHtmlWriter(w).WriteHtml(t)
 }
 
 func (t *Element) With(childOrAttr ...interface{}) *Element {
@@ -57,6 +61,10 @@ func (t *Element) hasAttr(name string) bool {
 		}
 	}
 	return false
+}
+
+func Attr(name string, val interface{}) *Attribute {
+	return &Attribute{Name: name, Val: fmt.Sprintf("%v", val)}
 }
 
 type Attribute struct {
