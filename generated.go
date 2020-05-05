@@ -444,3 +444,27 @@ func Type(v string) *Attribute { return &Attribute{Name: "type", Val: v} }
 
 // Value returns a value="v" attribute
 func Value(v string) *Attribute { return &Attribute{Name: "value", Val: v} }
+
+// OnBlur returns a onBlur="v" attribute
+func OnBlur(v string) *Attribute { return &Attribute{Name: "onBlur", Val: v} }
+
+// OnFocus returns a onFocus="v" attribute
+func OnFocus(v string) *Attribute { return &Attribute{Name: "onFocus", Val: v} }
+
+// OnLoad returns a onLoad="v" attribute
+func OnLoad(v string) *Attribute { return &Attribute{Name: "onLoad", Val: v} }
+
+// OnMouseDown returns a onMouseDown="v" attribute
+func OnMouseDown(v string) *Attribute { return &Attribute{Name: "onMouseDown", Val: v} }
+
+// OnMouseOut returns a onMouseOut="v" attribute
+func OnMouseOut(v string) *Attribute { return &Attribute{Name: "onMouseOut", Val: v} }
+
+// OnMouseOver returns a onMouseOver="v" attribute
+func OnMouseOver(v string) *Attribute { return &Attribute{Name: "onMouseOver", Val: v} }
+
+// OnMouseUp returns a onMouseUp="v" attribute
+func OnMouseUp(v string) *Attribute { return &Attribute{Name: "onMouseUp", Val: v} }
+
+// OnMouseWheel returns a onMouseWheel="v" attribute
+func OnMouseWheel(v string) *Attribute { return &Attribute{Name: "onMouseWheel", Val: v} }

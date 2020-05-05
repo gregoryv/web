@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 - Element implements io.WriterTo
 - Attr func for arbitrary attributes
+- Attributes for mouse events and more
 
 ## [0.8.3] 2020-04-10
 ### Added

@@ -123,6 +123,21 @@ func main() {
 		"type",
 		"value",
 	)
+
+	onEvents := []string{
+		"Blur",
+		"Focus",
+		"Load",
+		"MouseDown",
+		"MouseOut",
+		"MouseOver",
+		"MouseUp",
+		"MouseWheel",
+	}
+	for _, event := range onEvents {
+		writeAttributes(p, "on"+event)
+	}
+
 	// tidy output
 	out, err := exec.Command("gofmt", "-w", w.Name()).CombinedOutput()
 	if err != nil {
