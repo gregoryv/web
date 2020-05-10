@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [unreleased]
 ### Added
 
+- CSS struct for generating inline stylesheets
 - Element implements io.WriterTo
 - Attr func for arbitrary attributes
 - Attributes for mouse events and more
