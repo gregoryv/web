@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strings"
 )
 
 func NewElement(Name string, childOrAttr ...interface{}) *Element {
@@ -41,6 +42,23 @@ func (t *Element) WriteTo(w io.Writer) (int64, error) {
 func (t *Element) With(childOrAttr ...interface{}) *Element {
 	t.fill(childOrAttr...)
 	return t
+}
+
+func (t *Element) Text() string {
+	return text(t)
+}
+
+func text(t interface{}) string {
+	switch t := t.(type) {
+	case *Element:
+		parts := make([]string, 0)
+		for _, c := range t.Children {
+			parts = append(parts, text(c))
+		}
+		return strings.Join(parts, " ")
+	default:
+		return fmt.Sprintf("%v", t)
+	}
 }
 
 func (t *Element) fill(childOrAttr ...interface{}) {

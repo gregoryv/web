@@ -152,3 +152,11 @@ func (s anyWriterTo) WriteTo(w io.Writer) (int64, error) {
 	n, err := w.Write([]byte(s))
 	return int64(n), err
 }
+
+func TestElement_Text(t *testing.T) {
+	e := H2("my", Span("fancy"), "title")
+	got := e.Text()
+	exp := "my fancy title"
+	assert := asserter.New(t)
+	assert().Equals(got, exp)
+}
