@@ -93,3 +93,13 @@ type Attribute struct {
 func (a *Attribute) String() string {
 	return fmt.Sprintf("%s=%q", a.Name, a.Val)
 }
+
+func WalkElements(root *Element, fn func(e *Element)) {
+	fn(root)
+	for _, child := range root.Children {
+		switch child := child.(type) {
+		case *Element:
+			WalkElements(child, fn)
+		}
+	}
+}

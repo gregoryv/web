@@ -6,7 +6,28 @@ import (
 	. "github.com/gregoryv/web"
 )
 
-func Example() {
+func ExampleParseTOC() {
+	a := Article(
+		H1("Programming"),
+		H2("Design"),
+		H3("Diagrams"),
+
+		Section(
+			H2(Id("myid"), "Test"),
+			H3("Unit"),
+			H3("Integration"),
+		),
+	)
+	toc := ParseTOC(a, "h2")
+	toc.WriteTo(os.Stdout)
+	// output:
+	// <ul>
+	// <li><a href="#design">Design</a></li>
+	// <li><a href="#myid">Test</a></li>
+	// </ul>
+}
+
+func ExampleGenerateIds() {
 	a := Article(
 		H2("My first car"),
 		H3("Broke down"),

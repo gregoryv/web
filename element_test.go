@@ -2,6 +2,7 @@ package web
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"testing"
 
@@ -159,4 +160,20 @@ func TestElement_Text(t *testing.T) {
 	exp := "my fancy title"
 	assert := asserter.New(t)
 	assert().Equals(got, exp)
+}
+
+func Example_WalkElements() {
+	root := Article(
+		H1(),
+		H2(),
+		H3(),
+	)
+	WalkElements(root, func(e *Element) {
+		fmt.Println(e.Name)
+	})
+	// output:
+	// article
+	// h1
+	// h2
+	// h3
 }
