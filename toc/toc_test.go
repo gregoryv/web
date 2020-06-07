@@ -27,16 +27,22 @@ func ExampleParseTOC() {
 	// </ul>
 }
 
-func ExampleGenerateIds() {
+func ExampleGenerateIDs() {
 	a := Article(
-		H2("My first car"),
-		H3("Broke down"),
+		Section(
+			H2(Id("current"), "Current car"),
+			H2("My first car"),
+			H3("Broke down"),
+		),
 	)
-	GenerateIds(a, "h2")
+	GenerateIDs(a, "h2")
 	a.WriteTo(os.Stdout)
 	// output:
 	// <article>
+	// <section>
+	// <h2 id="current">Current car</h2>
 	// <h2 id="myfirstcar">My first car</h2>
 	// <h3>Broke down</h3>
+	// </section>
 	// </article>
 }

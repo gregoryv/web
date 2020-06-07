@@ -22,17 +22,17 @@ func ParseTOC(root *web.Element, names ...string) *web.Element {
 	return ul
 }
 
-func GenerateIds(e *web.Element, names ...string) {
-	for _, child := range e.Children {
-		switch child := child.(type) {
-		case *web.Element:
-			for _, name := range names {
-				if child.Name == name {
-					child.With(web.Id(idOf(child)))
-				}
+func GenerateIDs(root *web.Element, names ...string) {
+	web.WalkElements(root, func(e *web.Element) {
+		if hasId(e) {
+			return
+		}
+		for _, name := range names {
+			if e.Name == name {
+				e.With(web.Id(idOf(e)))
 			}
 		}
-	}
+	})
 }
 
 var idChars = regexp.MustCompile(`\W`)
@@ -45,4 +45,13 @@ func idOf(e *web.Element) string {
 	}
 	txt := idChars.ReplaceAllString(e.Text(), "")
 	return strings.ToLower(txt)
+}
+
+func hasId(e *web.Element) bool {
+	for _, attr := range e.Attributes {
+		if attr.Name == "id" {
+			return true
+		}
+	}
+	return false
 }
