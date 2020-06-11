@@ -22,8 +22,8 @@ func ExampleParseTOC() {
 	toc.WriteTo(os.Stdout)
 	// output:
 	// <ul>
-	// <li><a href="#design">Design</a></li>
-	// <li><a href="#myid">Test</a></li>
+	// <li class="h2"><a href="#design">Design</a></li>
+	// <li class="h2"><a href="#myid">Test</a></li>
 	// </ul>
 }
 

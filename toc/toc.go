@@ -14,7 +14,7 @@ func ParseTOC(root *web.Element, names ...string) *web.Element {
 		for _, name := range names {
 			if e.Name == name {
 				a := web.A(web.Href("#"+idOf(e)), e.Text())
-				ul.With(web.Li(a))
+				ul.With(web.Li(web.Class(name), a))
 				continue
 			}
 		}
