@@ -150,7 +150,7 @@ func writeElements(p *nexus.Printer, tags ...string) {
 	for _, Name := range tags {
 		funcName := capitalize(Name)
 		p.Printf(
-			`// %s returns a <%s> element with optional children or attributes
+			`// %s returns an <%s> element with optional children or attributes
 func %s(c ...interface{}) *Element {
     return NewElement("%s", c...)
 }`,
