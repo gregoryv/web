@@ -11,7 +11,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
-	"text/template"
 
 	"github.com/gregoryv/ex"
 	"github.com/gregoryv/must"
@@ -30,24 +29,37 @@ type Doc struct {
 	*http.Request
 }
 
-var DefaultStyle = Style(`
-html, body { margin: 0 0; padding: 0 0; }
-body {
-  padding: 1em 1.618em 1em 1.618em;
+func DefaultStyle() *Element {
+	css := NewCSS()
+	css.Style("html, body",
+		"margin: 0 0",
+		"padding: 0 0",
+	)
+	css.Style("body",
+		"padding: 1em 1.618em 1em 1.618em",
+	)
+	css.Style("h1:first-child",
+		"margin-top: 0",
+	)
+	css.Style(".request",
+		"padding: 1em 1.618em",
+		"border-radius: 1em",
+		"border: 1px dashed #929292",
+	)
+	css.Style(".response",
+		"padding: 1em 1.618em",
+		"background-color: #f2f2f2",
+		"border-radius: 1em",
+	)
+	css.Style("nav ul",
+		"list-style-type: none",
+		"padding-left: 0",
+	)
+	css.Style("nav ul .h3",
+		"margin-left: 1em",
+	)
+	return Style(css)
 }
-h1:first-child {
-  margin-top: 0;
-}
-.request {
-  padding: 1em 1.618em;
-}
-
-.response {
-  padding: 1em 1.618em;
-  background-color: #f2f2f2;
-  border-radius: 1em;
-}
-`)
 
 func (d *Doc) NewRequest(method, path string, body io.Reader) *Element {
 	r := must.NewRequest(method, path, body)
@@ -106,7 +118,7 @@ func RawResponse(resp *http.Response) *Element {
 		body    bytes.Buffer
 		headers bytes.Buffer
 	)
-	template.HTMLEscape(&body, data)
+	body.Write(data)
 
 	resp.Header.Write(&headers)
 	return Pre(Class("response"),

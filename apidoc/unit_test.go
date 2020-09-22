@@ -11,13 +11,18 @@ import (
 
 	"github.com/gregoryv/must"
 	. "github.com/gregoryv/web"
+	"github.com/gregoryv/web/toc"
 )
 
 func Test_generate_apidoc(t *testing.T) {
 	doc := NewDoc(NewRouter())
+	nav := Nav()
 	body := Body(
 		H1("API example documentation"),
 		P("Plain and easy to read HTML documentation of your HTTP APIs"),
+		"Table of contents",
+		nav,
+
 		H2("Path /"),
 		P("Root resource users"),
 
@@ -51,17 +56,20 @@ func Test_generate_apidoc(t *testing.T) {
 		doc.Response(),
 	)
 
+	toc.GenerateIDs(body, "h2", "h3")
+	nav.With(toc.ParseTOC(body, "h2", "h3"))
+
 	NewPage("api_example.html", Html(
 		Head(
 			Meta(Charset("utf-8")),
-			DefaultStyle),
+			DefaultStyle()),
 		body),
 	).SaveTo(".")
 }
 
 func NewRouter() http.Handler {
 	router := http.NewServeMux()
-	router.HandleFunc("/", h)
+	router.HandleFunc("/", ServeIndex)
 	router.HandleFunc("/unknown/",
 		func(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusNotFound)
@@ -70,7 +78,7 @@ func NewRouter() http.Handler {
 	return router
 }
 
-func h(w http.ResponseWriter, r *http.Request) {
+func ServeIndex(w http.ResponseWriter, r *http.Request) {
 	var m interface{}
 	name := r.URL.Query().Get("name")
 	if r.Method == "POST" {
