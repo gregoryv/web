@@ -80,7 +80,7 @@ func (p *MarkdownWriter) open(t *Element) {
 			p.Print("[]")
 		}
 	case "pre":
-		p.indent = "  "
+		p.indent = "    "
 	default:
 		p.Print(markdown[t.Name])
 	}
