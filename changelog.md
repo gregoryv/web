@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.11.0] 2020-09-24
 
 - Use json.Indent for nice json formatting
 - Increase pre-element indentation to fours paces for markdown output
