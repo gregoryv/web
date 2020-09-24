@@ -17,7 +17,7 @@ import (
 	. "github.com/gregoryv/web"
 )
 
-// NewDoc returns a documentation generator for your router
+// NewDoc returns a documentation generator for the given router
 func NewDoc(router http.Handler) *Doc {
 	return &Doc{
 		router: router,
@@ -27,38 +27,6 @@ func NewDoc(router http.Handler) *Doc {
 type Doc struct {
 	router http.Handler
 	*http.Request
-}
-
-func DefaultStyle() *Element {
-	css := NewCSS()
-	css.Style("html, body",
-		"margin: 0 0",
-		"padding: 0 0",
-	)
-	css.Style("body",
-		"padding: 1em 1.618em 1em 1.618em",
-	)
-	css.Style("h1:first-child",
-		"margin-top: 0",
-	)
-	css.Style(".request",
-		"padding: 1em 1.618em",
-		"border-radius: 1em",
-		"border: 1px dashed #929292",
-	)
-	css.Style(".response",
-		"padding: 1em 1.618em",
-		"background-color: #f2f2f2",
-		"border-radius: 1em",
-	)
-	css.Style("nav ul",
-		"list-style-type: none",
-		"padding-left: 0",
-	)
-	css.Style("nav ul .h3",
-		"margin-left: 1em",
-	)
-	return Style(css)
 }
 
 func (d *Doc) NewRequest(method, path string, body io.Reader) *Element {
@@ -159,4 +127,36 @@ func requestLine(r *http.Request) string {
 
 func statusLine(resp *http.Response) string {
 	return fmt.Sprintf("%s %s\n", resp.Proto, resp.Status)
+}
+
+func DefaultStyle() *Element {
+	css := NewCSS()
+	css.Style("html, body",
+		"margin: 0 0",
+		"padding: 0 0",
+	)
+	css.Style("body",
+		"padding: 1em 1.618em 1em 1.618em",
+	)
+	css.Style("h1:first-child",
+		"margin-top: 0",
+	)
+	css.Style(".request",
+		"padding: 1em 1.618em",
+		"border-radius: 1em",
+		"border: 1px dashed #929292",
+	)
+	css.Style(".response",
+		"padding: 1em 1.618em",
+		"background-color: #f2f2f2",
+		"border-radius: 1em",
+	)
+	css.Style("nav ul",
+		"list-style-type: none",
+		"padding-left: 0",
+	)
+	css.Style("nav ul .h3",
+		"margin-left: 1em",
+	)
+	return Style(css)
 }

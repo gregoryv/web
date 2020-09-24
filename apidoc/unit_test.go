@@ -5,9 +5,11 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"math/rand"
 	"net/http"
 	"strings"
 	"testing"
+	"time"
 
 	"github.com/gregoryv/must"
 	. "github.com/gregoryv/web"
@@ -16,6 +18,7 @@ import (
 
 func Test_generate_apidoc(t *testing.T) {
 	doc := NewDoc(NewRouter())
+
 	nav := Nav()
 	body := Body(
 		H1("API example documentation"),
@@ -114,10 +117,14 @@ func ServeIndex(w http.ResponseWriter, r *http.Request) {
 		tmpl.Execute(w, buf.String())
 	default:
 		w.Header().Set("Content-Type", "application/json")
+		// some random header
+		w.Header().Set("Correlation-Id", fmt.Sprintf("%d", rand.Int()))
 		enc := json.NewEncoder(w)
 		enc.Encode(&m)
 	}
 }
+
+func init() { rand.Seed(time.Now().Unix()) }
 
 var data = []struct {
 	Name string `json:"name"`
