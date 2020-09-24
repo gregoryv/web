@@ -44,7 +44,7 @@ func Test_generate_apidoc(t *testing.T) {
 		doc.NewRequest(
 			"POST", "/", strings.NewReader(`{"name":"John"}`),
 		),
-		doc.Response(),
+		doc.JsonResponse(),
 
 		H3("Accept text/html"),
 		doc.Use(func() *http.Request {

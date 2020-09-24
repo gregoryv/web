@@ -6,13 +6,13 @@ package apidoc
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"io/ioutil"
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/gregoryv/ex"
 	"github.com/gregoryv/must"
 	. "github.com/gregoryv/web"
 )
@@ -111,8 +111,7 @@ func JsonResponse(resp *http.Response) *Element {
 		body    bytes.Buffer
 	)
 	resp.Header.Write(&headers)
-	jw := ex.NewJsonWriter()
-	jw.WriteTo(&body, []byte(data))
+	json.Indent(&body, data, "", "    ")
 	return Pre(Class("response"),
 		statusLine(resp),
 		headers.String(),
