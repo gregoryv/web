@@ -1,5 +1,5 @@
 /*
-   Package apidoc is a way to define self documenting HTTP API's.
+   Package apidoc provides html document builder for http requests and responses.
 
 */
 package apidoc
