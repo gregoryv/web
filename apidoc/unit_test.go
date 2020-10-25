@@ -62,7 +62,7 @@ func Test_generate_apidoc(t *testing.T) {
 	toc.GenerateIDs(body, "h2", "h3")
 	nav.With(toc.ParseTOC(body, "h2", "h3"))
 
-	NewPage("api_example.html", Html(
+	NewFile("api_example.html", Html(
 		Head(
 			Meta(Charset("utf-8")),
 			DefaultStyle()),
@@ -113,7 +113,7 @@ func ServeIndex(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "text/html")
 		tmpl, _ := template.New("").Parse("{{.}}")
 		var buf bytes.Buffer
-		NewPage("", Html(Body(fmt.Sprintf("%v", m)))).WriteTo(&buf)
+		NewPage(Html(Body(fmt.Sprintf("%v", m)))).WriteTo(&buf)
 		tmpl.Execute(w, buf.String())
 	default:
 		w.Header().Set("Content-Type", "application/json")

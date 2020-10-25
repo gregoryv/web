@@ -11,7 +11,7 @@ func ExamplePage_WriteTo() {
 			" after",
 		),
 	)
-	page := NewPage("", Html(Body(article)))
+	page := NewPage(Html(Body(article)))
 	page.WriteTo(os.Stdout)
 
 	// output:

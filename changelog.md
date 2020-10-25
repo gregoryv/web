@@ -3,8 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.12.0] 2020-10-25
 
+- Added Page.SaveAs with filename argument
+- Remove filename argument from NewPage, use NewFile instead
 - Add apidoc example
 
 ## [0.11.0] 2020-09-24
