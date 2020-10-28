@@ -8,13 +8,20 @@ import (
 
 func NewCSS() *CSS {
 	return &CSS{
-		rules: make([]*rule, 0),
+		rules:   make([]*rule, 0),
+		imports: make([]string, 0),
 	}
 }
 
 type CSS struct {
-	Media string
-	rules []*rule
+	Media   string
+	rules   []*rule
+	imports []string
+}
+
+// Import
+func (me *CSS) Import(url string) {
+	me.imports = append(me.imports, url)
 }
 
 func (r *CSS) WriteTo(w io.Writer) (int64, error) {
@@ -22,6 +29,9 @@ func (r *CSS) WriteTo(w io.Writer) (int64, error) {
 	if r.Media != "" {
 		p.Print(r.Media)
 		p.Println("{")
+	}
+	for _, imp := range r.imports {
+		p.Printf("@import url('%s');\n", imp)
 	}
 	for _, rule := range r.rules {
 		rule.WriteTo(p)
