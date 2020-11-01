@@ -1,1 +1,3 @@
-[web](https://godoc.org/github.com/gregoryv/web) - package for mostly html related rendering
+Go module for HTML generation
+
+Read more on the [project homepage](https://gregoryv.github.io/web)
