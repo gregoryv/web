@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>gregoryv/web</title>
+<style>@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Source+Sans+Pro&family=Source+Serif+Pro:wght@600');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&family=Lancelot&family=Open+Sans');
+html, body {
+margin: 0 0;
+padding: 0 0;
+font-family: 'Source Sans Pro', sans-serif;
+}
+article {
+margin: 1em 1.62em;
+}
+h1, h2, h3, h4, h5, h6 {
+font-family: 'Source Serif Pro', serif;
+}
+.writtenby {
+float: right;
+}
+.toc {
+font-weight: bold;
+}
+p, li {
+font-family: 'Open Sans', sans-serif;
+}
+p {
+line-height: 1.5em;
+}
+nav>ul {
+list-style-type: none;
+line-height: 1.5em;
+}
+li.h3 {
+margin-left: 1em;
+list-style-type: none;
+}
+td {
+vertical-align: top;
+}
+img.me {
+float: left;
+margin-right: 2em;
+}
+.srcfile {
+padding: .6em 1.6em .6em 1.6em;
+display: block;
+margin-top: 1.6em;
+margin-bottom: 1.6em;
+background-color: #eaeaea;
+}
+.output {
+background-color: #ffffff;
+border: 1px dashed #727272;
+}
+code {
+font-family: Inconsolata;
+-moz-tab-size: 4;
+}
+.left {
+float: left;
+margin-right: 6em;
+}
+.right {
+float: left;
+}
+</style>
+</head>
+<body>
+<article>
+<h1>Web - Go module for HTML generation</h1>
+<p>This package provides a straight forward way of programming
+		   HTML, leaving the separation of view and model as a design
+		   choice for the developer. Also no values are automatically
+		   escaped.</p>
+<nav><p>Table of contents</p>
+<ul>
+<li class="h2"><a href="#install">Install</a></li>
+<li class="h2"><a href="#apidocumentation">API documentation</a></li>
+<li class="h2"><a href="#example">Example</a></li>
+<li class="h2"><a href="#about">About</a></li>
+<li class="h2"><a href="#license">License</a></li>
+</ul>
+</nav>
+<h2 id="install">Install</h2>
+<code>go get <a href="https://github.com/gregoryv/web">github.com/gregoryv/web/...</a></code><h2 id="apidocumentation">API documentation</h2>
+<ul>
+<li><a href="https://godoc.org/github.com/gregoryv/web">web</a> - HTML generation</li>
+<li><a href="https://godoc.org/github.com/gregoryv/web/files">web/files</a> - file loading tools</li>
+<li><a href="https://godoc.org/github.com/gregoryv/web/apidoc">web/apidoc</a> - HTTP request/response documentation tools</li>
+<li><a href="https://godoc.org/github.com/gregoryv/web/toc">web/toc</a> - table of content tools</li>
+</ul>
+<h2 id="example">Example</h2>
+<pre><code class="srcfile">package docs
+
+import . "github.com/gregoryv/web"
+
+func NewHtmlPage() *Page {
+	page := NewPage(
+		Html(
+			Head(
+				Title("my home page"),
+			),
+			Body(
+				H1("My home"),
+				"some text here",
+			),
+		),
+	)
+	return page
+}
+</code></pre><p>Produces</p>
+<pre><code class="srcfile output">&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+&lt;head&gt;
+&lt;title&gt;my home page&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;My home&lt;/h1&gt;
+some text here&lt;/body&gt;
+&lt;/html&gt;
+</code></pre><h2 id="about">About</h2>
+<p>Written by Gregory Vin&ccaron;i&cacute;<br/>MIT License</p>
+<h2 id="license">License</h2>
+<pre>MIT License
+
+Copyright (c) 2019 Gregory Vinčić
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+</pre></article>
+</body>
+</html>
