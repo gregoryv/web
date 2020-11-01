@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add package files
 - Add CSS.Import for eg. font imports
 
 ## [0.12.0] 2020-10-25
