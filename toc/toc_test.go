@@ -6,6 +6,30 @@ import (
 	. "github.com/gregoryv/web"
 )
 
+func ExampleMakeTOC() {
+	nav := Nav()
+	a := Article(
+		H1("Programming"),
+		nav,
+		H2("Design"),
+		H3("Diagrams"),
+
+		Section(
+			H2(Id("myid"), "Test"),
+			H3("Unit"),
+			H3("Integration"),
+		),
+	)
+	MakeTOC(nav, a, "h2")
+	nav.WriteTo(os.Stdout)
+	// output:
+	// <nav><ul>
+	// <li class="h2"><a href="#design">Design</a></li>
+	// <li class="h2"><a href="#myid">Test</a></li>
+	// </ul>
+	// </nav>
+}
+
 func ExampleParseTOC() {
 	a := Article(
 		H1("Programming"),

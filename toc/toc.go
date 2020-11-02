@@ -7,6 +7,13 @@ import (
 	"github.com/gregoryv/web"
 )
 
+// MakeTOC generates ids for all named elements and generates a TOC
+// into the destination element.
+func MakeTOC(dest, root *web.Element, names ...string) {
+	GenerateIDs(root, names...)
+	dest.With(ParseTOC(root, names...))
+}
+
 // ParseTOC returns ul > li of all named elements.
 func ParseTOC(root *web.Element, names ...string) *web.Element {
 	ul := web.Ul()
