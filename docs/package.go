@@ -98,9 +98,7 @@ func IndexArticle() *Element {
 			files.MustLoad("../LICENSE"),
 		),
 	)
-
-	toc.GenerateIDs(article, "h2", "h3")
-	nav.With(toc.ParseTOC(article, "h2", "h3"))
+	toc.MakeTOC(nav, article, "h2", "h3")
 	return article
 }
 
