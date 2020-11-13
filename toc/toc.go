@@ -11,6 +11,7 @@ import (
 // into the destination element.
 func MakeTOC(dest, root *web.Element, names ...string) {
 	GenerateIDs(root, names...)
+	GenerateAnchors(root, names...)
 	dest.With(ParseTOC(root, names...))
 }
 
@@ -42,6 +43,20 @@ func GenerateIDs(root *web.Element, names ...string) {
 	})
 }
 
+func GenerateAnchors(root *web.Element, names ...string) {
+	web.WalkElements(root, func(e *web.Element) {
+		if !hasId(e) {
+			return
+		}
+		for _, name := range names {
+			if e.Name == name {
+				a := web.A(web.Href("#" + getId(e))).With(e.Children...)
+				e.Children = []interface{}{a}
+			}
+		}
+	})
+}
+
 var idChars = regexp.MustCompile(`\W`)
 
 func idOf(e *web.Element) string {
@@ -61,4 +76,13 @@ func hasId(e *web.Element) bool {
 		}
 	}
 	return false
+}
+
+func getId(e *web.Element) string {
+	for _, attr := range e.Attributes {
+		if attr.Name == "id" {
+			return attr.Val
+		}
+	}
+	return ""
 }

@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+- MakeTOC adds links for named headers for easier sharing
+
 ## [0.13.0] 2020-11-07
 
 - Add toc.MakeTOC combining generate id and generating toc

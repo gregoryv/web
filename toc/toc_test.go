@@ -22,6 +22,7 @@ func ExampleMakeTOC() {
 	)
 	MakeTOC(nav, a, "h2")
 	nav.WriteTo(os.Stdout)
+	a.WriteTo(os.Stdout)
 	// output:
 	// <nav><ul>
 	// <li class="h2"><a href="#design">Design</a></li>
