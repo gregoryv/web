@@ -90,6 +90,15 @@ func (t *Element) Attr(name string) *Attribute {
 	return nil
 }
 
+// AttrVal returns attribute value if it exists, empty string otherwise.
+func (t *Element) AttrVal(name string) string {
+	a := t.Attr(name)
+	if a == nil {
+		return ""
+	}
+	return a.Val
+}
+
 func Attr(name string, val interface{}) *Attribute {
 	return &Attribute{Name: name, Val: fmt.Sprintf("%v", val)}
 }

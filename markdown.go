@@ -19,6 +19,8 @@ type MarkdownWriter struct {
 	*nexus.Printer
 	err    *error
 	indent string // ie. for pre tags
+
+	oneliner bool
 }
 
 func (p *MarkdownWriter) WriteMarkdown(e *Element) {
@@ -29,10 +31,18 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 	switch t := t.(type) {
 	case *Element:
 		switch t.Name {
+		case "img":
+			p.Print("![", t.AttrVal("alt"), "](", t.AttrVal("src"), ")")
+			if p.oneliner {
+				return
+			}
+			p.Print("\n")
 		case "a":
 			p.Print("[")
 			for _, child := range t.Children {
+				p.oneliner = true
 				p.writeElement(child)
+				p.oneliner = false
 			}
 			p.Print("]")
 			href := t.Attr("href")
@@ -51,6 +61,10 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 			p.close(t)
 		}
 	case string:
+		if p.oneliner {
+			p.Print(t)
+			return
+		}
 		if strings.Index(t, "\n") == -1 {
 			p.Print(p.indent, t)
 			return
@@ -62,13 +76,26 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 	}
 }
 
+// printAttr
+func (p *MarkdownWriter) printAttr(attr *Attribute) {
+	if attr == nil {
+		return
+	}
+	p.Print(attr.Val)
+}
+
+// printOneline
+func (p *MarkdownWriter) printOneline(t []interface{}) {
+	for _, t := range t {
+		switch t := t.(type) {
+		case string:
+			p.Print(t)
+		}
+	}
+}
+
 func (p *MarkdownWriter) open(t *Element) {
 	switch t.Name {
-	case "img":
-		p.Print("!")
-		if !t.hasAttr("alt") {
-			p.Print("[]")
-		}
 	case "pre":
 		p.indent = "    "
 	default:
@@ -78,7 +105,7 @@ func (p *MarkdownWriter) open(t *Element) {
 
 func (p *MarkdownWriter) writeAttr(a *Attribute) {
 	switch a.Name {
-	case "src", "href":
+	case "src":
 		p.Printf("(%s)", a.Val)
 	case "alt":
 		p.Printf("[%s]", a.Val)

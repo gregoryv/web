@@ -29,4 +29,15 @@ b`), `    a
     b`)
 	ok(Pre("x"), "  x")
 	ok(A("txt", Href("h")), "[txt](h)")
+
+	// linked image
+	el := A(
+		Href("http://example.com"),
+		Img(
+			Src("http://mysite.com/image.png"),
+			Alt("Me"),
+		),
+	)
+	exp := "[![Me](http://mysite.com/image.png)](http://example.com)"
+	ok(el, exp)
 }
