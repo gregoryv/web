@@ -28,14 +28,28 @@ func (p *MarkdownWriter) WriteMarkdown(e *Element) {
 func (p *MarkdownWriter) writeElement(t interface{}) {
 	switch t := t.(type) {
 	case *Element:
-		p.open(t)
-		for _, a := range t.Attributes {
-			p.writeAttr(a)
+		switch t.Name {
+		case "a":
+			p.Print("[")
+			for _, child := range t.Children {
+				p.writeElement(child)
+			}
+			p.Print("]")
+			href := t.Attr("href")
+			if href == nil {
+				return
+			}
+			p.Print("(", href.Val, ")")
+		default:
+			p.open(t)
+			for _, child := range t.Children {
+				p.writeElement(child)
+			}
+			for _, a := range t.Attributes {
+				p.writeAttr(a)
+			}
+			p.close(t)
 		}
-		for _, child := range t.Children {
-			p.writeElement(child)
-		}
-		p.close(t)
 	case string:
 		if strings.Index(t, "\n") == -1 {
 			p.Print(p.indent, t)
@@ -46,30 +60,6 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 			p.Print(p.indent, line, "\n")
 		}
 	}
-}
-
-var markdown = map[string]string{
-	"h1": "# ",
-	"h2": "## ",
-	"h3": "### ",
-	"h4": "#### ",
-	"h5": "##### ",
-	"h6": "###### ",
-	"ul": "",
-	"p":  "",
-	"li": "- ",
-	"hr": "----",
-	"br": "\n",
-}
-
-func (p *MarkdownWriter) writeAttr(a *Attribute) {
-	if a.Name == "src" {
-		p.Printf("(%s)", a.Val)
-	}
-	if a.Name == "alt" {
-		p.Printf("[%s]", a.Val)
-	}
-
 }
 
 func (p *MarkdownWriter) open(t *Element) {
@@ -86,6 +76,15 @@ func (p *MarkdownWriter) open(t *Element) {
 	}
 }
 
+func (p *MarkdownWriter) writeAttr(a *Attribute) {
+	switch a.Name {
+	case "src", "href":
+		p.Printf("(%s)", a.Val)
+	case "alt":
+		p.Printf("[%s]", a.Val)
+	}
+}
+
 func (p *MarkdownWriter) close(t *Element) {
 	p.Println()
 	switch t.Name {
@@ -95,4 +94,18 @@ func (p *MarkdownWriter) close(t *Element) {
 	default:
 		p.Println()
 	}
+}
+
+var markdown = map[string]string{
+	"h1": "# ",
+	"h2": "## ",
+	"h3": "### ",
+	"h4": "#### ",
+	"h5": "##### ",
+	"h6": "###### ",
+	"ul": "",
+	"p":  "",
+	"li": "- ",
+	"hr": "----",
+	"br": "\n",
 }

@@ -81,6 +81,15 @@ func (t *Element) hasAttr(name string) bool {
 	return false
 }
 
+func (t *Element) Attr(name string) *Attribute {
+	for _, a := range t.Attributes {
+		if a.Name == name {
+			return a
+		}
+	}
+	return nil
+}
+
 func Attr(name string, val interface{}) *Attribute {
 	return &Attribute{Name: name, Val: fmt.Sprintf("%v", val)}
 }

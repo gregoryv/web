@@ -28,4 +28,5 @@ func TestMarkdownWriter_WriteMarkdown(t *testing.T) {
 b`), `    a
     b`)
 	ok(Pre("x"), "  x")
+	ok(A("txt", Href("h")), "[txt](h)")
 }

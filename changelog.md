@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Render A tags in markdown
 - MakeTOC adds links for named headers for easier sharing
 
 ## [0.13.0] 2020-11-07
