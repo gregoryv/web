@@ -50,6 +50,9 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 				return
 			}
 			p.Print("(", href.Val, ")")
+			if t.hasChild("img") { // special case to put linked images on separate lines
+				p.Print("\n")
+			}
 		default:
 			p.open(t)
 			for _, child := range t.Children {

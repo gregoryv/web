@@ -81,6 +81,18 @@ func (t *Element) hasAttr(name string) bool {
 	return false
 }
 
+func (t *Element) hasChild(name string) bool {
+	for _, c := range t.Children {
+		switch c := c.(type) {
+		case *Element:
+			if c.Name == name {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 func (t *Element) Attr(name string) *Attribute {
 	for _, a := range t.Attributes {
 		if a.Name == name {
