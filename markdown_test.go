@@ -7,11 +7,11 @@ import (
 	"github.com/gregoryv/asserter"
 )
 
-func TestMarkdownWriter_WriteMarkdown(t *testing.T) {
+func TestMarkdownEncoder_WriteMarkdown(t *testing.T) {
 	ok := func(el *Element, exp ...string) {
 		t.Helper()
 		var buf bytes.Buffer
-		hw := NewMarkdownWriter(&buf)
+		hw := NewMarkdownEncoder(&buf)
 		hw.WriteMarkdown(el)
 		got := buf.String()
 		assert := asserter.New(t)

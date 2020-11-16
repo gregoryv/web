@@ -7,15 +7,15 @@ import (
 	"github.com/gregoryv/nexus"
 )
 
-func NewMarkdownWriter(w io.Writer) *MarkdownWriter {
+func NewMarkdownEncoder(w io.Writer) *MarkdownEncoder {
 	p, err := nexus.NewPrinter(w)
-	return &MarkdownWriter{
+	return &MarkdownEncoder{
 		Printer: p,
 		err:     err,
 	}
 }
 
-type MarkdownWriter struct {
+type MarkdownEncoder struct {
 	*nexus.Printer
 	err    *error
 	indent string // ie. for pre tags
@@ -23,11 +23,11 @@ type MarkdownWriter struct {
 	oneliner bool
 }
 
-func (p *MarkdownWriter) WriteMarkdown(e *Element) {
+func (p *MarkdownEncoder) WriteMarkdown(e *Element) {
 	p.writeElement(e)
 }
 
-func (p *MarkdownWriter) writeElement(t interface{}) {
+func (p *MarkdownEncoder) writeElement(t interface{}) {
 	switch t := t.(type) {
 	case *Element:
 		switch t.Name {
@@ -80,7 +80,7 @@ func (p *MarkdownWriter) writeElement(t interface{}) {
 }
 
 // printAttr
-func (p *MarkdownWriter) printAttr(attr *Attribute) {
+func (p *MarkdownEncoder) printAttr(attr *Attribute) {
 	if attr == nil {
 		return
 	}
@@ -88,7 +88,7 @@ func (p *MarkdownWriter) printAttr(attr *Attribute) {
 }
 
 // printOneline
-func (p *MarkdownWriter) printOneline(t []interface{}) {
+func (p *MarkdownEncoder) printOneline(t []interface{}) {
 	for _, t := range t {
 		switch t := t.(type) {
 		case string:
@@ -97,7 +97,7 @@ func (p *MarkdownWriter) printOneline(t []interface{}) {
 	}
 }
 
-func (p *MarkdownWriter) open(t *Element) {
+func (p *MarkdownEncoder) open(t *Element) {
 	switch t.Name {
 	case "pre":
 		p.indent = "    "
@@ -106,7 +106,7 @@ func (p *MarkdownWriter) open(t *Element) {
 	}
 }
 
-func (p *MarkdownWriter) writeAttr(a *Attribute) {
+func (p *MarkdownEncoder) writeAttr(a *Attribute) {
 	switch a.Name {
 	case "src":
 		p.Printf("(%s)", a.Val)
@@ -115,7 +115,7 @@ func (p *MarkdownWriter) writeAttr(a *Attribute) {
 	}
 }
 
-func (p *MarkdownWriter) close(t *Element) {
+func (p *MarkdownEncoder) close(t *Element) {
 	p.Println()
 	switch t.Name {
 	case "li", "span":
