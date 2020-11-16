@@ -80,31 +80,15 @@ func (p *MarkdownEncoder) writeElement(t interface{}) {
 	}
 }
 
-// printAttr
-func (p *MarkdownEncoder) printAttr(attr *Attribute) {
-	if attr == nil {
-		return
-	}
-	p.Print(attr.Val)
-}
-
-// printOneline
-func (p *MarkdownEncoder) printOneline(t []interface{}) {
-	for _, t := range t {
-		switch t := t.(type) {
-		case string:
-			p.Print(t)
-		}
-	}
-}
-
 func (p *MarkdownEncoder) open(t *Element) {
 	switch t.Name {
 	case "pre":
 		p.indent = "    "
 	default:
+		// todo: default to writing html
 		p.Print(markdown[t.Name])
 	}
+
 }
 
 func (p *MarkdownEncoder) writeAttr(a *Attribute) {
