@@ -20,6 +20,9 @@ type HtmlWriter struct {
 }
 
 func (p *HtmlWriter) WriteHtml(t interface{}) (int64, error) {
+	if t, ok := t.(*Element); ok && t.Name == "html" {
+		p.Print("<!DOCTYPE html>\n\n")
+	}
 	p.writeElement(t)
 	return p.Written, *p.err
 }

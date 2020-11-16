@@ -34,6 +34,8 @@ func (me *Page) SaveAs(filename string) error {
 	return me.SaveTo(".")
 }
 
+// SaveTo saves the page to the given directory. Fails if
+// page.Filename is empty.
 func (p *Page) SaveTo(dir string) error {
 	if p.Filename == "" {
 		return fmt.Errorf("page SaveTo: missing filename")
@@ -47,11 +49,13 @@ func (p *Page) SaveTo(dir string) error {
 	return nil
 }
 
+// WriteTo writes the page using the given writer. Page.Filename
+// extension decides format.  .md for markdown, otherwise html.
+// markdown, html otherwise.
 func (p *Page) WriteTo(w io.Writer) (int64, error) {
-	hw := NewHtmlWriter(w)
-	hw.Print("<!DOCTYPE html>\n\n")
+	enc := NewHtmlWriter(w)
 	if p.Element != nil {
-		hw.WriteHtml(p.Element)
+		enc.WriteHtml(p.Element)
 	}
-	return hw.Written, *hw.err
+	return enc.Written, *enc.err
 }
