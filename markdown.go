@@ -23,7 +23,7 @@ type MarkdownEncoder struct {
 	oneliner bool
 }
 
-func (p *MarkdownEncoder) WriteMarkdown(e *Element) {
+func (p *MarkdownEncoder) Encode(e *Element) {
 	p.writeElement(e)
 }
 
