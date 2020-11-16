@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Renamed HtmlWriter to HtmlEncoder and WriteTo method to Encode
 - Render A tags in markdown
 - MakeTOC adds links for named headers for easier sharing
 
