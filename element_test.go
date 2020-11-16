@@ -14,7 +14,7 @@ func Test_elements(t *testing.T) {
 		t.Helper()
 		assert := asserter.New(t)
 		w := bytes.NewBufferString("")
-		hw := NewHtmlWriter(w)
+		hw := NewHtmlEncoder(w)
 		switch el := el.(type) {
 		case *Element:
 			hw.Encode(el)

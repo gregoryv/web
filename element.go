@@ -36,7 +36,7 @@ func (t *Element) String() string {
 }
 
 func (t *Element) WriteTo(w io.Writer) (int64, error) {
-	return NewHtmlWriter(w).Encode(t)
+	return NewHtmlEncoder(w).Encode(t)
 }
 
 func (t *Element) With(childOrAttr ...interface{}) *Element {

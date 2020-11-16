@@ -6,20 +6,20 @@ import (
 	"github.com/gregoryv/nexus"
 )
 
-func NewHtmlWriter(w io.Writer) *HtmlWriter {
+func NewHtmlEncoder(w io.Writer) *HtmlEncoder {
 	p, err := nexus.NewPrinter(w)
-	return &HtmlWriter{
+	return &HtmlEncoder{
 		Printer: p,
 		err:     err,
 	}
 }
 
-type HtmlWriter struct {
+type HtmlEncoder struct {
 	*nexus.Printer
 	err *error
 }
 
-func (p *HtmlWriter) Encode(t interface{}) (int64, error) {
+func (p *HtmlEncoder) Encode(t interface{}) (int64, error) {
 	if t, ok := t.(*Element); ok && t.Name == "html" {
 		p.Print("<!DOCTYPE html>\n\n")
 	}
@@ -27,7 +27,7 @@ func (p *HtmlWriter) Encode(t interface{}) (int64, error) {
 	return p.Written, *p.err
 }
 
-func (p *HtmlWriter) writeElement(t interface{}) {
+func (p *HtmlEncoder) writeElement(t interface{}) {
 	switch t := t.(type) {
 	case *Element:
 		p.open(t)
@@ -57,7 +57,7 @@ var newLineAfterOpen = map[string]bool{
 	"fieldset": true,
 }
 
-func (p *HtmlWriter) open(t *Element) {
+func (p *HtmlEncoder) open(t *Element) {
 	p.Print("<", t.Name)
 	for _, Attributes := range t.Attributes {
 		p.Print(" ", Attributes.String())
@@ -101,7 +101,7 @@ var newLineAfterClose = map[string]bool{
 	"fieldset": true,
 }
 
-func (p *HtmlWriter) close(t *Element) {
+func (p *HtmlEncoder) close(t *Element) {
 	if t.simple {
 		p.Print("/>")
 		if newLineAfterClose[t.Name] {

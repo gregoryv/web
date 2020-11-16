@@ -27,7 +27,7 @@ func ExampleNewDoc() {
 		doc.NewRequest("GET", "/", nil),
 		doc.JsonResponse(),
 	)
-	out := web.NewHtmlWriter(os.Stdout)
+	out := web.NewHtmlEncoder(os.Stdout)
 	out.Encode(body)
 	// output:
 	// <body>

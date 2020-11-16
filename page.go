@@ -53,7 +53,7 @@ func (p *Page) SaveTo(dir string) error {
 // extension decides format.  .md for markdown, otherwise html.
 // markdown, html otherwise.
 func (p *Page) WriteTo(w io.Writer) (int64, error) {
-	enc := NewHtmlWriter(w)
+	enc := NewHtmlEncoder(w)
 	if p.Element != nil {
 		enc.Encode(p.Element)
 	}
