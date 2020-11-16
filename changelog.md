@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.14.0] 2020-11-16
 
 - Page SaveAs, SaveTo and WriteTo use markdown for .md suffix in filename
 - Renamed MarkdownWriter to MarkdownEncoder
