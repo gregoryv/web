@@ -19,12 +19,12 @@ type HtmlEncoder struct {
 	err *error
 }
 
-func (p *HtmlEncoder) Encode(t interface{}) (int64, error) {
+func (p *HtmlEncoder) Encode(t interface{}) error {
 	if t, ok := t.(*Element); ok && t.Name == "html" {
 		p.Print("<!DOCTYPE html>\n\n")
 	}
 	p.writeElement(t)
-	return p.Written, *p.err
+	return *p.err
 }
 
 func (p *HtmlEncoder) writeElement(t interface{}) {
