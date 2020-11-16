@@ -23,8 +23,9 @@ type MarkdownEncoder struct {
 	oneliner bool
 }
 
-func (p *MarkdownEncoder) Encode(e *Element) {
-	p.writeElement(e)
+func (p *MarkdownEncoder) Encode(t interface{}) error {
+	p.writeElement(t)
+	return *p.err
 }
 
 func (p *MarkdownEncoder) writeElement(t interface{}) {
