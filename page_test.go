@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bytes"
 	"testing"
 
 	"github.com/gregoryv/workdir"
@@ -26,5 +27,19 @@ func TestPage(t *testing.T) {
 	err = page.SaveAs(wd.Join("/x.html"))
 	if err == nil {
 		t.Error("should fail")
+	}
+}
+
+func TestPage_markdown(t *testing.T) {
+	page := NewFile("x.md", Html(Body()))
+	var md bytes.Buffer
+	page.WriteTo(&md)
+
+	page.Filename = "x.html"
+	var html bytes.Buffer
+	page.WriteTo(&html)
+
+	if md.String() == html.String() {
+		t.Error("expected markdown\n", md.String())
 	}
 }

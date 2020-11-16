@@ -50,12 +50,25 @@ func (p *Page) SaveTo(dir string) error {
 }
 
 // WriteTo writes the page using the given writer. Page.Filename
-// extension decides format.  .md for markdown, otherwise html.
+// extension decides format.  .md for markdown, otherwise HTML.
 // markdown, html otherwise.
 func (p *Page) WriteTo(w io.Writer) (int64, error) {
-	enc := NewHtmlEncoder(w)
-	if p.Element != nil {
-		enc.Encode(p.Element)
+	switch path.Ext(p.Filename) {
+	case ".md":
+		enc := NewMarkdownEncoder(w)
+		if p.Element != nil {
+			enc.Encode(p.Element)
+		}
+		return enc.Written, *enc.err
+	default:
+		enc := NewHtmlEncoder(w)
+		if p.Element != nil {
+			enc.Encode(p.Element)
+		}
+		return enc.Written, *enc.err
 	}
-	return enc.Written, *enc.err
+}
+
+type encoder interface {
+	Encode(t interface{}) error
 }
