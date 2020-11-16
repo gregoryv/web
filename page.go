@@ -55,7 +55,7 @@ func (p *Page) SaveTo(dir string) error {
 func (p *Page) WriteTo(w io.Writer) (int64, error) {
 	enc := NewHtmlWriter(w)
 	if p.Element != nil {
-		enc.WriteHtml(p.Element)
+		enc.Encode(p.Element)
 	}
 	return enc.Written, *enc.err
 }

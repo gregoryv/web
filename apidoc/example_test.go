@@ -28,7 +28,7 @@ func ExampleNewDoc() {
 		doc.JsonResponse(),
 	)
 	out := web.NewHtmlWriter(os.Stdout)
-	out.WriteHtml(body)
+	out.Encode(body)
 	// output:
 	// <body>
 	// <pre class="request">HTTP/1.1 GET /

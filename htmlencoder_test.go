@@ -8,12 +8,12 @@ import (
 	"github.com/gregoryv/asserter"
 )
 
-func TestHtmlWriter_WriteHtml(t *testing.T) {
+func TestHtmlWriter_Encode(t *testing.T) {
 	ok := func(el *Element, exp ...string) {
 		t.Helper()
 		var buf bytes.Buffer
 		hw := NewHtmlWriter(&buf)
-		hw.WriteHtml(el)
+		hw.Encode(el)
 		got := buf.String()
 		assert := asserter.New(t)
 		for _, exp := range exp {

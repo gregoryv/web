@@ -19,7 +19,7 @@ type HtmlWriter struct {
 	err *error
 }
 
-func (p *HtmlWriter) WriteHtml(t interface{}) (int64, error) {
+func (p *HtmlWriter) Encode(t interface{}) (int64, error) {
 	if t, ok := t.(*Element); ok && t.Name == "html" {
 		p.Print("<!DOCTYPE html>\n\n")
 	}

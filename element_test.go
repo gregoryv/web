@@ -17,13 +17,13 @@ func Test_elements(t *testing.T) {
 		hw := NewHtmlWriter(w)
 		switch el := el.(type) {
 		case *Element:
-			hw.WriteHtml(el)
+			hw.Encode(el)
 			got := el.String()
 			for _, exp := range exp {
 				assert().Contains(got, exp)
 			}
 		default:
-			hw.WriteHtml(el)
+			hw.Encode(el)
 		}
 
 		got := w.String()
