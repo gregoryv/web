@@ -74,7 +74,9 @@ func (t *Element) fill(childOrAttr ...interface{}) {
 	}
 }
 
-func (t *Element) hasAttr(name string) bool {
+// HasAttr returns true if the named attribute is found on the
+// element.
+func (t *Element) HasAttr(name string) bool {
 	for _, a := range t.Attributes {
 		if a.Name == name {
 			return true
@@ -95,6 +97,7 @@ func (t *Element) hasChild(name string) bool {
 	return false
 }
 
+// Attr returns the named attribute or nil.
 func (t *Element) Attr(name string) *Attribute {
 	for _, a := range t.Attributes {
 		if a.Name == name {
@@ -113,6 +116,7 @@ func (t *Element) AttrVal(name string) string {
 	return a.Val
 }
 
+// Attr creates a new named attribute with the given value.
 func Attr(name string, val interface{}) *Attribute {
 	return &Attribute{Name: name, Val: fmt.Sprintf("%v", val)}
 }

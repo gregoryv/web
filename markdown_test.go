@@ -46,4 +46,6 @@ b`), `    a
 	exp = `[![Me](http://mysite.com/image.png)](http://example.com)
 [![Me](http://mysite.com/image.png)](http://example.com)`
 	ok(div, exp)
+
+	ok(A(), "")
 }
