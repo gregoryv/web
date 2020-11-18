@@ -59,9 +59,6 @@ func (p *MarkdownEncoder) writeElement(t interface{}) {
 			for _, child := range t.Children {
 				p.writeElement(child)
 			}
-			for _, a := range t.Attributes {
-				p.writeAttr(a)
-			}
 			p.close(t)
 		}
 	case string:
@@ -89,15 +86,6 @@ func (p *MarkdownEncoder) open(t *Element) {
 		p.Print(markdown[t.Name])
 	}
 
-}
-
-func (p *MarkdownEncoder) writeAttr(a *Attribute) {
-	switch a.Name {
-	case "src":
-		p.Printf("(%s)", a.Val)
-	case "alt":
-		p.Printf("[%s]", a.Val)
-	}
 }
 
 func (p *MarkdownEncoder) close(t *Element) {
