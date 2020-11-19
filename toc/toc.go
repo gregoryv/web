@@ -8,11 +8,13 @@ import (
 )
 
 // MakeTOC generates ids for all named elements and generates a TOC
-// into the destination element.
-func MakeTOC(dest, root *web.Element, names ...string) {
+// into the destination element returning the created UL element.
+func MakeTOC(dest, root *web.Element, names ...string) *web.Element {
 	GenerateIDs(root, names...)
 	GenerateAnchors(root, names...)
-	dest.With(ParseTOC(root, names...))
+	ul := ParseTOC(root, names...)
+	dest.With(ul)
+	return ul
 }
 
 // ParseTOC returns ul > li of all named elements.
