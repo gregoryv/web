@@ -1,6 +1,7 @@
 package web
 
 import (
+	"fmt"
 	"io"
 
 	"github.com/gregoryv/nexus"
@@ -14,9 +15,24 @@ func NewCSS() *CSS {
 }
 
 type CSS struct {
-	Media   string
+	media   string
 	rules   []*rule
 	imports []string
+
+	medias []*CSS
+}
+
+// SetMedia sets the media and returns the same css
+func (me *CSS) SetMedia(v string) {
+	me.media = fmt.Sprintf("@media %s", v)
+}
+
+// Media adds a media section returning a new css for styling
+func (me *CSS) Media(v string) *CSS {
+	css := NewCSS()
+	css.SetMedia(v)
+	me.medias = append(me.medias, css)
+	return css
 }
 
 // Import
@@ -24,20 +40,24 @@ func (me *CSS) Import(url string) {
 	me.imports = append(me.imports, url)
 }
 
-func (r *CSS) WriteTo(w io.Writer) (int64, error) {
+func (me *CSS) WriteTo(w io.Writer) (int64, error) {
 	p, err := nexus.NewPrinter(w)
-	if r.Media != "" {
-		p.Print(r.Media)
+	if me.media != "" {
+		p.Print(me.media)
 		p.Println("{")
 	}
-	for _, imp := range r.imports {
+	for _, imp := range me.imports {
 		p.Printf("@import url('%s');\n", imp)
 	}
-	for _, rule := range r.rules {
+	for _, rule := range me.rules {
 		rule.WriteTo(p)
 	}
-	if r.Media != "" {
+	if me.media != "" {
 		p.Println("}")
+	}
+	for _, media := range me.medias {
+		p.Println()
+		media.WriteTo(w)
 	}
 	return p.Written, *err
 }
