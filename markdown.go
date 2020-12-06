@@ -72,7 +72,7 @@ func (p *MarkdownEncoder) writeElement(t interface{}) {
 		}
 		lines := strings.Split(t, "\n")
 		for _, line := range lines {
-			line = strings.TrimLeft(line, " ")
+			line = strings.TrimSpace(line)
 			p.Print(p.indent, line, "\n")
 		}
 	}
