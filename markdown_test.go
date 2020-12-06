@@ -52,4 +52,10 @@ b`), `    a
 	ok(P(`hello
       friend`), `hello
 friend`)
+
+	ok(Ul(
+		Li("a"),
+		Li("b"),
+	), `- a
+- b`)
 }

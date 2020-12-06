@@ -91,7 +91,7 @@ func (p *MarkdownEncoder) open(t *Element) {
 
 func (p *MarkdownEncoder) close(t *Element) {
 	switch t.Name {
-	case "li", "span", "body", "html":
+	case "span", "body", "html":
 	case "pre":
 		p.Println()
 		p.indent = ""
