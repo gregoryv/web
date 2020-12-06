@@ -48,4 +48,8 @@ b`), `    a
 	ok(div, exp)
 
 	ok(A(), "")
+
+	ok(P(`hello
+      friend`), `hello
+friend`)
 }
