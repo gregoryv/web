@@ -20,8 +20,11 @@ func TestPage(t *testing.T) {
 		t.Fatal(err)
 	}
 	defer wd.RemoveAll()
-	page := NewFile("x.html", Html(Body()))
-	page.SaveTo(string(wd))
+	page := NewFile("x.md", Html(Body()))
+	err = page.SaveTo(string(wd))
+	if err != nil {
+		t.Fatal(err)
+	}
 
 	wd.Chmod("x.html", 0000)
 	err = page.SaveAs(wd.Join("/x.html"))
