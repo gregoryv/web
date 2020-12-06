@@ -95,6 +95,9 @@ func (p *MarkdownEncoder) close(t *Element) {
 	case "pre":
 		p.Println()
 		p.indent = ""
+	case "h1", "h2", "h3", "h4", "h5", "h6":
+		p.Println()
+		p.Println()
 	default:
 		p.Println()
 	}
