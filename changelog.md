@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add type Hn for dynamic headings
 - Allow for multiple media in CSS, using Media and SetMedia methods
 
 ## [0.14.0] 2020-11-16
