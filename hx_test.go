@@ -6,23 +6,24 @@ import (
 	"testing"
 )
 
-func Test_hx(t *testing.T) {
-	var (
-		page = NewPage(myArticle(&Hn{2}))
-		buf  bytes.Buffer
-	)
-	page.WriteTo(&buf)
-	got := buf.String()
-	if strings.Contains(got, "<h1>") {
-		t.Error(got)
+func TestHn(t *testing.T) {
+	ok := func(n *Hn, shouldContain ...string) {
+		t.Helper()
+		var (
+			art = myArticle(n)
+			buf bytes.Buffer
+		)
+		art.WriteTo(&buf)
+		got := buf.String()
+		for _, substr := range shouldContain {
+			if !strings.Contains(got, substr) {
+				t.Error(got)
+			}
+		}
 	}
-	if !strings.Contains(got, "<h2>main") {
-		t.Error(got)
-	}
-	if !strings.Contains(got, "<h8>last") {
-		t.Error(got)
-	}
-
+	ok(NewHn(-2), "<h1>main", "<h6>last")
+	ok(&Hn{}, "<h1>main", "<h6>last")
+	ok(NewHn(2), "<h2>main", "<h7>last")
 }
 
 func myArticle(n *Hn) *Element {
