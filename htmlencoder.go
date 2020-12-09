@@ -30,11 +30,15 @@ func (p *HtmlEncoder) Encode(t interface{}) error {
 func (p *HtmlEncoder) writeElement(t interface{}) {
 	switch t := t.(type) {
 	case *Element:
-		p.open(t)
+		if t.Name != "wrapper" {
+			p.open(t)
+		}
 		for _, child := range t.Children {
 			p.writeElement(child)
 		}
-		p.close(t)
+		if t.Name != "wrapper" {
+			p.close(t)
+		}
 	case io.Reader:
 		io.Copy(p, t)
 	case io.WriterTo:

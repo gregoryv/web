@@ -55,11 +55,15 @@ func (p *MarkdownEncoder) writeElement(t interface{}) {
 				p.Print("\n")
 			}
 		default:
-			p.open(t)
+			if t.Name != "wrapper" {
+				p.open(t)
+			}
 			for _, child := range t.Children {
 				p.writeElement(child)
 			}
-			p.close(t)
+			if t.Name != "wrapper" {
+				p.close(t)
+			}
 		}
 	case string:
 		if p.oneliner {
