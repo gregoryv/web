@@ -9,15 +9,12 @@ import (
 func TestHn(t *testing.T) {
 	ok := func(n *Hn, shouldContain ...string) {
 		t.Helper()
-		var (
-			art = myArticle(n)
-			buf bytes.Buffer
-		)
-		art.WriteTo(&buf)
+		var buf bytes.Buffer
+		myArticle(n).WriteTo(&buf)
 		got := buf.String()
 		for _, substr := range shouldContain {
 			if !strings.Contains(got, substr) {
-				t.Error(got)
+				t.Fatalf("using %#v\n\n%s\nIS MISSING %q", n, got, substr)
 			}
 		}
 	}
