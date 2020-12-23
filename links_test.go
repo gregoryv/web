@@ -1,11 +1,33 @@
 package web
 
 import (
+	"bytes"
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/gregoryv/asserter"
 )
+
+func TestLinkAll(t *testing.T) {
+	root := Article(
+		P(`Hello world at example.com`),
+	)
+	refs := map[string]string{
+		"hello world": "http://example.com",
+	}
+	LinkAll(root, refs)
+	var buf bytes.Buffer
+	root.WriteTo(&buf)
+
+	got := buf.String()
+	if !strings.Contains(got, "http://example.com") {
+		t.Error(got)
+	}
+	if !strings.Contains(got, ">Hello world<") {
+		t.Error(got)
+	}
+}
 
 func TestCheckLinks(t *testing.T) {
 	done := make(chan bool)

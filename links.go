@@ -5,10 +5,36 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/gregoryv/find"
 	"golang.org/x/net/html"
 )
+
+// LinkAll replaces key words found in the dst and it's
+// children with links defined in the map. The map should be TEXT -> HREF
+func LinkAll(dst *Element, refs map[string]string) {
+	WalkElements(dst, func(e *Element) {
+		for i, c := range e.Children {
+			switch c := c.(type) {
+			case string:
+				lc := strings.ToLower(c)
+
+			replace:
+				for txt, href := range refs {
+					j := strings.Index(lc, txt)
+					if j > -1 {
+						k := j + len(txt)
+						e.Children[i] = fmt.Sprintf(`%s<a href="%s">%s</a>%s`,
+							c[:j], href, c[j:k], c[k:],
+						)
+						break replace
+					}
+				}
+			}
+		}
+	})
+}
 
 type BrokenLink struct {
 	File string
