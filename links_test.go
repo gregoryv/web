@@ -16,7 +16,7 @@ func TestLinkAll(t *testing.T) {
 	refs := map[string]string{
 		"hello world": "http://example.com",
 	}
-	LinkAll(root, refs)
+	LinkAll(root, refs, false)
 	var buf bytes.Buffer
 	root.WriteTo(&buf)
 

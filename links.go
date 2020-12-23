@@ -13,15 +13,21 @@ import (
 
 // LinkAll replaces key words found in the dst and it's
 // children with links defined in the map. The map should be TEXT -> HREF
-func LinkAll(dst *Element, refs map[string]string) {
+func LinkAll(dst *Element, refs map[string]string, caseSensitive bool) {
 	WalkElements(dst, func(e *Element) {
 		for i, c := range e.Children {
 			switch c := c.(type) {
 			case string:
-				lc := strings.ToLower(c)
+				lc := c
+				if !caseSensitive {
+					lc = strings.ToLower(c)
+				}
 
 			replace:
 				for txt, href := range refs {
+					if !caseSensitive {
+						txt = strings.ToLower(txt)
+					}
 					j := strings.Index(lc, txt)
 					if j > -1 {
 						k := j + len(txt)
