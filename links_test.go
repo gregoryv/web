@@ -11,10 +11,11 @@ import (
 
 func TestLinkAll(t *testing.T) {
 	root := Article(
-		P(`Hello world at example.com`),
+		P(`Hello
+        world at example.com`),
 	)
 	refs := map[string]string{
-		"hello world": "http://example.com",
+		"hello world at": "http://example.com",
 	}
 	LinkAll(root, refs)
 	var buf bytes.Buffer
@@ -24,9 +25,13 @@ func TestLinkAll(t *testing.T) {
 	if !strings.Contains(got, "http://example.com") {
 		t.Error(got)
 	}
-	if !strings.Contains(got, ">Hello world<") {
+	if !strings.Contains(got, ">Hello") {
 		t.Error(got)
 	}
+	if !strings.Contains(got, "world at<") {
+		t.Error(got)
+	}
+
 }
 
 func TestCheckLinks(t *testing.T) {
