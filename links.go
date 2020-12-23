@@ -5,54 +5,29 @@ import (
 	"net/url"
 	"os"
 	"path"
+	"regexp"
 	"strings"
 
 	"github.com/gregoryv/find"
 	"golang.org/x/net/html"
 )
 
-// LinkAll replaces key words found in the dst and it's
+// LinkAll replaces key words found in the root and it's
 // children with links defined in the map. The map should be TEXT -> HREF
-func LinkAll(dst *Element, refs map[string]string) {
-	WalkElements(dst, func(e *Element) {
+func LinkAll(root *Element, refs map[string]string) {
+	WalkElements(root, func(e *Element) {
 		for i, c := range e.Children {
 			switch c := c.(type) {
 			case string:
-				lc := strings.ToLower(c)
-
-				lc = asOneLine(lc)
-			replace:
 				for txt, href := range refs {
-					j := strings.Index(lc, txt)
-					if j > -1 {
-						k := j + len(txt)
-						// if in middle of line breaks
-						k += findEnd(c[k:], txt)
-						e.Children[i] = fmt.Sprintf(`%s<a href="%s">%s</a>%s`,
-							c[:j], href, c[j:k], c[k:],
-						)
-						break replace
-					}
+					regval := strings.ReplaceAll(txt, " ", `[\n\t\r\s]*`)
+					re := regexp.MustCompile("(?i)(" + regval + ")")
+					c = re.ReplaceAllString(c, `<a href="`+href+`">$1</a>`)
 				}
+				e.Children[i] = c
 			}
 		}
 	})
-}
-
-// findEnd returns the index after the last word in txt found in lc
-// helper when text that should be linked is on multiple lines.
-func findEnd(lc, txt string) int {
-	lastWord := txt[strings.LastIndex(txt, " "):]
-	k := strings.Index(lc, lastWord)
-	return k + len(lastWord)
-}
-
-func asOneLine(v string) string {
-	lines := strings.Split(v, "\n")
-	for i := range lines {
-		lines[i] = strings.TrimSpace(lines[i])
-	}
-	return strings.Join(lines, " ")
 }
 
 type BrokenLink struct {

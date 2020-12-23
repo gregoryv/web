@@ -11,27 +11,33 @@ import (
 
 func TestLinkAll(t *testing.T) {
 	root := Article(
-		P(`Hello
-        world at example.com`),
+		Section(
+			P(`Larnic gazed at the stars, surrounded by the black
+               mountains.`),
+		),
 	)
 	refs := map[string]string{
-		"hello world at": "http://example.com",
+		"larnic":          "http://example.com",
+		"black mountains": "http://black.com",
 	}
 	LinkAll(root, refs)
+
 	var buf bytes.Buffer
 	root.WriteTo(&buf)
 
 	got := buf.String()
-	if !strings.Contains(got, "http://example.com") {
-		t.Error(got)
-	}
-	if !strings.Contains(got, ">Hello") {
-		t.Error(got)
-	}
-	if !strings.Contains(got, "world at<") {
+	ok := strings.Contains(got, "http://example.com") &&
+		strings.Contains(got, ">Larnic") &&
+		strings.Contains(got, "Larnic<")
+	if !ok {
 		t.Error(got)
 	}
 
+	ok = strings.Contains(got, ">black") &&
+		strings.Contains(got, "mountains<")
+	if !ok {
+		t.Error("multiline link failed\n", got)
+	}
 }
 
 func TestCheckLinks(t *testing.T) {
