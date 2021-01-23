@@ -3,6 +3,7 @@ package web
 import (
 	"fmt"
 	"io"
+	"net/http"
 	"os"
 	"path"
 )
@@ -66,6 +67,13 @@ func (p *Page) WriteTo(w io.Writer) (int64, error) {
 			enc.Encode(p.Element)
 		}
 		return enc.Written, *enc.err
+	}
+}
+
+func (p *Page) ServeAs(filename string) http.HandlerFunc {
+	p.Filename = filename
+	return func(w http.ResponseWriter, _ *http.Request) {
+		p.WriteTo(w)
 	}
 }
 

@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add Page.ServeAs for creating static page handlers
 - Add func LinkAll and ILinkAll for simple link injection
 - Add func Wrap with special wrapper element that can be used to group elements
 - Add type Hn for dynamic headings
