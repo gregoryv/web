@@ -70,11 +70,8 @@ func (p *Page) WriteTo(w io.Writer) (int64, error) {
 	}
 }
 
-func (p *Page) ServeAs(filename string) http.HandlerFunc {
-	p.Filename = filename
-	return func(w http.ResponseWriter, _ *http.Request) {
-		p.WriteTo(w)
-	}
+func (p *Page) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	p.WriteTo(w)
 }
 
 type encoder interface {

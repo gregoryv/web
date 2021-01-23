@@ -4,8 +4,19 @@ import (
 	"bytes"
 	"testing"
 
+	"github.com/gregoryv/asserter"
 	"github.com/gregoryv/workdir"
 )
+
+func Test_serving_page_over_http(t *testing.T) {
+	var (
+		p      = NewPage(Html(Body(H1("the secret lies within you"))))
+		assert = asserter.New(t)
+		exp    = assert().ResponseFrom(p)
+	)
+	exp.Contains("lies within you", "GET", "/")
+	exp.Contains("<html>", "GET", "/")
+}
 
 func Test_save_page_without_filename(t *testing.T) {
 	err := NewPage(Html()).SaveTo(".")
