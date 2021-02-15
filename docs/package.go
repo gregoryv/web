@@ -29,7 +29,7 @@ func NewIndexPage() *Page {
 func IndexArticle() *Element {
 	nav := Nav(P("Table of contents"))
 	var example bytes.Buffer
-	NewPage(Html()).WriteTo(&example)
+	NewHtmlPage().WriteTo(&example)
 
 	article := Article(
 		H1("Web - Go module for HTML generation"),
