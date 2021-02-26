@@ -3,7 +3,20 @@ package web
 import (
 	"os"
 	"testing"
+
+	"github.com/gregoryv/asserter"
 )
+
+func TestCSS_ServeHTTP(t *testing.T) {
+	c := NewCSS()
+	c.Style("#x", "margin: 0 0")
+
+	assert := asserter.New(t)
+	exp := assert().ResponseFrom(c)
+
+	exp.StatusCode(200, "GET", "/")
+	exp.Header("content-type", "text/css", "GET", "/")
+}
 
 func Test(t *testing.T) {
 	c := NewCSS()

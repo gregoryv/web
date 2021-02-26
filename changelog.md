@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+- Add CSS.ServeHTTP for using stylesheets as static resources
+
 ## [0.15.0] 2021-02-03
 
 - Add Page.ServeHTTP for using pages as static resources

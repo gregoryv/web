@@ -3,6 +3,7 @@ package web
 import (
 	"fmt"
 	"io"
+	"net/http"
 
 	"github.com/gregoryv/nexus"
 )
@@ -60,6 +61,11 @@ func (me *CSS) WriteTo(w io.Writer) (int64, error) {
 		media.WriteTo(w)
 	}
 	return p.Written, *err
+}
+
+func (me *CSS) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-type", "text/css")
+	me.WriteTo(w)
 }
 
 func (c *CSS) Style(selector string, propvals ...string) {
