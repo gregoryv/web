@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"os"
+	"path"
 
 	"github.com/gregoryv/nexus"
 )
@@ -16,9 +18,10 @@ func NewCSS() *CSS {
 }
 
 type CSS struct {
-	media   string
-	rules   []*rule
-	imports []string
+	Filename string
+	media    string
+	rules    []*rule
+	imports  []string
 
 	medias []*CSS
 }
@@ -36,9 +39,30 @@ func (me *CSS) Media(v string) *CSS {
 	return css
 }
 
-// Import
+// Import adds the url to list of imports.
 func (me *CSS) Import(url string) {
 	me.imports = append(me.imports, url)
+}
+
+// SaveAs sets filename and then save to the current directory.
+func (me *CSS) SaveAs(filename string) error {
+	me.Filename = filename
+	return me.SaveTo(".")
+}
+
+// SaveTo saves the page to the given directory. Fails if
+// page.Filename is empty.
+func (me *CSS) SaveTo(dir string) error {
+	if me.Filename == "" {
+		return fmt.Errorf("SaveTo: missing filename")
+	}
+	w, err := os.Create(path.Join(dir, me.Filename))
+	if err != nil {
+		return err
+	}
+	me.WriteTo(w)
+	w.Close()
+	return nil
 }
 
 func (me *CSS) WriteTo(w io.Writer) (int64, error) {

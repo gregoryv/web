@@ -39,7 +39,7 @@ func (me *Page) SaveAs(filename string) error {
 // page.Filename is empty.
 func (p *Page) SaveTo(dir string) error {
 	if p.Filename == "" {
-		return fmt.Errorf("page SaveTo: missing filename")
+		return fmt.Errorf("SaveTo: missing filename")
 	}
 	w, err := os.Create(path.Join(dir, p.Filename))
 	if err != nil {
