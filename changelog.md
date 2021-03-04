@@ -3,8 +3,9 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.16.0] 2021-03-04
 
+- Add CSS.SaveAs and related methods for saving to file
 - Add CSS.ServeHTTP for using stylesheets as static resources
 
 ## [0.15.0] 2021-02-03
