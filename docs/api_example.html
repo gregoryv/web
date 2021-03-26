@@ -38,19 +38,19 @@ margin-left: 1em;
 <p>Plain and easy to read HTML documentation of your HTTP APIs</p>
 Table of contents<nav><ul>
 <li class="h2"><a href="#path">Path /</a></li>
-<li class="h3"><a href="#listallusers">List all <a href="#users">users</a></a></li>
-<li class="h3"><a href="#filteruserbyname">Filter user by <a href="#name">name</a></a></li>
+<li class="h3"><a href="#listallusers">List all users</a></li>
+<li class="h3"><a href="#filteruserbyname">Filter user by name</a></li>
 <li class="h3"><a href="#accepttexthtml">Accept text/html</a></li>
 <li class="h2"><a href="#undefinedpath">Undefined path</a></li>
 </ul>
 </nav>
 <h2 id="path"><a href="#path">Path /</a></h2>
 <p>Root resource <a href="#users">users</a></p>
-<h3 id="listallusers"><a href="#listallusers">List all <a href="#users">users</a></a></h3>
+<h3 id="listallusers"><a href="#listallusers">List all users</a></h3>
 <pre class="request">HTTP/1.1 GET /
 </pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 6395979823849150774
+Correlation-Id: 3052018047174454702
 
 {
     "<a href="#users">users</a>": [
@@ -68,17 +68,17 @@ Correlation-Id: 6395979823849150774
         }
     ]
 }
-</pre><h3 id="filteruserbyname"><a href="#filteruserbyname">Filter user by <a href="#name">name</a></a></h3>
+</pre><h3 id="filteruserbyname"><a href="#filteruserbyname">Filter user by name</a></h3>
 <pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=John
 </pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 2877322233774573924
+Correlation-Id: 5809706038605286416
 
 {"<a href="#users">users</a>":[{"<a href="#name">name</a>":"John Doe","<a href="#age">age</a>":42}]}
 </pre><pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=Whyat
 </pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 9167286153162379373
+Correlation-Id: 5812554223302747664
 
 {"<a href="#users">users</a>":[{"<a href="#name">name</a>":"Mat Whyat","<a href="#age">age</a>":14},{"<a href="#name">name</a>":"Lisa Whyat","<a href="#age">age</a>":18}]}
 </pre><p>It's also possible to filter using the POST method</p>
@@ -86,7 +86,7 @@ Correlation-Id: 9167286153162379373
 
 {"<a href="#name">name</a>":"John"}</pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 528132567152455272
+Correlation-Id: 7778237746999901348
 
 {
     "<a href="#users">users</a>": [

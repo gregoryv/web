@@ -27,6 +27,9 @@ func LinkAll(root *Element, refs map[string]string) {
 // children with links defined in the map. The map should be TEXT -> HREF
 func linkAll(root *Element, refs map[string]string, caseSensitive bool) {
 	WalkElements(root, func(e *Element) {
+		if e.Name == "a" { // inside an link already
+			return
+		}
 		for i, c := range e.Children {
 			switch c := c.(type) {
 			case string:

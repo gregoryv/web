@@ -14,6 +14,7 @@ func TestILinkAll(t *testing.T) {
 		Section(
 			P(`Larnic gazed at the stars, surrounded by the black
                mountains.`),
+			A(Href("/"), "larnic"),
 		),
 	)
 	refs := map[string]string{
@@ -28,7 +29,8 @@ func TestILinkAll(t *testing.T) {
 	got := buf.String()
 	ok := strings.Contains(got, "http://example.com") &&
 		strings.Contains(got, ">Larnic") &&
-		strings.Contains(got, "Larnic<")
+		strings.Contains(got, "Larnic<") &&
+		!strings.Contains(got, "</a></a>")
 	if !ok {
 		t.Error(got)
 	}
