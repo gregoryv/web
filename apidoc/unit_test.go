@@ -20,7 +20,8 @@ func Test_generate_apidoc(t *testing.T) {
 	doc := NewDoc(NewRouter())
 
 	nav := Nav()
-	body := Body(
+
+	apis := Article(
 		H1("API example documentation"),
 		P("Plain and easy to read HTML documentation of your HTTP APIs"),
 		"Table of contents",
@@ -59,15 +60,41 @@ func Test_generate_apidoc(t *testing.T) {
 		doc.Response(),
 	)
 
-	toc.GenerateIDs(body, "h2", "h3")
-	nav.With(toc.ParseTOC(body, "h2", "h3"))
+	responseObj := Article(
+		H2("Response"),
+		H3("users"),
+		P(`array of user object, may be empty`),
 
-	NewFile("api_example.html", Html(
-		Head(
-			Meta(Charset("utf-8")),
-			DefaultStyle()),
-		body),
-	).SaveTo(".")
+		H4("name"),
+		P(`string of max len 64`),
+
+		H4("age"),
+		P(`uint8 `),
+	)
+
+	toc.GenerateIDs(responseObj, "h3")
+
+	toc.MakeTOC(nav, apis, "h2", "h3")
+
+	refs := map[string]string{
+		"users": "#users",
+		"name":  "#name",
+		"age":   "#age",
+	}
+	LinkAll(apis, refs)
+	page := NewFile("api_example.html",
+		Html(
+			Head(
+				Meta(Charset("utf-8")),
+				DefaultStyle(),
+			),
+			Body(
+				apis,
+				responseObj,
+			),
+		),
+	)
+	page.SaveTo("../docs")
 }
 
 func NewRouter() http.Handler {

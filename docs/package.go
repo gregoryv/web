@@ -88,6 +88,11 @@ func IndexArticle() *Element {
 			),
 		),
 
+		P(`The package apidocs enables for a smooth approach to
+		produce documentation while testing your web apis.`),
+
+		A(Href("api_example.html"), "API example"),
+
 		H2("About"),
 		P("Written by ", gregory, Br(),
 			"MIT License",

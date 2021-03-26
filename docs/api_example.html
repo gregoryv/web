@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="utf-8"/>
+<style>html, body {
+margin: 0 0;
+padding: 0 0;
+}
+body {
+padding: 1em 1.618em 1em 1.618em;
+}
+h1:first-child {
+margin-top: 0;
+}
+.request {
+padding: 1em 1.618em;
+border-radius: 1em;
+border: 1px dashed #929292;
+}
+.response {
+padding: 1em 1.618em;
+background-color: #f2f2f2;
+border-radius: 1em;
+}
+nav ul {
+list-style-type: none;
+padding-left: 0;
+}
+nav ul .h3 {
+margin-left: 1em;
+}
+</style>
+</head>
+<body>
+<article>
+<h1>API example documentation</h1>
+<p>Plain and easy to read HTML documentation of your HTTP APIs</p>
+Table of contents<nav><ul>
+<li class="h2"><a href="#path">Path /</a></li>
+<li class="h3"><a href="#listallusers">List all <a href="#users">users</a></a></li>
+<li class="h3"><a href="#filteruserbyname">Filter user by <a href="#name">name</a></a></li>
+<li class="h3"><a href="#accepttexthtml">Accept text/html</a></li>
+<li class="h2"><a href="#undefinedpath">Undefined path</a></li>
+</ul>
+</nav>
+<h2 id="path"><a href="#path">Path /</a></h2>
+<p>Root resource <a href="#users">users</a></p>
+<h3 id="listallusers"><a href="#listallusers">List all <a href="#users">users</a></a></h3>
+<pre class="request">HTTP/1.1 GET /
+</pre><pre class="response">HTTP/1.1 200 OK
+Content-Type: application/json
+Correlation-Id: 6395979823849150774
+
+{
+    "<a href="#users">users</a>": [
+        {
+            "<a href="#name">name</a>": "John Doe",
+            "<a href="#age">age</a>": 42
+        },
+        {
+            "<a href="#name">name</a>": "Mat Whyat",
+            "<a href="#age">age</a>": 14
+        },
+        {
+            "<a href="#name">name</a>": "Lisa Whyat",
+            "<a href="#age">age</a>": 18
+        }
+    ]
+}
+</pre><h3 id="filteruserbyname"><a href="#filteruserbyname">Filter user by <a href="#name">name</a></a></h3>
+<pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=John
+</pre><pre class="response">HTTP/1.1 200 OK
+Content-Type: application/json
+Correlation-Id: 2877322233774573924
+
+{"<a href="#users">users</a>":[{"<a href="#name">name</a>":"John Doe","<a href="#age">age</a>":42}]}
+</pre><pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=Whyat
+</pre><pre class="response">HTTP/1.1 200 OK
+Content-Type: application/json
+Correlation-Id: 9167286153162379373
+
+{"<a href="#users">users</a>":[{"<a href="#name">name</a>":"Mat Whyat","<a href="#age">age</a>":14},{"<a href="#name">name</a>":"Lisa Whyat","<a href="#age">age</a>":18}]}
+</pre><p>It's also possible to filter using the POST method</p>
+<pre class="request">HTTP/1.1 POST /
+
+{"<a href="#name">name</a>":"John"}</pre><pre class="response">HTTP/1.1 200 OK
+Content-Type: application/json
+Correlation-Id: 528132567152455272
+
+{
+    "<a href="#users">users</a>": [
+        {
+            "<a href="#name">name</a>": "John Doe",
+            "<a href="#age">age</a>": 42
+        }
+    ]
+}
+</pre><h3 id="accepttexthtml"><a href="#accepttexthtml">Accept text/html</a></h3>
+<pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=John
+Accept: text/html
+</pre><pre class="response">HTTP/1.1 200 OK
+Content-Type: text/html
+
+&lt;!DOCTYPE html&gt;
+
+&lt;html&gt;
+&lt;body&gt;
+{[{John Doe 42}]}&lt;/body&gt;
+&lt;/html&gt;
+</pre><h2 id="undefinedpath"><a href="#undefinedpath">Undefined path</a></h2>
+<pre class="request">HTTP/1.1 GET /unknown/
+</pre><pre class="response">HTTP/1.1 404 Not Found
+
+</pre></article>
+<article>
+<h2>Response</h2>
+<h3 id="users">users</h3>
+<p>array of user object, may be empty</p>
+<h4>name</h4>
+<p>string of max len 64</p>
+<h4>age</h4>
+<p>uint8 </p>
+</article>
+</body>
+</html>
