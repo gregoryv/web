@@ -58,30 +58,35 @@ func Test_generate_apidoc(t *testing.T) {
 		H2("Undefined path"),
 		doc.NewRequest("GET", "/unknown/", nil),
 		doc.Response(),
-	)
 
-	responseObj := Article(
+		// Section describing response headers and fields
+		H2("Headers"),
+		H3("Correlation-Id"),
+		P(`Random string uniq for each request`),
+
 		H2("Response"),
 		H3("users"),
-		P(`array of user object, may be empty`),
+		P(`Array of user object, may be empty`),
 
 		H4("name"),
-		P(`string of max len 64`),
+		P(`String of max len 64`),
 
 		H4("age"),
-		P(`uint8 `),
+		P(`Uint8 `),
 	)
-
-	toc.GenerateIDs(responseObj, "h3")
-
 	toc.MakeTOC(nav, apis, "h2", "h3")
+	toc.GenerateIDs(apis, "h4")
 
+	// Link words to the response and headers section
 	refs := map[string]string{
 		"users": "#users",
 		"name":  "#name",
 		"age":   "#age",
+		// headers
+		"Correlation-Id": "#correlationid",
 	}
 	LinkAll(apis, refs)
+
 	page := NewFile("api_example.html",
 		Html(
 			Head(
@@ -90,7 +95,6 @@ func Test_generate_apidoc(t *testing.T) {
 			),
 			Body(
 				apis,
-				responseObj,
 			),
 		),
 	)
@@ -145,7 +149,8 @@ func ServeIndex(w http.ResponseWriter, r *http.Request) {
 	default:
 		w.Header().Set("Content-Type", "application/json")
 		// some random header
-		w.Header().Set("Correlation-Id", fmt.Sprintf("%d", rand.Int()))
+		cid := 6589408076449598657
+		w.Header().Set("Correlation-Id", fmt.Sprintf("%d", cid))
 		enc := json.NewEncoder(w)
 		enc.Encode(&m)
 	}

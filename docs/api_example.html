@@ -42,6 +42,10 @@ Table of contents<nav><ul>
 <li class="h3"><a href="#filteruserbyname">Filter user by name</a></li>
 <li class="h3"><a href="#accepttexthtml">Accept text/html</a></li>
 <li class="h2"><a href="#undefinedpath">Undefined path</a></li>
+<li class="h2"><a href="#headers">Headers</a></li>
+<li class="h3"><a href="#correlationid">Correlation-Id</a></li>
+<li class="h2"><a href="#response">Response</a></li>
+<li class="h3"><a href="#users">users</a></li>
 </ul>
 </nav>
 <h2 id="path"><a href="#path">Path /</a></h2>
@@ -50,7 +54,7 @@ Table of contents<nav><ul>
 <pre class="request">HTTP/1.1 GET /
 </pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 3052018047174454702
+<a href="#correlationid">Correlation-Id</a>: 6589408076449598657
 
 {
     "<a href="#users">users</a>": [
@@ -72,13 +76,13 @@ Correlation-Id: 3052018047174454702
 <pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=John
 </pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 5809706038605286416
+<a href="#correlationid">Correlation-Id</a>: 6589408076449598657
 
 {"<a href="#users">users</a>":[{"<a href="#name">name</a>":"John Doe","<a href="#age">age</a>":42}]}
 </pre><pre class="request">HTTP/1.1 GET /?<a href="#name">name</a>=Whyat
 </pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 5812554223302747664
+<a href="#correlationid">Correlation-Id</a>: 6589408076449598657
 
 {"<a href="#users">users</a>":[{"<a href="#name">name</a>":"Mat Whyat","<a href="#age">age</a>":14},{"<a href="#name">name</a>":"Lisa Whyat","<a href="#age">age</a>":18}]}
 </pre><p>It's also possible to filter using the POST method</p>
@@ -86,7 +90,7 @@ Correlation-Id: 5812554223302747664
 
 {"<a href="#name">name</a>":"John"}</pre><pre class="response">HTTP/1.1 200 OK
 Content-Type: application/json
-Correlation-Id: 7778237746999901348
+<a href="#correlationid">Correlation-Id</a>: 6589408076449598657
 
 {
     "<a href="#users">users</a>": [
@@ -112,15 +116,16 @@ Content-Type: text/html
 <pre class="request">HTTP/1.1 GET /unknown/
 </pre><pre class="response">HTTP/1.1 404 Not Found
 
-</pre></article>
-<article>
-<h2>Response</h2>
-<h3 id="users">users</h3>
-<p>array of user object, may be empty</p>
-<h4>name</h4>
-<p>string of max len 64</p>
-<h4>age</h4>
-<p>uint8 </p>
+</pre><h2 id="headers"><a href="#headers">Headers</a></h2>
+<h3 id="correlationid"><a href="#correlationid">Correlation-Id</a></h3>
+<p>Random string uniq for each request</p>
+<h2 id="response"><a href="#response">Response</a></h2>
+<h3 id="users"><a href="#users">users</a></h3>
+<p>Array of user object, may be empty</p>
+<h4 id="name"><a href="#name">name</a></h4>
+<p>String of max len 64</p>
+<h4 id="age"><a href="#age">age</a></h4>
+<p>Uint8 </p>
 </article>
 </body>
 </html>
