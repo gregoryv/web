@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+- Made sweb to work in conjunction with web/, though still not happy with
+  it. Might end up removing sweb!
+
 ## [0.17.0] 2021-04-09
 
 - Add package sweb for sequential writing style

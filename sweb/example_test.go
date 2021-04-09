@@ -3,23 +3,28 @@ package sweb_test
 import (
 	"os"
 
+	. "github.com/gregoryv/web"
 	. "github.com/gregoryv/web/sweb"
 )
 
 func Example() {
-	Html()
-	Body()
-	Meta(Charset("utf-8"))
+	Html_(
+		Head(
+			Meta(Charset("utf-8")),
+		),
+	)
+	Body_()
 
-	Article()
-	H1_("hello", Class("main-title"))
-	Ul()
-	Li("one")
-	Li("two")
-	EndArticle()
+	Article_(H1("hello", Class("main-title")))
 
-	Article(Class("final"))
-	H1("world")
+	Ul_(
+		Li("one"),
+		Li("two"),
+	)
+	EndUl()
+
+	Article_(Class("final"))
+	H1_("world")
 
 	html := End()
 	html.WriteTo(os.Stdout)

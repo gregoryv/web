@@ -24,8 +24,6 @@ func generateSWeb() {
 	swriteSimpleElements(p, simpleElements...)
 	p.Println()
 
-	swriteAttributes(p, attributes...)
-
 	// write result
 	w, _ := os.Create("../sweb/generated.go")
 	io.Copy(w, &buf)
@@ -44,17 +42,10 @@ func generateSWeb() {
 func swriteElements(p *nexus.Printer, tags ...string) {
 	for _, tag := range tags {
 		funcName := capitalize(tag)
-		p.Printf(`
-// %[1]s_ same as %[1]s but also ends the element
-func %[1]s_(c ...interface{}) *web.Element{
-    %[1]s(c...)
-    return End%[1]s()
-}
-`, funcName)
 
 		p.Printf(
 			`// %[1]s adds an <%[2]s> element to current parent with optional children or attributes
-func %[1]s(c ...interface{}) {
+func %[1]s_(c ...interface{}) {
     v := web.NewElement("%[2]s", c...)
     p := parent()
     if p != nil {
@@ -77,23 +68,9 @@ func swriteSimpleElements(p *nexus.Printer, tags ...string) {
 		funcName := capitalize(tag)
 		p.Printf(
 			`// %[1]s adds the <%[2]s/> element to current parent with optional attributes
-func %[1]s(c ...interface{}) {
+func %[1]s_(c ...interface{}) {
     v := web.NewSimpleElement("%[2]s", c...)
     parent().With(v)
-}`,
-			funcName, tag,
-		)
-		p.Println()
-	}
-}
-
-func swriteAttributes(p *nexus.Printer, names ...string) {
-	for _, tag := range names {
-		funcName := capitalize(tag)
-		p.Printf(
-			`// %[1]s returns attribute %[2]s="v"
-func %[1]s(v string) *web.Attribute {
-    return &web.Attribute{Name: %[2]q, Val: v}
 }`,
 			funcName, tag,
 		)
