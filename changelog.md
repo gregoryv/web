@@ -5,8 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
-- Made sweb to work in conjunction with web/, though still not happy with
-  it. Might end up removing sweb!
+- Removed sweb package, imposed context switching as the structure was hidden
 
 ## [0.17.0] 2021-04-09
 
