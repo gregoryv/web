@@ -62,20 +62,11 @@ func TestLinkAll(t *testing.T) {
 	}
 }
 
-func TestCheckLinks(t *testing.T) {
-	done := make(chan bool)
-	broken := make(chan BrokenLink)
-	var count int
-	go func() {
-		for _ = range broken {
-			count++
-		}
-		done <- true
-	}()
-	CheckLinks("./internal/example/", broken)
-	<-done
-	assert := asserter.New(t)
-	assert().Equals(count, 1)
+func TestCheckLinks_fails(t *testing.T) {
+	err := CheckLinks("./testdata/")
+	if err == nil {
+		t.Error("didn't")
+	}
 }
 
 func TestBrokenLink(t *testing.T) {
@@ -85,4 +76,11 @@ func TestBrokenLink(t *testing.T) {
 	assert := asserter.New(t)
 	assert(a.String() != b.String()).Error("String() is same for a and b")
 	assert().Contains(a.String(), "err")
+}
+
+func Test_combinedError(t *testing.T) {
+	err := combinedError(make([]BrokenLink, 0))
+	if err != nil {
+		t.Fatal(err)
+	}
 }

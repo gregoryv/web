@@ -10,8 +10,13 @@ import (
 	"github.com/gregoryv/nexus"
 )
 
-//go:generate go run dog.go
+//go:generate go run .
 func main() {
+	generateWeb()
+	generateSWeb()
+}
+
+func generateWeb() {
 	var buf bytes.Buffer
 	p, _ := nexus.NewPrinter(&buf)
 	p.Println("package web")

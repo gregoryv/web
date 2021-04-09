@@ -1,6 +1,7 @@
 package web
 
 import (
+	"bytes"
 	"fmt"
 	"net/url"
 	"os"
@@ -58,19 +59,46 @@ func (l *BrokenLink) String() string {
 	return fmt.Sprintf("%s -> %s: %s", l.File, l.Ref, l.Err)
 }
 
-func CheckLinks(root string, broken chan BrokenLink) {
+// CheckLinks scans all .html files in the root directory for broken
+// links. Only local href and src references are checked.
+func CheckLinks(root string) error {
+	c := make(chan BrokenLink)
+	broken := make([]BrokenLink, 0)
+	done := make(chan bool)
+	go func() {
+		for v := range c {
+			broken = append(broken, v)
+		}
+		done <- true
+	}()
+
 	htmlFiles, _ := find.By(find.NewShellPattern("*.html"), root)
 	for e := htmlFiles.Front(); e != nil; e = e.Next() {
+		// Could be parallellized if needed here
 		file, _ := e.Value.(string)
 		fh, _ := os.Open(file)
 		defer fh.Close()
 		doc, _ := html.Parse(fh)
-		CheckLink(file, path.Dir(file), doc, broken)
+		checkLink(file, path.Dir(file), doc, c)
 	}
-	close(broken)
+	close(c)
+	<-done
+	return combinedError(broken)
 }
 
-func CheckLink(file, rel string, n *html.Node, broken chan BrokenLink) {
+func combinedError(broken []BrokenLink) error {
+	if len(broken) > 0 {
+		var buf bytes.Buffer
+		for _, v := range broken {
+			buf.WriteString(v.String())
+			buf.WriteString("\n")
+		}
+		return fmt.Errorf("broken links found:\n%s", buf.String())
+	}
+	return nil
+}
+
+func checkLink(file, rel string, n *html.Node, broken chan BrokenLink) {
 	if n.Type == html.ElementNode {
 		for _, a := range n.Attr {
 			if a.Key == "href" || a.Key == "src" {
@@ -85,6 +113,6 @@ func CheckLink(file, rel string, n *html.Node, broken chan BrokenLink) {
 		}
 	}
 	for c := n.FirstChild; c != nil; c = c.NextSibling {
-		CheckLink(file, rel, c, broken)
+		checkLink(file, rel, c, broken)
 	}
 }

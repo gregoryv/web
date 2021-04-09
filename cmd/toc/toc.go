@@ -37,19 +37,8 @@ func main() {
 	usage()
 	root := parsePath()
 
-	done := make(chan bool)
-	broken := make(chan web.BrokenLink)
-	var isBroken bool
-	go func() {
-		for lnk := range broken {
-			log.Printf("%s", lnk.String())
-			isBroken = true
-		}
-		done <- true
-	}()
-	web.CheckLinks(root, broken)
-	<-done
-	if isBroken {
-		os.Exit(1)
+	err := web.CheckLinks(root)
+	if err != nil {
+		log.Fatal(err)
 	}
 }

@@ -5,6 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add package sweb for sequential writing style
+- Removed CheckLinks channel argument
+- Removed CheckLink
 - Fixed func LinkAll and ILinkAll to exclude words in existing A elements
 
 ## [0.16.0] 2021-03-04
