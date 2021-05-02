@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add files.MustLoadFunc for loading func bodies
 - Removed sweb package, imposed context switching as the structure was hidden
 
 ## [0.17.0] 2021-04-09
