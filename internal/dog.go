@@ -13,7 +13,6 @@ import (
 //go:generate go run .
 func main() {
 	generateWeb()
-	generateSWeb()
 }
 
 func generateWeb() {
