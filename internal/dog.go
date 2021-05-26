@@ -31,7 +31,7 @@ func generateWeb() {
 	writeAttributes(p, attributes...)
 
 	// write result
-	w, _ := os.Create("../generated.go")
+	w, _ := os.Create("../html.go")
 	io.Copy(w, &buf)
 	w.Close()
 
