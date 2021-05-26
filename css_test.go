@@ -18,11 +18,6 @@ func TestCSS_ServeHTTP(t *testing.T) {
 	exp.Header("content-type", "text/css", "GET", "/")
 }
 
-func Test(t *testing.T) {
-	c := NewCSS()
-	c.Style("#x", "margin: 0 0")
-}
-
 func Example() {
 	c := NewCSS()
 	c.Import("https://fonts.googleapis.com/css?family=Open+Sans")
