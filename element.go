@@ -7,14 +7,14 @@ import (
 	"strings"
 )
 
-func NewElement(Name string, childOrAttr ...interface{}) *Element {
-	tag := &Element{Name: Name}
+func NewElement(name string, childOrAttr ...interface{}) *Element {
+	tag := &Element{Name: name}
 	tag.With(childOrAttr...)
 	return tag
 }
 
-func NewSimpleElement(Name string, childOrAttr ...interface{}) *Element {
-	tag := &Element{Name: Name}
+func NewSimpleElement(name string, childOrAttr ...interface{}) *Element {
+	tag := &Element{Name: name}
 	tag.With(childOrAttr...)
 	tag.simple = true
 	return tag
@@ -87,8 +87,7 @@ func (t *Element) HasAttr(name string) bool {
 
 func (t *Element) hasChild(name string) bool {
 	for _, c := range t.Children {
-		switch c := c.(type) {
-		case *Element:
+		if c, ok := c.(*Element); ok {
 			if c.Name == name {
 				return true
 			}
@@ -132,10 +131,9 @@ func (a *Attribute) String() string {
 
 func WalkElements(root *Element, fn func(e *Element)) {
 	fn(root)
-	for _, child := range root.Children {
-		switch child := child.(type) {
-		case *Element:
-			WalkElements(child, fn)
+	for _, c := range root.Children {
+		if c, ok := c.(*Element); ok {
+			WalkElements(c, fn)
 		}
 	}
 }

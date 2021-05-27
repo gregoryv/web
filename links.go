@@ -32,8 +32,7 @@ func linkAll(root *Element, refs map[string]string, caseSensitive bool) {
 			return
 		}
 		for i, c := range e.Children {
-			switch c := c.(type) {
-			case string:
+			if c, ok := c.(string); ok {
 				for txt, href := range refs {
 					txt := strings.ReplaceAll(txt, " ", `[\n\t\r\s]*`)
 					exp := `\b(` + txt + `)\b`
