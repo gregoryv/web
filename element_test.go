@@ -162,6 +162,16 @@ func TestElement_Text(t *testing.T) {
 	assert().Equals(got, exp)
 }
 
+func TestElement_HasAttr(t *testing.T) {
+	e := Div(Class("x"), "text")
+	if !e.HasAttr("class") {
+		t.Error("attribute not found")
+	}
+	if e.HasAttr("other") {
+		t.Error("found non existing attribute")
+	}
+}
+
 func Example_WalkElements() {
 	root := Article(
 		H1(),
