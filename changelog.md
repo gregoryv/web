@@ -3,17 +3,17 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.18.0] 2021-05-27
 
 - Add files.MustLoadFunc for loading func bodies
-- Removed sweb package, imposed context switching as the structure was hidden
+- Remove sweb package, imposed context switching as the structure was hidden
 
 ## [0.17.0] 2021-04-09
 
 - Add package sweb for sequential writing style
-- Removed CheckLinks channel argument
-- Removed CheckLink
-- Fixed func LinkAll and ILinkAll to exclude words in existing A elements
+- Remove CheckLinks channel argument
+- Remove CheckLink
+- Fixe func LinkAll and ILinkAll to exclude words in existing A elements
 
 ## [0.16.0] 2021-03-04
 
@@ -31,8 +31,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 ## [0.14.0] 2020-11-16
 
 - Page SaveAs, SaveTo and WriteTo use markdown for .md suffix in filename
-- Renamed MarkdownWriter to MarkdownEncoder
-- Renamed HtmlWriter to HtmlEncoder and WriteTo method to Encode
+- Rename MarkdownWriter to MarkdownEncoder
+- Rename HtmlWriter to HtmlEncoder and WriteTo method to Encode
 - Render A tags in markdown
 - MakeTOC adds links for named headers for easier sharing
 
@@ -92,10 +92,10 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 - Add Element.String simpler use when outside of other elements
 - Type Page for saving pages
-- Renamed Tag to Element
-- Renamed Attr to Attribute
-- Renamed constructors NewElement and NewSimpleElement
-- Making some Element fields public
+- Rename Tag to Element
+- Rename Attr to Attribute
+- Rename constructors NewElement and NewSimpleElement
+- Make some Element fields public
 
 ## [0.5.0] - 2019-12-31
 
