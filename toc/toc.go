@@ -52,7 +52,7 @@ func GenerateAnchors(root *web.Element, names ...string) {
 		}
 		for _, name := range names {
 			if e.Name == name {
-				a := web.A(web.Href("#" + getId(e))).With(e.Children...)
+				a := web.A(web.Href("#" + e.AttrVal("id"))).With(e.Children...)
 				e.Children = []interface{}{a}
 			}
 		}
@@ -78,13 +78,4 @@ func hasId(e *web.Element) bool {
 		}
 	}
 	return false
-}
-
-func getId(e *web.Element) string {
-	for _, attr := range e.Attributes {
-		if attr.Name == "id" {
-			return attr.Val
-		}
-	}
-	return ""
 }
