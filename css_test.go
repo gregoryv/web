@@ -7,6 +7,26 @@ import (
 	"github.com/gregoryv/asserter"
 )
 
+func TestCSS_SaveAs(t *testing.T) {
+	c := NewCSS()
+	c.Style("body", "padding: 0 0")
+
+	out := "out.css"
+	defer os.RemoveAll(out)
+
+	err := c.SaveAs(out)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	os.Chmod(out, 0000)
+	err = c.SaveAs(out)
+	if err == nil {
+		t.Error("should fail")
+	}
+}
+
+
 func TestCSS_ServeHTTP(t *testing.T) {
 	c := NewCSS()
 	c.Style("#x", "margin: 0 0")
