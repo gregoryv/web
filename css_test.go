@@ -26,6 +26,12 @@ func TestCSS_SaveAs(t *testing.T) {
 	}
 }
 
+func TestCSS_SaveTo_fails(t *testing.T) {
+	c := NewCSS()
+	if err := c.SaveTo("."); err == nil {
+		t.Error("Filename not set, should fail")
+	}
+}
 
 func TestCSS_ServeHTTP(t *testing.T) {
 	c := NewCSS()
