@@ -9,6 +9,22 @@ import (
 	"github.com/gregoryv/asserter"
 )
 
+func Example_WalkElements() {
+	root := Article(
+		H1(),
+		H2(),
+		H3(),
+	)
+	WalkElements(root, func(e *Element) {
+		fmt.Println(e.Name)
+	})
+	// output:
+	// article
+	// h1
+	// h2
+	// h3
+}
+
 func Test_elements(t *testing.T) {
 	ok := func(el interface{}, exp ...string) {
 		t.Helper()
@@ -170,20 +186,4 @@ func TestElement_HasAttr(t *testing.T) {
 	if e.HasAttr("other") {
 		t.Error("found non existing attribute")
 	}
-}
-
-func Example_WalkElements() {
-	root := Article(
-		H1(),
-		H2(),
-		H3(),
-	)
-	WalkElements(root, func(e *Element) {
-		fmt.Println(e.Name)
-	})
-	// output:
-	// article
-	// h1
-	// h2
-	// h3
 }
