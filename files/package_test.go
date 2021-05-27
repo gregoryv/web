@@ -28,6 +28,33 @@ func TestMustLoadLines(t *testing.T) {
 	MustLoadLines("package.go", 3, 10)
 }
 
+// ----------------------------------------
+
+func TestMustLoadFunc_panics(t *testing.T) {
+	defer ExpectPanic(t)
+	MustLoadFunc("no-such-file", "x")
+}
+
+func TestMustLoadFunc(t *testing.T) {
+	got := MustLoadFunc("package.go", "MustLoadFunc")
+	if got == "" {
+		t.Error("empty func")
+	}
+	// check start and end
+	if got[0:4] != "func" || got[len(got)-1] != '}' {
+		t.Error(got)
+	}
+}
+
+func TestLoadFunc_fails(t *testing.T) {
+	got, err := LoadFunc("package.go", "no")
+	if err == nil {
+		t.Errorf("found something, should fail: %s", got)
+	}
+}
+
+// ----------------------------------------
+
 func ExpectPanic(t *testing.T) {
 	t.Helper()
 	e := recover()
