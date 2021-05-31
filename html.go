@@ -415,6 +415,9 @@ func Class(v string) *Attribute { return &Attribute{Name: "class", Val: v} }
 // Content returns a content="v" attribute
 func Content(v string) *Attribute { return &Attribute{Name: "content", Val: v} }
 
+// Formaction returns a formaction="v" attribute
+func Formaction(v string) *Attribute { return &Attribute{Name: "formaction", Val: v} }
+
 // Href returns a href="v" attribute
 func Href(v string) *Attribute { return &Attribute{Name: "href", Val: v} }
 

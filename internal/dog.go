@@ -135,6 +135,7 @@ var attributes = []string{
 	"charset",
 	"class",
 	"content",
+	"formaction",
 	"href",
 	"id",
 	"lang",

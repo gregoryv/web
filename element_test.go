@@ -143,6 +143,7 @@ func Test_elements(t *testing.T) {
 	ok(Charset("x"), `charset="x"`)
 	ok(Class("x"), `class="x"`)
 	ok(Content("x"), `content="x"`)
+	ok(Formaction("x"), `formaction="x"`)
 	ok(Href("x"), `href="x"`)
 	ok(Id("x"), `id="x"`)
 	ok(Lang("x"), `lang="x"`)
