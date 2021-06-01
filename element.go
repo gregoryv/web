@@ -142,3 +142,9 @@ func WalkElements(root *Element, fn func(e *Element)) {
 		}
 	}
 }
+
+// ----------------------------------------
+
+func Comment(v string) *Element {
+	return NewElement("!--", v)
+}

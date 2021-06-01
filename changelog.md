@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add func Comment() for html comments
 - Add NewSafePage and NewSafeHtmlEncoder with auto escaping of string values
 - Add attribute formaction
 

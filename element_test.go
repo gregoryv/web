@@ -48,6 +48,8 @@ func Test_elements(t *testing.T) {
 		}
 	}
 
+	ok(Comment("hello"), "<!--hello-->")
+
 	ok(Html(), "<html>", "</html>")
 	ok(Dl(Li("x")), "<dl>", "</dl>", "<li>", "</li>")
 	ok(Link(Rel("x")), "link", `"x"`)

@@ -45,13 +45,21 @@ func (p *HtmlEncoder) Encode(t interface{}) error {
 func (p *HtmlEncoder) writeElement(t interface{}) {
 	switch t := t.(type) {
 	case *Element:
-		if t.Name != "wrapper" {
+		switch {
+		case t.Name == "!--":
+			p.Print("<!--")
+		case t.Name == "wrapper":
+		default:
 			p.open(t)
 		}
 		for _, child := range t.Children {
 			p.writeElement(child)
 		}
-		if t.Name != "wrapper" {
+		switch {
+		case t.Name == "!--":
+			p.Print("-->")
+		case t.Name == "wrapper":
+		default:
 			p.close(t)
 		}
 	case io.Reader:
