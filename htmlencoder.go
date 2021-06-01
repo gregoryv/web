@@ -1,10 +1,24 @@
 package web
 
 import (
+	"fmt"
+	"html"
 	"io"
 
 	"github.com/gregoryv/nexus"
 )
+
+// NewSafeHtmlEncoder returns a HtmlEncoder that escapes plain values.
+// Values from io.Reader elements or those implementing WriterTo are
+// not escaped.
+func NewSafeHtmlEncoder(w io.Writer) *HtmlEncoder {
+	p, err := nexus.NewPrinter(w)
+	return &HtmlEncoder{
+		Printer: p,
+		err:     err,
+		safe:    true,
+	}
+}
 
 func NewHtmlEncoder(w io.Writer) *HtmlEncoder {
 	p, err := nexus.NewPrinter(w)
@@ -16,7 +30,8 @@ func NewHtmlEncoder(w io.Writer) *HtmlEncoder {
 
 type HtmlEncoder struct {
 	*nexus.Printer
-	err *error
+	err  *error
+	safe bool
 }
 
 func (p *HtmlEncoder) Encode(t interface{}) error {
@@ -44,7 +59,11 @@ func (p *HtmlEncoder) writeElement(t interface{}) {
 	case io.WriterTo:
 		t.WriteTo(p)
 	default:
-		p.Printf("%v", t)
+		if p.safe {
+			p.Print(html.EscapeString(fmt.Sprintf("%v", t)))
+		} else {
+			p.Printf("%v", t)
+		}
 	}
 }
 

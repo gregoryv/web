@@ -8,6 +8,17 @@ import (
 	"github.com/gregoryv/asserter"
 )
 
+func Test_HtmlEncoder_produces_safe_output(t *testing.T) {
+	var buf bytes.Buffer
+	h := NewSafeHtmlEncoder(&buf)
+	h.Encode("<script>")
+	got := buf.String()
+	exp := "&lt;script&gt;"
+	if got != exp {
+		t.Error(got)
+	}
+}
+
 func TestHtmlEncoder_Encode(t *testing.T) {
 	ok := func(el *Element, exp ...string) {
 		t.Helper()
