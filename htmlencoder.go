@@ -82,8 +82,12 @@ var newLineAfterOpen = map[string]bool{
 
 func (p *HtmlEncoder) open(t *Element) {
 	p.Print("<", t.Name)
-	for _, Attributes := range t.Attributes {
-		p.Print(" ", Attributes.String())
+	for _, attr := range t.Attributes {
+		if p.safe {
+			p.Print(" ", attr.SafeString())
+		} else {
+			p.Print(" ", attr.String())
+		}
 	}
 	if !t.simple {
 		p.Print(">")

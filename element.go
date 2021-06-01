@@ -3,6 +3,7 @@ package web
 import (
 	"bytes"
 	"fmt"
+	"html"
 	"io"
 	"strings"
 )
@@ -127,6 +128,10 @@ type Attribute struct {
 
 func (a *Attribute) String() string {
 	return fmt.Sprintf("%s=%q", a.Name, a.Val)
+}
+
+func (a *Attribute) SafeString() string {
+	return fmt.Sprintf("%s=%q", html.EscapeString(a.Name), html.EscapeString(a.Val))
 }
 
 func WalkElements(root *Element, fn func(e *Element)) {

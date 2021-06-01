@@ -12,10 +12,12 @@ func Test_HtmlEncoder_produces_safe_output(t *testing.T) {
 	var buf bytes.Buffer
 	h := NewSafeHtmlEncoder(&buf)
 	h.Encode("<script>")
+	h.Encode(B(Attr("<n>", "<v>")))
 	got := buf.String()
-	exp := "&lt;script&gt;"
+	exp := `&lt;script&gt;<b &lt;n&gt;="&lt;v&gt;"></b>`
 	if got != exp {
-		t.Error(got)
+		t.Error("got", got)
+		t.Error("exp", exp)
 	}
 }
 
