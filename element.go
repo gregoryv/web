@@ -145,6 +145,6 @@ func WalkElements(root *Element, fn func(e *Element)) {
 
 // ----------------------------------------
 
-func Comment(v string) *Element {
-	return NewElement("!--", v)
+func Comment(childOrAttr ...interface{}) *Element {
+	return NewElement("!--", childOrAttr...)
 }
