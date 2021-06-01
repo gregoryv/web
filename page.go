@@ -8,6 +8,15 @@ import (
 	"path"
 )
 
+// NewSafePage returns a page same as NewPage, only the output if
+// written as html is escaped. See NewSafeHtmlEncoder constructor.
+func NewSafePage(el *Element) *Page {
+	return &Page{
+		Element: el,
+		safe:    true,
+	}
+}
+
 // NewPage returns a page ready to be rendered. Filename is empty and
 // must be set before saving.
 func NewPage(el *Element) *Page {
@@ -27,6 +36,8 @@ func NewFile(filename string, el *Element) *Page {
 type Page struct {
 	Filename string
 	*Element
+
+	safe bool // use safe html encoder
 }
 
 // SaveAs sets filename and then save to the current directory.
@@ -63,6 +74,7 @@ func (p *Page) WriteTo(w io.Writer) (int64, error) {
 		return enc.Written, *enc.err
 	default:
 		enc := NewHtmlEncoder(w)
+		enc.safe = p.safe
 		if p.Element != nil {
 			enc.Encode(p.Element)
 		}

@@ -8,6 +8,15 @@ import (
 	"github.com/gregoryv/workdir"
 )
 
+func Test_safe_page_over_http(t *testing.T) {
+	var (
+		p      = NewSafePage(Html(Body(H1("<script>"))))
+		assert = asserter.New(t)
+		exp    = assert().ResponseFrom(p)
+	)
+	exp.Contains("&lt;script&gt;", "GET", "/")
+}
+
 func Test_serving_page_over_http(t *testing.T) {
 	var (
 		p      = NewPage(Html(Body(H1("the secret lies within you"))))
