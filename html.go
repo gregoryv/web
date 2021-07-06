@@ -427,14 +427,29 @@ func Id(v string) *Attribute { return &Attribute{Name: "id", Val: v} }
 // Lang returns a lang="v" attribute
 func Lang(v string) *Attribute { return &Attribute{Name: "lang", Val: v} }
 
+// Max returns a max="v" attribute
+func Max(v string) *Attribute { return &Attribute{Name: "max", Val: v} }
+
+// Maxlength returns a maxlength="v" attribute
+func Maxlength(v string) *Attribute { return &Attribute{Name: "maxlength", Val: v} }
+
 // Method returns a method="v" attribute
 func Method(v string) *Attribute { return &Attribute{Name: "method", Val: v} }
+
+// Min returns a min="v" attribute
+func Min(v string) *Attribute { return &Attribute{Name: "min", Val: v} }
 
 // Name returns a name="v" attribute
 func Name(v string) *Attribute { return &Attribute{Name: "name", Val: v} }
 
+// Placeholder returns a placeholder="v" attribute
+func Placeholder(v string) *Attribute { return &Attribute{Name: "placeholder", Val: v} }
+
 // Rel returns a rel="v" attribute
 func Rel(v string) *Attribute { return &Attribute{Name: "rel", Val: v} }
+
+// Size returns a size="v" attribute
+func Size(v string) *Attribute { return &Attribute{Name: "size", Val: v} }
 
 // Src returns a src="v" attribute
 func Src(v string) *Attribute { return &Attribute{Name: "src", Val: v} }
