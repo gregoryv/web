@@ -76,4 +76,19 @@ text</body>
 <p></p>
 </article>`,
 	)
+
+	ok(
+		Wrap(
+			aBuilder{Span("hello")},
+		),
+		"<span>hello</span>",
+	)
+}
+
+type aBuilder struct {
+	element *Element
+}
+
+func (me aBuilder) BuildElement() *Element {
+	return me.element
 }

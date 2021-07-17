@@ -66,6 +66,8 @@ func (p *HtmlEncoder) writeElement(t interface{}) {
 		io.Copy(p, t)
 	case io.WriterTo:
 		t.WriteTo(p)
+	case ElementBuilder:
+		p.writeElement(t.BuildElement())
 	default:
 		if p.safe {
 			p.Print(html.EscapeString(fmt.Sprintf("%v", t)))
@@ -73,6 +75,10 @@ func (p *HtmlEncoder) writeElement(t interface{}) {
 			p.Printf("%v", t)
 		}
 	}
+}
+
+type ElementBuilder interface {
+	BuildElement() *Element
 }
 
 var newLineAfterOpen = map[string]bool{

@@ -65,6 +65,8 @@ func (p *MarkdownEncoder) writeElement(t interface{}) {
 				p.close(t)
 			}
 		}
+	case ElementBuilder:
+		p.writeElement(t.BuildElement())
 	case string:
 		if p.oneliner {
 			p.Print(t)

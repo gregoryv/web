@@ -5,7 +5,9 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
-- Add input related attributes for, max, min, maxlength, pattern placeholder and size
+- Add type ElementBuilder which both html- and markdown- encoders recognize
+- Add input related attributes for, max, min, maxlength, pattern
+  placeholder and size
 
 ## [0.19.0] 2021-06-01
 

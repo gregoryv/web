@@ -58,4 +58,11 @@ friend`)
 		Li("b"),
 	), `- a
 - b`)
+
+	ok(
+		Wrap(
+			aBuilder{Span("hello")},
+		),
+		"hello",
+	)
 }
