@@ -3,6 +3,7 @@ package web
 import (
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"path"
@@ -61,9 +62,15 @@ func (p *Page) SaveTo(dir string) error {
 	return nil
 }
 
+// Size returns the rendered size of the page in bytes. Note! the page
+// is rendered once to count the bytes.
+func (me *Page) Size() int {
+	n, _ := me.WriteTo(ioutil.Discard)
+	return int(n)
+}
+
 // WriteTo writes the page using the given writer. Page.Filename
 // extension decides format.  .md for markdown, otherwise HTML.
-// markdown, html otherwise.
 func (p *Page) WriteTo(w io.Writer) (int64, error) {
 	switch path.Ext(p.Filename) {
 	case ".md":

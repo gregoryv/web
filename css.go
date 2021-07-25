@@ -12,7 +12,7 @@ import (
 
 func NewCSS() *CSS {
 	return &CSS{
-		rules:   make([]*rule, 0),
+		rules:   make([]*rule, 0, 5),
 		imports: make([]string, 0),
 	}
 }
@@ -26,7 +26,7 @@ type CSS struct {
 	medias []*CSS
 }
 
-// SetMedia sets the media and returns the same css
+// SetMedia sets the media
 func (me *CSS) SetMedia(v string) {
 	me.media = fmt.Sprintf("@media %s", v)
 }

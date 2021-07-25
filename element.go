@@ -9,7 +9,10 @@ import (
 )
 
 func NewElement(name string, childOrAttr ...interface{}) *Element {
-	tag := &Element{Name: name}
+	tag := &Element{
+		Name:     name,
+		Children: make([]interface{}, 0, 5),
+	}
 	tag.With(childOrAttr...)
 	return tag
 }
