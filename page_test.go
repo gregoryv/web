@@ -34,6 +34,14 @@ func Test_save_page_without_filename(t *testing.T) {
 	}
 }
 
+func TestPage_Size(t *testing.T) {
+	page := newExamplePage()
+	got := page.Size()
+	if got != 1024 {
+		t.Error("unexpected size", got)
+	}
+}
+
 func TestPage(t *testing.T) {
 	wd, err := workdir.TempDir()
 	if err != nil {
