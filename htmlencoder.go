@@ -77,6 +77,8 @@ func (p *HtmlEncoder) writeElement(t interface{}) {
 	}
 }
 
+// ElementBuilder are used to dynamically inject elements during
+// encoding.
 type ElementBuilder interface {
 	BuildElement() *Element
 }
