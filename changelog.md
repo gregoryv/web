@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+- Func GenerateID and TOC related funcs generate uniq ids for similar titles
+
 ## [0.20.0] 2021-07-25
 
 - Add type ElementBuilder which both html- and markdown- encoders recognize

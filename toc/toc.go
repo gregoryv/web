@@ -1,6 +1,7 @@
 package toc
 
 import (
+	"fmt"
 	"regexp"
 	"strings"
 
@@ -20,10 +21,11 @@ func MakeTOC(dest, root *web.Element, names ...string) *web.Element {
 // ParseTOC returns ul > li of all named elements.
 func ParseTOC(root *web.Element, names ...string) *web.Element {
 	ul := web.Ul()
+	ids := make(cache)
 	web.WalkElements(root, func(e *web.Element) {
 		for _, name := range names {
 			if e.Name == name {
-				a := web.A(web.Href("#"+idOf(e)), e.Text())
+				a := web.A(web.Href("#"+ids.idOf(e)), e.Text())
 				ul.With(web.Li(web.Class(name), a))
 				continue
 			}
@@ -33,13 +35,15 @@ func ParseTOC(root *web.Element, names ...string) *web.Element {
 }
 
 func GenerateIDs(root *web.Element, names ...string) {
+	ids := make(cache)
 	web.WalkElements(root, func(e *web.Element) {
 		if hasId(e) {
 			return
 		}
 		for _, name := range names {
 			if e.Name == name {
-				e.With(web.Id(idOf(e)))
+				newid := ids.idOf(e)
+				e.With(web.Id(newid))
 			}
 		}
 	})
@@ -57,6 +61,18 @@ func GenerateAnchors(root *web.Element, names ...string) {
 			}
 		}
 	})
+}
+
+type cache map[string]int
+
+func (me cache) idOf(e *web.Element) string {
+	newid := idOf(e)
+	n, found := me[newid]
+	if found {
+		newid = fmt.Sprintf("%s%d", newid, n)
+	}
+	me[newid]++
+	return newid
 }
 
 var idChars = regexp.MustCompile(`\W`)

@@ -34,6 +34,7 @@ func ExampleParseTOC() {
 	a := Article(
 		H1("Programming"),
 		H2("Design"),
+		H2("Design"),
 		H3("Diagrams"),
 
 		Section(
@@ -47,6 +48,7 @@ func ExampleParseTOC() {
 	// output:
 	// <ul>
 	// <li class="h2"><a href="#design">Design</a></li>
+	// <li class="h2"><a href="#design1">Design</a></li>
 	// <li class="h2"><a href="#myid">Test</a></li>
 	// </ul>
 }
@@ -55,6 +57,7 @@ func ExampleGenerateIDs() {
 	a := Article(
 		Section(
 			H2(Id("current"), "Current car"),
+			H2("My first car"),
 			H2("My first car"),
 			H3("Broke down"),
 		),
@@ -66,6 +69,7 @@ func ExampleGenerateIDs() {
 	// <section>
 	// <h2 id="current">Current car</h2>
 	// <h2 id="myfirstcar">My first car</h2>
+	// <h2 id="myfirstcar1">My first car</h2>
 	// <h3>Broke down</h3>
 	// </section>
 	// </article>
