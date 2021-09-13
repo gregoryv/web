@@ -59,6 +59,7 @@ func ExampleGenerateIDs() {
 			H2(Id("current"), "Current car"),
 			H2("My first car"),
 			H2("My first car"),
+			H2("My first car"),
 			H3("Broke down"),
 		),
 	)
@@ -70,6 +71,7 @@ func ExampleGenerateIDs() {
 	// <h2 id="current">Current car</h2>
 	// <h2 id="myfirstcar">My first car</h2>
 	// <h2 id="myfirstcar1">My first car</h2>
+	// <h2 id="myfirstcar2">My first car</h2>
 	// <h3>Broke down</h3>
 	// </section>
 	// </article>

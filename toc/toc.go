@@ -21,7 +21,7 @@ func MakeTOC(dest, root *web.Element, names ...string) *web.Element {
 // ParseTOC returns ul > li of all named elements.
 func ParseTOC(root *web.Element, names ...string) *web.Element {
 	ul := web.Ul()
-	ids := make(cache)
+	ids := newCache()
 	web.WalkElements(root, func(e *web.Element) {
 		for _, name := range names {
 			if e.Name == name {
@@ -35,7 +35,7 @@ func ParseTOC(root *web.Element, names ...string) *web.Element {
 }
 
 func GenerateIDs(root *web.Element, names ...string) {
-	ids := make(cache)
+	ids := newCache()
 	web.WalkElements(root, func(e *web.Element) {
 		if hasId(e) {
 			return
@@ -63,15 +63,24 @@ func GenerateAnchors(root *web.Element, names ...string) {
 	})
 }
 
-type cache map[string]int
+func newCache() *cache {
+	return &cache{uniq: make(map[string]int)}
+}
 
-func (me cache) idOf(e *web.Element) string {
+type cache struct {
+	uniq map[string]int
+}
+
+func (me *cache) idOf(e *web.Element) string {
 	newid := idOf(e)
-	n, found := me[newid]
+	n, found := me.uniq[newid]
 	if found {
+		me.uniq[newid] = n + 1
 		newid = fmt.Sprintf("%s%d", newid, n)
+	} else {
+		me.uniq[newid] = 1
 	}
-	me[newid]++
+
 	return newid
 }
 
