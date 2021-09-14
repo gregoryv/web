@@ -65,4 +65,16 @@ friend`)
 		),
 		"hello",
 	)
+
+	ok(Pre(
+		`$ echo "hello, world!"
+hello, world!`,
+	),
+		`    $ echo "hello, world!"
+    hello, world!`,
+	)
+
+	ok(Pre(`    SPACES
+k`), `        SPACES
+    k`)
 }

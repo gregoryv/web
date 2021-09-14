@@ -12,6 +12,7 @@ func NewMarkdownEncoder(w io.Writer) *MarkdownEncoder {
 	return &MarkdownEncoder{
 		Printer: p,
 		err:     err,
+		trim:    true,
 	}
 }
 
@@ -19,6 +20,7 @@ type MarkdownEncoder struct {
 	*nexus.Printer
 	err    *error
 	indent string // ie. for pre tags
+	trim   bool   // pre tags should keep original whitespaces
 
 	oneliner bool
 }
@@ -78,7 +80,9 @@ func (p *MarkdownEncoder) writeElement(t interface{}) {
 		}
 		lines := strings.Split(t, "\n")
 		for _, line := range lines {
-			line = strings.TrimSpace(line)
+			if p.trim {
+				line = strings.TrimSpace(line)
+			}
 			p.Print(p.indent, line, "\n")
 		}
 	}
@@ -88,6 +92,7 @@ func (p *MarkdownEncoder) open(t *Element) {
 	switch t.Name {
 	case "pre":
 		p.indent = "    "
+		p.trim = false
 	default:
 		// todo: default to writing html
 		p.Print(markdown[t.Name])
@@ -101,6 +106,7 @@ func (p *MarkdownEncoder) close(t *Element) {
 	case "pre":
 		p.Println()
 		p.indent = ""
+		p.trim = true
 	case "h1", "h2", "h3", "h4", "h5", "h6":
 		p.Println()
 		p.Println()
