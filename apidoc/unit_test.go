@@ -87,7 +87,7 @@ func Test_generate_apidoc(t *testing.T) {
 	}
 	LinkAll(apis, refs)
 
-	page := NewFile("api_example.html",
+	page := NewPage(
 		Html(
 			Head(
 				Meta(Charset("utf-8")),
@@ -98,7 +98,7 @@ func Test_generate_apidoc(t *testing.T) {
 			),
 		),
 	)
-	page.SaveTo("../docs")
+	page.SaveAs("../docs/api_example.html")
 }
 
 func NewRouter() http.Handler {
