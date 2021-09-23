@@ -29,25 +29,31 @@ type Doc struct {
 	*http.Request
 }
 
+// NewRequest returns a <pre> element of a request based on the
+// arguments. For more advanced requests use Doc.Use()
 func (d *Doc) NewRequest(method, path string, body io.Reader) *Element {
 	r := must.NewRequest(method, path, body)
-	d.Request = r
-	return RawRequest(r)
+	return d.Use(r)
 }
 
+// Response returns a raw response from the last used request.
 func (d *Doc) Response() *Element {
 	return RawResponseFrom(d.router, d.Request)
 }
 
+// JsonResponse returns a tidy json response from the last used request
 func (d *Doc) JsonResponse() *Element {
 	return JsonResponseFrom(d.router, d.Request)
 }
 
+// Use returns a <pre> element of the given request.
 func (d *Doc) Use(r *http.Request) *Element {
 	d.Request = r
 	return RawRequest(r)
 }
 
+// RawRequest returns a <pre> element with the request. The request is
+// reusable afterwards.
 func RawRequest(r *http.Request) *Element {
 	var headers bytes.Buffer
 	r.Header.Write(&headers)
@@ -73,6 +79,7 @@ func readRestoreBody(r *http.Request) []byte {
 	return body
 }
 
+// RawResponseFrom returns the full response from the request to the given handler
 func RawResponseFrom(h http.Handler, r *http.Request) *Element {
 	w := httptest.NewRecorder()
 	h.ServeHTTP(w, r)
@@ -80,6 +87,7 @@ func RawResponseFrom(h http.Handler, r *http.Request) *Element {
 	return RawResponse(resp)
 }
 
+// RawResponse dumps the response including body
 func RawResponse(resp *http.Response) *Element {
 	var (
 		data, _ = ioutil.ReadAll(resp.Body)
@@ -97,6 +105,8 @@ func RawResponse(resp *http.Response) *Element {
 	)
 }
 
+// JsonResponseFrom records the response of the request on the handler
+// and returns same as JsonResponse.
 func JsonResponseFrom(h http.Handler, r *http.Request) *Element {
 	w := httptest.NewRecorder()
 	h.ServeHTTP(w, r)
@@ -104,6 +114,7 @@ func JsonResponseFrom(h http.Handler, r *http.Request) *Element {
 	return JsonResponse(resp)
 }
 
+// JsonResponse converts the response to a <pre> element including the body.
 func JsonResponse(resp *http.Response) *Element {
 	var (
 		data, _ = ioutil.ReadAll(resp.Body)
