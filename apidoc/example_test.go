@@ -24,6 +24,19 @@ func ExampleDoc_JsonResponse() {
 	// }</pre>
 }
 
+func ExampleRawResponseFrom() {
+	r, _ := http.NewRequest("GET", "/", nil)
+	element := apidoc.RawResponseFrom(
+		http.HandlerFunc(someRouter),
+		r,
+	)
+	element.WriteTo(os.Stdout)
+	// output:
+	// <pre class="response">HTTP/1.1 200 OK
+	//
+	// {"animal": "Goat","age": 10, "friendly": "hell no, not this one"}</pre>
+}
+
 func someRouter(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
 		w.WriteHeader(http.StatusOK)
