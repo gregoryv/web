@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.21.0] 2021-09-23
 
 - MarkdownEncoder does not trim spaces for Pre tags
 - Func GenerateID and TOC related funcs generate uniq ids for similar titles
