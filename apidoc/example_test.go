@@ -5,9 +5,24 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/gregoryv/web"
 	"github.com/gregoryv/web/apidoc"
 )
+
+func ExampleDoc_JsonResponse() {
+	doc := apidoc.NewDoc(http.HandlerFunc(someRouter))
+
+	doc.NewRequest("GET", "/", nil).WriteTo(os.Stdout)
+	doc.JsonResponse().WriteTo(os.Stdout)
+	// output:
+	// <pre class="request">HTTP/1.1 GET /
+	// </pre><pre class="response">HTTP/1.1 200 OK
+	//
+	// {
+	//     "animal": "Goat",
+	//     "age": 10,
+	//     "friendly": "hell no, not this one"
+	// }</pre>
+}
 
 func someRouter(w http.ResponseWriter, r *http.Request) {
 	if r.Method == "GET" {
@@ -18,26 +33,4 @@ func someRouter(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusCreated)
 		fmt.Fprint(w, `{"message": "added"}`)
 	}
-}
-
-func ExampleNewDoc() {
-	doc := apidoc.NewDoc(http.HandlerFunc(someRouter))
-
-	body := web.Body(
-		doc.NewRequest("GET", "/", nil),
-		doc.JsonResponse(),
-	)
-	out := web.NewHtmlEncoder(os.Stdout)
-	out.Encode(body)
-	// output:
-	// <body>
-	// <pre class="request">HTTP/1.1 GET /
-	// </pre><pre class="response">HTTP/1.1 200 OK
-	//
-	// {
-	//     "animal": "Goat",
-	//     "age": 10,
-	//     "friendly": "hell no, not this one"
-	// }</pre></body>
-
 }

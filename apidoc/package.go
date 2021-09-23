@@ -25,8 +25,11 @@ func NewDoc(router http.Handler) *Doc {
 }
 
 type Doc struct {
-	router http.Handler
+	// Requst used when calling a response generator, eg. Response()
+	// or JsonResponse()
 	*http.Request
+
+	router http.Handler
 }
 
 // NewRequest returns a <pre> element of a request based on the
