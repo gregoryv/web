@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [unreleased]
+
+- Add package theme with GoldenSpace
+
 ## [0.21.0] 2021-09-23
 
 - MarkdownEncoder does not trim spaces for Pre tags
