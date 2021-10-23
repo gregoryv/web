@@ -17,3 +17,15 @@ func GoldenSpace() *web.CSS {
 	)
 	return css
 }
+
+func GoishColors() *web.CSS {
+	css := web.NewCSS()
+	css.Style("a",
+		"color: #007d9c",
+		"text-decoration: none",
+	)
+	css.Style("a:hover",
+		"text-decoration: underline",
+	)
+	return css
+}

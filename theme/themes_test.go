@@ -15,6 +15,9 @@ func Test_generate_pages(t *testing.T) {
 	rand.Seed(0)
 	cases := map[string]func() *CSS{
 		"GoldenSpace": GoldenSpace,
+		"GoldenSpace_GoishColors": func() *CSS {
+			return GoldenSpace().With(GoishColors())
+		},
 	}
 	body := testBody()
 	for name, theme := range cases {
@@ -61,6 +64,8 @@ func testBody() *Element {
 			H1(title()),
 			P(randomSentences(7)),
 		),
+		"Table of contents",
+		Br(),
 		nav,
 		article,
 		Footer(

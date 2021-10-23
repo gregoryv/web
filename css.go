@@ -65,6 +65,16 @@ func (me *CSS) SaveTo(dir string) error {
 	return nil
 }
 
+// With combines a css with another, returning the combined
+func (me *CSS) With(in ...*CSS) *CSS {
+	for _, in := range in {
+		me.rules = append(me.rules, in.rules...)
+		me.imports = append(me.imports, in.imports...)
+		me.medias = append(me.medias, in.medias...)
+	}
+	return me
+}
+
 func (me *CSS) WriteTo(w io.Writer) (int64, error) {
 	p, err := nexus.NewPrinter(w)
 	if me.media != "" {

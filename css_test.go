@@ -65,3 +65,22 @@ func Example() {
 	// }
 	// }
 }
+
+func ExampleCSS_With() {
+	a := NewCSS()
+	a.Style("body", "margin: 0 0")
+
+	b := NewCSS()
+	b.Style("p", "color:red")
+
+	a.With(b)
+
+	a.WriteTo(os.Stdout)
+	// output:
+	// body {
+	// margin: 0 0;
+	// }
+	// p {
+	// color:red;
+	// }
+}
