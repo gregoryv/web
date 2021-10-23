@@ -51,9 +51,9 @@ func testBody() *Element {
 			H2(title()),
 			P(randomSentences(3), "p"),
 			Ol(
-				Li("Li: red"),
-				Li("Li: blue"),
-				Li("Li: green"),
+				Li("red"),
+				Li("blue"),
+				Li("green"),
 			),
 
 			H2(title()),
@@ -77,6 +77,29 @@ import (
     . "github.com/gregoryv/web"
 )
 // ...`),
+
+			Table(
+				Thead(
+					Tr(
+						Th("Nouns"),
+						Th("Adjectives"),
+					),
+				),
+				Tbody(
+					func() *Element {
+						v := Wrap()
+						for i := 0; i < 10; i++ {
+							v.With(
+								Tr(
+									Td(english.ClassNoun.Random()),
+									Td(english.ClassAdjective.Random()),
+								),
+							)
+						}
+						return v
+					}(),
+				),
+			),
 		),
 	)
 
