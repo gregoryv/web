@@ -13,14 +13,20 @@ func GoldenSpace() *web.CSS {
 		"padding: 1em 1.612em",
 	)
 	css.Style("p, li",
-		"line-height: 1.4em",
+		"line-height: 1.3em",
+	)
+	css.Style("a:link",
+		"color: #0000EE",
+	)
+	css.Style("a:visited",
+		"color: #551A8B",
 	)
 	return css
 }
 
 func GoishColors() *web.CSS {
 	css := web.NewCSS()
-	css.Style("a",
+	css.Style("a:link, a:visited",
 		"color: #007d9c",
 		"text-decoration: none",
 	)

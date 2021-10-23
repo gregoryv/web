@@ -7,6 +7,7 @@ import (
 	"testing"
 
 	"github.com/gregoryv/english"
+	"github.com/gregoryv/web"
 	. "github.com/gregoryv/web"
 	"github.com/gregoryv/web/toc"
 )
@@ -15,6 +16,10 @@ var variants = []struct {
 	name string
 	fn   func() *CSS
 }{
+	{
+		"None",
+		func() *CSS { return web.NewCSS() },
+	},
 	{
 		"GoldenSpace",
 		GoldenSpace,

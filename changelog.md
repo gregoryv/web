@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add theme GoishColors
 - Add method CSS.With to simplify combinations
 - Add package theme with GoldenSpace
 
