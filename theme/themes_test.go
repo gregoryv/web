@@ -11,26 +11,36 @@ import (
 	"github.com/gregoryv/web/toc"
 )
 
-func Test_generate_pages(t *testing.T) {
-	rand.Seed(0)
-	cases := map[string]func() *CSS{
-		"GoldenSpace": GoldenSpace,
-		"GoldenSpace_GoishColors": func() *CSS {
+var variants = []struct {
+	name string
+	fn   func() *CSS
+}{
+	{
+		"GoldenSpace",
+		GoldenSpace,
+	},
+	{
+		"GoldenSpace_GoishColors", func() *CSS {
 			return GoldenSpace().With(GoishColors())
 		},
-	}
+	},
+}
+
+func Test_generate_pages(t *testing.T) {
+	rand.Seed(0)
+
 	body := testBody()
-	for name, theme := range cases {
-		t.Run(name, func(t *testing.T) {
+	for _, c := range variants {
+		t.Run(c.name, func(t *testing.T) {
 			page := NewSafePage(
 				Html(
-					Style(theme()),
+					Style(c.fn()),
 					body,
 				),
 			)
-			filename := fmt.Sprintf("examples/%s.html", name)
-			page.SaveAs(filename)
-			t.Log("generated theme example: ", filename)
+			out := fmt.Sprintf("examples/%s.html", c.name)
+			page.SaveAs(out)
+			t.Log("generated theme example: ", out)
 		})
 	}
 }
@@ -52,6 +62,22 @@ func testBody() *Element {
 			H3(title()),
 			P(randomSentences(5)),
 		),
+		Section(
+			H2(title()),
+
+			P(
+				randomSentences(1), " ",
+				Code(`var x string = "..."`), " ",
+				randomSentences(1),
+			),
+
+			Pre(`package yours
+
+import (
+    . "github.com/gregoryv/web"
+)
+// ...`),
+		),
 	)
 
 	nav := Nav()
@@ -59,7 +85,17 @@ func testBody() *Element {
 
 	body := Body(
 		Header(
-			"Header: Author Gregory Vincic",
+			"Header: Theme examples by the gregoryv/web/theme package",
+
+			func() *Element {
+				ul := Ul()
+				for _, c := range variants {
+					ul.With(
+						Li(A(Href(c.name+".html"), c.name)),
+					)
+				}
+				return ul
+			}(),
 
 			H1(title()),
 			P(randomSentences(7)),
@@ -68,8 +104,9 @@ func testBody() *Element {
 		Br(),
 		nav,
 		article,
+		Hr(),
 		Footer(
-			"Footer: ...",
+			"Footer: Author Gregory Vincic",
 		),
 	)
 	return body
