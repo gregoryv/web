@@ -2,10 +2,11 @@ package web
 
 import (
 	"bytes"
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/gregoryv/asserter"
-	"github.com/gregoryv/workdir"
 )
 
 func Test_safe_page_over_http(t *testing.T) {
@@ -43,20 +44,17 @@ func TestPage_Size(t *testing.T) {
 }
 
 func TestPage(t *testing.T) {
-	wd, err := workdir.TempDir()
-	if err != nil {
-		t.Fatal(err)
-	}
-	defer wd.RemoveAll()
+	wd := t.TempDir()
 	page := NewFile("x.md", Html(Body()))
-	err = page.SaveTo(string(wd))
+	err := page.SaveTo(wd)
 	if err != nil {
 		t.Fatal(err)
 	}
 
-	wd.Chmod("x.html", 0000)
-	err = page.SaveAs(wd.Join("/x.html"))
-	if err == nil {
+	out := filepath.Join(wd, "x.html")
+	page.SaveAs(out)
+	os.Chmod(out, 0000)
+	if err := page.SaveAs(out); err == nil {
 		t.Error("should fail")
 	}
 }
