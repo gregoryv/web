@@ -75,7 +75,7 @@ func LoadFunc(filename, funcName string) (string, error) {
 
 func parseFunc(filename, funcName string) (fun *ast.FuncDecl, fset *token.FileSet) {
 	fset = token.NewFileSet()
-	file, err := parser.ParseFile(fset, filename, nil, 0)
+	file, err := parser.ParseFile(fset, filename, nil, parser.ParseComments)
 	if err != nil {
 		return nil, nil
 	}
