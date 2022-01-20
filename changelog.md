@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.23.0] 2022-01-20
 
 - Add css style query capabilities using func Query and ParseExpr
 - files.LoadFunc parses comments aswell
