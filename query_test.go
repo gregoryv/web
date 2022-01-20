@@ -37,7 +37,7 @@ func TestQuery(t *testing.T) {
 	doc := Article(
 		H1("1"),
 		H2("1.1"),
-		H2("1.2"),
+		H2("1.2", Id("x")),
 		H2("1.3", Class("third")),
 	)
 
@@ -49,4 +49,7 @@ func TestQuery(t *testing.T) {
 		t.Error(got)
 	}
 
+	if got := Query(doc, "#x"); len(got) != 1 {
+		t.Error(got)
+	}
 }

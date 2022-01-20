@@ -26,16 +26,22 @@ func Find(root *Element, matchers ...Matcher) []*Element {
 // ParseExpr returns a list of matchers to use in func Find.
 //
 // Valid expressions:
-//   Name
-//   Name.Class
-//   .Class
+//
+//   name
+//   name.class
+//   .class
+//   #id
 func ParseExpr(expr string) []Matcher {
 	res := make([]Matcher, 0)
 
 	parts := strings.Split(expr, ".")
 
 	switch {
-	case len(parts) == 1: // name only
+	case len(parts) == 1 && expr[0] == '#': // id only
+		res = append(res, func(el *Element) bool {
+			return el.AttrVal("id") == expr[1:]
+		})
+	case len(parts) == 1 && expr[0] != '#': // name only
 		res = append(res, func(el *Element) bool {
 			return el.Name == expr
 		})
