@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.24.0] 2022-07-17
 
 - Page.SaveAs handles paths/filename 
 - Page.SaveTo tries to create directories before saving
