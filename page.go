@@ -7,6 +7,7 @@ import (
 	"net/http"
 	"os"
 	"path"
+	"path/filepath"
 )
 
 // NewSafePage returns a page same as NewPage, only the output if
@@ -43,8 +44,13 @@ type Page struct {
 
 // SaveAs sets filename and then save to the current directory.
 func (me *Page) SaveAs(filename string) error {
-	me.Filename = filename
-	return me.SaveTo(".")
+	dir, file := filepath.Split(filename)
+	if dir == "" {
+		me.Filename = filename
+		return me.SaveTo(".")
+	}
+	me.Filename = file
+	return me.SaveTo(dir)
 }
 
 // SaveTo saves the page to the given directory. Fails if
@@ -53,6 +59,7 @@ func (p *Page) SaveTo(dir string) error {
 	if p.Filename == "" {
 		return fmt.Errorf("SaveTo: missing filename")
 	}
+	os.MkdirAll(dir, 0722)
 	w, err := os.Create(path.Join(dir, p.Filename))
 	if err != nil {
 		return err

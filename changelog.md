@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Page.SaveAs handles paths/filename 
+- Page.SaveTo tries to create directories before saving
 - Add query expr #id
 
 ## [0.23.0] 2022-01-20

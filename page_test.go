@@ -44,19 +44,45 @@ func TestPage_Size(t *testing.T) {
 }
 
 func TestPage(t *testing.T) {
-	wd := t.TempDir()
 	page := NewFile("x.md", Html(Body()))
-	err := page.SaveTo(wd)
-	if err != nil {
-		t.Fatal(err)
-	}
 
-	out := filepath.Join(wd, "x.html")
-	page.SaveAs(out)
-	os.Chmod(out, 0000)
-	if err := page.SaveAs(out); err == nil {
-		t.Error("should fail")
-	}
+	t.Run("SaveTo", func(t *testing.T) {
+		if err := page.SaveTo(t.TempDir()); err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("SaveAs with insufficient permissions", func(t *testing.T) {
+		out := filepath.Join(t.TempDir(), "x.html")
+		page.SaveAs(out)    // save the page first
+		os.Chmod(out, 0000) // remove permissions to change it
+		if err := page.SaveAs(out); err == nil {
+			t.Error("should fail")
+		}
+	})
+
+	t.Run("SaveAs current directory", func(t *testing.T) {
+		os.Chdir(t.TempDir()) // switch the current directory
+		if err := page.SaveAs("xa.html"); err != nil {
+			t.Error(err)
+		}
+		// check the file exists with the correct name
+		if _, err := os.Open("xa.html"); err != nil {
+			t.Error(err)
+		}
+	})
+
+	t.Run("SaveAs current directory", func(t *testing.T) {
+		os.Chdir(t.TempDir()) // switch the current directory
+		if err := page.SaveAs("a/b/c.html"); err != nil {
+			t.Error(err)
+		}
+		// check the file exists with the correct name and path
+		if _, err := os.Open("a/b/c.html"); err != nil {
+			t.Error(err)
+		}
+	})
+
 }
 
 func TestPage_markdown(t *testing.T) {
