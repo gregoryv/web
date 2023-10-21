@@ -20,7 +20,6 @@ github.com/gregoryv/gocyclo v0.0.0-20180305144948-0be7902fabdc/go.mod h1:x/QA8cT
 github.com/gregoryv/gocyclo v0.1.0/go.mod h1:e1PwkEyshvXjhPGP0RUXqlEXx09aBSSNj0wL8I/P/3I=
 github.com/gregoryv/gocyclo v0.1.1 h1:wRhY+jEiXtNqtxOSI1XfXmbRaRknzvVtO5QOSg5KVHo=
 github.com/gregoryv/gocyclo v0.1.1/go.mod h1:e1PwkEyshvXjhPGP0RUXqlEXx09aBSSNj0wL8I/P/3I=
-github.com/gregoryv/must v0.1.0 h1:BDKYoBKy6ekCoGr9HUu/FFh29HPSgDfAY6ez8omrbps=
 github.com/gregoryv/must v0.1.0/go.mod h1:1HQ/4FuSFr52clBKUWSaibQTnZRKnWtbBZRxC5cii1A=
 github.com/gregoryv/nexus v0.5.1/go.mod h1:DJ2Ia6WpPX26edFW6LCl+9nYyX2h6Ot/kyJ83J+SAL0=
 github.com/gregoryv/nexus v0.6.0 h1:d53Ug7bIWyJqxKnd2c9n3qPpYunwglq9cmNNzNJewFY=

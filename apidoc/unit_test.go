@@ -5,13 +5,13 @@ import (
 	"encoding/json"
 	"fmt"
 	"html/template"
+	"log"
 	"math/rand"
 	"net/http"
 	"strings"
 	"testing"
 	"time"
 
-	"github.com/gregoryv/must"
 	. "github.com/gregoryv/web"
 	"github.com/gregoryv/web/toc"
 )
@@ -49,7 +49,10 @@ func Test_generate_apidoc(t *testing.T) {
 
 		H3("Accept text/html"),
 		doc.Use(func() *http.Request {
-			r := must.NewRequest("GET", "/?name=John", nil)
+			r, err := http.NewRequest("GET", "/?name=John", nil)
+			if err != nil {
+				log.Fatal(err)
+			}
 			r.Header.Set("Accept", "text/html")
 			return r
 		}()),

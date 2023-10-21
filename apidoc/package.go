@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"net/http/httptest"
 
-	"github.com/gregoryv/must"
 	. "github.com/gregoryv/web"
 )
 
@@ -34,7 +33,10 @@ type Doc struct {
 // NewRequest returns a <pre> element of a request based on the
 // arguments. For more advanced requests use Doc.Use()
 func (d *Doc) NewRequest(method, path string, body io.Reader) *Element {
-	r := must.NewRequest(method, path, body)
+	r, err := htt.NewRequest(method, path, body)
+	if err != nil {
+		panic(err.Error())
+	}
 	return d.Use(r)
 }
 
