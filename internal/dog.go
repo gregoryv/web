@@ -7,7 +7,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/gregoryv/nexus"
+	"github.com/gregoryv/web/internal/nexus"
 )
 
 //go:generate go run .

@@ -5,7 +5,7 @@ import (
 	"html"
 	"io"
 
-	"github.com/gregoryv/nexus"
+	"github.com/gregoryv/web/internal/nexus"
 )
 
 // NewSafeHtmlEncoder returns a HtmlEncoder that escapes plain values.

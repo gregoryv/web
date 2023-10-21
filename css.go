@@ -7,7 +7,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/gregoryv/nexus"
+	"github.com/gregoryv/web/internal/nexus"
 )
 
 func NewCSS() *CSS {

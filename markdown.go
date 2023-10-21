@@ -4,7 +4,7 @@ import (
 	"io"
 	"strings"
 
-	"github.com/gregoryv/nexus"
+	"github.com/gregoryv/web/internal/nexus"
 )
 
 func NewMarkdownEncoder(w io.Writer) *MarkdownEncoder {
