@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [unreleased]
+## [0.25.0] 2023-10-21
 
 - Set go 1.21 in go.mod
 - Remove link checking code to minimise dependencies
