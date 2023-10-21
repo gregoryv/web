@@ -1,6 +1,6 @@
-/* Package files provides file loading utils.
-
- */
+/*
+Package files provides file loading utils.
+*/
 package files
 
 import (

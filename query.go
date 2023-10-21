@@ -27,10 +27,10 @@ func Find(root *Element, matchers ...Matcher) []*Element {
 //
 // Valid expressions:
 //
-//   name
-//   name.class
-//   .class
-//   #id
+//	name
+//	name.class
+//	.class
+//	#id
 func ParseExpr(expr string) []Matcher {
 	res := make([]Matcher, 0)
 

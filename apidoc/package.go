@@ -1,6 +1,5 @@
 /*
-   Package apidoc provides html document builder for http requests and responses.
-
+Package apidoc provides html document builder for http requests and responses.
 */
 package apidoc
 
