@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Remove link checking code to minimise dependencies
+
 ## [0.24.0] 2022-07-17
 
 - Page.SaveAs handles paths/filename 

@@ -2,11 +2,8 @@ package web
 
 import (
 	"bytes"
-	"fmt"
 	"strings"
 	"testing"
-
-	"github.com/gregoryv/asserter"
 )
 
 func TestILinkAll(t *testing.T) {
@@ -59,28 +56,5 @@ func TestLinkAll(t *testing.T) {
 	got := buf.String()
 	if strings.Contains(got, "#ne") {
 		t.Error(got)
-	}
-}
-
-func TestCheckLinks_fails(t *testing.T) {
-	err := CheckLinks("./testdata/")
-	if err == nil {
-		t.Error("didn't")
-	}
-}
-
-func TestBrokenLink(t *testing.T) {
-	a := BrokenLink{"a", "a", fmt.Errorf("err")}
-	b := BrokenLink{"a", "b", nil}
-
-	assert := asserter.New(t)
-	assert(a.String() != b.String()).Error("String() is same for a and b")
-	assert().Contains(a.String(), "err")
-}
-
-func Test_combinedError(t *testing.T) {
-	err := combinedError(make([]BrokenLink, 0))
-	if err != nil {
-		t.Fatal(err)
 	}
 }

@@ -1,10 +1,12 @@
 module github.com/gregoryv/web
 
-go 1.16
+go 1.21rc2
+
+toolchain go1.21.1
 
 require (
 	github.com/gregoryv/asserter v0.4.2
 	github.com/gregoryv/english v0.6.0
-	github.com/gregoryv/find v0.7.0
-	golang.org/x/net v0.17.0
 )
+
+require github.com/pmezard/go-difflib v1.0.0 // indirect

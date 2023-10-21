@@ -33,7 +33,7 @@ type Doc struct {
 // NewRequest returns a <pre> element of a request based on the
 // arguments. For more advanced requests use Doc.Use()
 func (d *Doc) NewRequest(method, path string, body io.Reader) *Element {
-	r, err := htt.NewRequest(method, path, body)
+	r, err := http.NewRequest(method, path, body)
 	if err != nil {
 		panic(err.Error())
 	}
