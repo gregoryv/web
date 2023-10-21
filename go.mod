@@ -8,5 +8,5 @@ require (
 	github.com/gregoryv/find v0.7.0
 	github.com/gregoryv/must v0.1.0
 	github.com/gregoryv/nexus v0.6.0
-	golang.org/x/net v0.11.0
+	golang.org/x/net v0.17.0
 )
