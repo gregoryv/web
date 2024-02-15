@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.25.1] 2024-02-15
+
+- Bump license year to 2024
+
 ## [0.25.0] 2023-10-21
 
 - Set go 1.21 in go.mod
