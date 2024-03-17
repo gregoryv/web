@@ -84,6 +84,7 @@ var complexElements = []string{
 	"label",
 	"legend",
 	"li",
+	"main",
 	"mark",
 	"menu",
 	"meter",

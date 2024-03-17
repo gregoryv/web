@@ -202,6 +202,11 @@ func Li(c ...interface{}) *Element {
 	return NewElement("li", c...)
 }
 
+// Main returns an <main> element with optional children or attributes
+func Main(c ...interface{}) *Element {
+	return NewElement("main", c...)
+}
+
 // Mark returns an <mark> element with optional children or attributes
 func Mark(c ...interface{}) *Element {
 	return NewElement("mark", c...)
@@ -415,6 +420,9 @@ func Class(v string) *Attribute { return &Attribute{Name: "class", Val: v} }
 // Content returns a content="v" attribute
 func Content(v string) *Attribute { return &Attribute{Name: "content", Val: v} }
 
+// For returns a for="v" attribute
+func For(v string) *Attribute { return &Attribute{Name: "for", Val: v} }
+
 // Formaction returns a formaction="v" attribute
 func Formaction(v string) *Attribute { return &Attribute{Name: "formaction", Val: v} }
 
@@ -441,6 +449,9 @@ func Min(v string) *Attribute { return &Attribute{Name: "min", Val: v} }
 
 // Name returns a name="v" attribute
 func Name(v string) *Attribute { return &Attribute{Name: "name", Val: v} }
+
+// Pattern returns a pattern="v" attribute
+func Pattern(v string) *Attribute { return &Attribute{Name: "pattern", Val: v} }
 
 // Placeholder returns a placeholder="v" attribute
 func Placeholder(v string) *Attribute { return &Attribute{Name: "placeholder", Val: v} }
