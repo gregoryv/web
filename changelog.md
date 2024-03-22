@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+## [0.26.1] 2024-03-22
+
+- Update dependencies
+
 ## [0.26.0] 2024-03-17
 
 - Add funcs For, Pattern and Main
