@@ -10,16 +10,14 @@ import (
 // NewIntercepter returns a wrapper for the underlying handler
 // registering all routes being defined. It can then be used to add
 // more documentation to each route.
-func NewIntercepter(impl Handler) *Intercepter {
+func NewIntercepter() *Intercepter {
 	return &Intercepter{
-		impl:       impl,
 		index:      make(map[string]struct{}),
 		ErrHandler: &logIt{},
 	}
 }
 
 type Intercepter struct {
-	impl   Handler
 	routes []string
 	index  map[string]struct{}
 
@@ -27,11 +25,10 @@ type Intercepter struct {
 	ErrHandler
 }
 
-func (d *Intercepter) Handle(pattern string, h http.Handler) {
+func (d *Intercepter) Document(pattern string) {
 	key := WithMethod(pattern)
 	d.routes = append(d.routes, key)
 	d.index[key] = struct{}{}
-	d.impl.Handle(pattern, h)
 }
 
 // Routes returns a list of defined routes as "METHOD PATTERN"

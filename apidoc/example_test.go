@@ -10,11 +10,14 @@ import (
 
 func ExampleNewIntercepter() {
 	mux := http.NewServeMux()
-	x := apidoc.NewIntercepter(mux)
+	x := apidoc.NewDoc(mux)
 
 	// use the intercepter when defining routes
-	x.Handle("/", someHandler)
-	x.Handle("POST /{id}", someHandler)
+	mux.Handle("/", someHandler)
+	x.Document("/")
+
+	mux.Handle("POST /{id}", someHandler)
+	x.Document("POST /{id}")
 
 	fmt.Println(x.Routes())
 	// output:
@@ -23,9 +26,13 @@ func ExampleNewIntercepter() {
 
 func ExampleIntercepter_Defines() {
 	mux := http.NewServeMux()
-	x := apidoc.NewIntercepter(mux)
-	x.Handle("/", someHandler)
-	x.Handle("POST /", someHandler)
+	x := apidoc.NewIntercepter()
+
+	mux.Handle("/", someHandler)
+	x.Document("/")
+
+	mux.Handle("POST /", someHandler)
+	x.Document("POST /")
 
 	// Optionally set the ErrHandler, e.g. in your test
 	// x.ErrHandler = t
