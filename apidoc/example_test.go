@@ -8,6 +8,39 @@ import (
 	"github.com/gregoryv/web/apidoc"
 )
 
+func ExampleNewIntercepter() {
+	mux := http.NewServeMux()
+	x := apidoc.NewIntercepter(mux)
+
+	// use the intercepter when defining routes
+	x.Handle("/", someHandler)
+	x.Handle("POST /{id}", someHandler)
+
+	fmt.Println(x.Routes())
+	// output:
+	// [GET / POST /{id}]
+}
+
+func ExampleIntercepter_Defines() {
+	mux := http.NewServeMux()
+	x := apidoc.NewIntercepter(mux)
+	x.Handle("/", someHandler)
+	x.Handle("POST /", someHandler)
+
+	// Optionally set the ErrHandler, e.g. in your test
+	// x.ErrHandler = t
+
+	// Call Defines when you document the routes
+	x.Defines("GET /")
+	x.Defines("GET /nosuch/thing")
+
+	// Check if all routes have been documented
+	fmt.Println(x.Undocumented())
+	// output:
+	// Defines("GET /nosuch/thing"): no such route
+	// POST /
+}
+
 func ExampleDoc_JsonResponse() {
 	doc := apidoc.NewDoc(http.HandlerFunc(someRouter))
 
@@ -64,3 +97,6 @@ func someRouter(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, `{"message": "added"}`)
 	}
 }
+
+var someHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+})
