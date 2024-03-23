@@ -5,6 +5,7 @@ This project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html
 
 ## [unreleased]
 
+- Add func apidoc.DocumentRouter
 - Use type apidoc.Doc to index routes for additional documentation
 
 ## [0.26.1] 2024-03-22

@@ -10,7 +10,7 @@ import (
 
 func ExampleDoc_Document() {
 	mux := http.NewServeMux()
-	x := apidoc.NewDoc(mux)
+	x := apidoc.DocumentRouter(mux)
 
 	// use the RouteIndex when defining routes
 	mux.Handle("/", someHandler)
@@ -26,7 +26,7 @@ func ExampleDoc_Document() {
 
 func ExampleIntercepter_Defines() {
 	mux := http.NewServeMux()
-	x := apidoc.NewRouteIndex()
+	x := apidoc.DocumentRouter(mux)
 
 	mux.Handle("/", someHandler)
 	x.Document("/")
@@ -49,7 +49,7 @@ func ExampleIntercepter_Defines() {
 }
 
 func ExampleDoc_JsonResponse() {
-	doc := apidoc.NewDoc(http.HandlerFunc(someRouter))
+	doc := apidoc.DocumentRouter(http.HandlerFunc(someRouter))
 
 	doc.NewRequest("GET", "/", nil).WriteTo(os.Stdout)
 	doc.JsonResponse().WriteTo(os.Stdout)

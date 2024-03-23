@@ -15,10 +15,20 @@ import (
 	. "github.com/gregoryv/web"
 )
 
-// NewDoc returns a documentation generator for the given router
-func NewDoc(router http.Handler) *Doc {
+// DocumentRouter returns a Doc for the given router.
+func DocumentRouter(router http.Handler) *Doc {
+	d := NewDoc()
+	d.SetRouter(router)
+	return d
+}
+
+// NewDoc returns a documentation generator, you should set the router
+// using SetRouter.
+func NewDoc() *Doc {
 	return &Doc{
-		router:     router,
+		router: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			panic("You have to set the Doc.router, use Doc.SetRouter()")
+		}),
 		RouteIndex: NewRouteIndex(),
 	}
 }
@@ -33,6 +43,8 @@ type Doc struct {
 	// RouteIndex is used to index any routes you wish to document.
 	*RouteIndex
 }
+
+func (d *Doc) SetRouter(router http.Handler) { d.router = router }
 
 // NewRequest returns a <pre> element of a request based on the
 // arguments. For more advanced requests use Doc.Use()

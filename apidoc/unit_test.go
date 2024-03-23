@@ -17,8 +17,8 @@ import (
 )
 
 func Test_generate_apidoc(t *testing.T) {
-	doc := NewDoc(NewRouter())
-
+	doc := NewDoc()
+	doc.SetRouter(NewRouter())
 	nav := Nav()
 
 	apis := Article(
