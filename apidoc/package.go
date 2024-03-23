@@ -18,8 +18,8 @@ import (
 // NewDoc returns a documentation generator for the given router
 func NewDoc(router http.Handler) *Doc {
 	return &Doc{
-		router:      router,
-		Intercepter: NewIntercepter(),
+		router:     router,
+		RouteIndex: NewRouteIndex(),
 	}
 }
 
@@ -30,7 +30,8 @@ type Doc struct {
 
 	router http.Handler
 
-	*Intercepter
+	// RouteIndex is used to index any routes you wish to document.
+	*RouteIndex
 }
 
 // NewRequest returns a <pre> element of a request based on the

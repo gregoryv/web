@@ -10,14 +10,14 @@ import (
 // NewIntercepter returns a wrapper for the underlying handler
 // registering all routes being defined. It can then be used to add
 // more documentation to each route.
-func NewIntercepter() *Intercepter {
-	return &Intercepter{
+func NewRouteIndex() *RouteIndex {
+	return &RouteIndex{
 		index:      make(map[string]struct{}),
 		ErrHandler: &logIt{},
 	}
 }
 
-type Intercepter struct {
+type RouteIndex struct {
 	routes []string
 	index  map[string]struct{}
 
@@ -25,21 +25,21 @@ type Intercepter struct {
 	ErrHandler
 }
 
-func (d *Intercepter) Document(pattern string) {
+func (d *RouteIndex) Document(pattern string) {
 	key := WithMethod(pattern)
 	d.routes = append(d.routes, key)
 	d.index[key] = struct{}{}
 }
 
 // Routes returns a list of defined routes as "METHOD PATTERN"
-func (d *Intercepter) Routes() []string {
+func (d *RouteIndex) Routes() []string {
 	return d.routes
 }
 
 // Defines checks if the given pattern, [METHOD ]PATTERN, has not been
 // defined. Use it when documenting your routes.  The given error
 // handler is used to signal error, eg. using testing.T in a test.
-func (d *Intercepter) Defines(pattern string) {
+func (d *RouteIndex) Defines(pattern string) {
 	key := WithMethod(pattern)
 	// if the ErrHandler is e.g. testing.T
 	if eh, ok := d.ErrHandler.(interface{ Helper() }); ok {
@@ -53,7 +53,7 @@ func (d *Intercepter) Defines(pattern string) {
 }
 
 // Undocumented returns empty string if all routes are documented.
-func (d *Intercepter) Undocumented() string {
+func (d *RouteIndex) Undocumented() string {
 	if len(d.index) == 0 {
 		return ""
 	}

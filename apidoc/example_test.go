@@ -8,11 +8,11 @@ import (
 	"github.com/gregoryv/web/apidoc"
 )
 
-func ExampleNewIntercepter() {
+func ExampleDoc_Document() {
 	mux := http.NewServeMux()
 	x := apidoc.NewDoc(mux)
 
-	// use the intercepter when defining routes
+	// use the RouteIndex when defining routes
 	mux.Handle("/", someHandler)
 	x.Document("/")
 
@@ -26,7 +26,7 @@ func ExampleNewIntercepter() {
 
 func ExampleIntercepter_Defines() {
 	mux := http.NewServeMux()
-	x := apidoc.NewIntercepter()
+	x := apidoc.NewRouteIndex()
 
 	mux.Handle("/", someHandler)
 	x.Document("/")
