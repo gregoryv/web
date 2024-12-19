@@ -9,7 +9,7 @@ import (
 	"github.com/gregoryv/asserter"
 )
 
-func Example_WalkElements() {
+func ExampleWalkElements() {
 	root := Article(
 		H1(),
 		H2(),

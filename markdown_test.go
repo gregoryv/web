@@ -19,6 +19,7 @@ func TestMarkdownEncoder_Encode(t *testing.T) {
 			assert().Contains(got, exp)
 		}
 	}
+	ok(Pre("a\nb\nc"), "    a\n    b\n    c")
 	ok(Html(), ``)
 	ok(Html(Body()), ``)
 	ok(H1("x"), "# x")
