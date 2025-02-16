@@ -24,7 +24,7 @@ func ExampleDoc_Document() {
 	// [GET / POST /{id}]
 }
 
-func ExampleIntercepter_Defines() {
+func ExampleRouteIndex_Defines() {
 	mux := http.NewServeMux()
 	x := apidoc.DocumentRouter(mux)
 

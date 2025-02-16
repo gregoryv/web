@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-// NewIntercepter returns a wrapper for the underlying handler
+// NewRouteIndex returns a wrapper for the underlying handler
 // registering all routes being defined. It can then be used to add
 // more documentation to each route.
 func NewRouteIndex() *RouteIndex {

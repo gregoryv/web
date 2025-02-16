@@ -1,6 +1,5 @@
-/*
-Package apidoc provides html document builder for http requests and responses.
-*/
+// Package apidoc provides html document builder for http requests and
+// responses.
 package apidoc
 
 import (
@@ -34,7 +33,7 @@ func NewDoc() *Doc {
 }
 
 type Doc struct {
-	// Requst used when calling a response generator, eg. Response()
+	// Request used when calling a response generator, eg. Response()
 	// or JsonResponse()
 	*http.Request
 
@@ -61,7 +60,8 @@ func (d *Doc) Response() *Element {
 	return RawResponseFrom(d.router, d.Request)
 }
 
-// JsonResponse returns a tidy json response from the last used request
+// JsonResponse returns a tidy json response from the last used
+// request
 func (d *Doc) JsonResponse() *Element {
 	return JsonResponseFrom(d.router, d.Request)
 }
@@ -99,7 +99,8 @@ func readRestoreBody(r *http.Request) []byte {
 	return body
 }
 
-// RawResponseFrom returns the full response from the request to the given handler
+// RawResponseFrom returns the full response from the request to the
+// given handler
 func RawResponseFrom(h http.Handler, r *http.Request) *Element {
 	w := httptest.NewRecorder()
 	h.ServeHTTP(w, r)
@@ -134,7 +135,8 @@ func JsonResponseFrom(h http.Handler, r *http.Request) *Element {
 	return JsonResponse(resp)
 }
 
-// JsonResponse converts the response to a <pre> element including the body.
+// JsonResponse converts the response to a <pre> element including the
+// body.
 func JsonResponse(resp *http.Response) *Element {
 	var (
 		data, _ = ioutil.ReadAll(resp.Body)
