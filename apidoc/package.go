@@ -26,7 +26,7 @@ func DocumentRouter(router http.Handler) *Doc {
 func NewDoc() *Doc {
 	return &Doc{
 		router: http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			panic("You have to set the Doc.router, use Doc.SetRouter()")
+			panic("router not set, use SetRouter()")
 		}),
 		RouteIndex: NewRouteIndex(),
 	}
